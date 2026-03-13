@@ -31,7 +31,7 @@ async function runExperiment() {
   const stimuli = await loadStimuli();
   const jsPsych = initJsPsych({});
 
-  // ── WELCOME SCREEN ─────────────────────────────
+  /* ----------------------------- Welcome Screen ----------------------------- */
   const welcome = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
@@ -48,7 +48,7 @@ async function runExperiment() {
     choices: "ALL_KEYS",
   };
 
-  // ── between images ─────────────────────────────────
+  /* --------------------------- Inter-trial interval ------------------------- */
   const ITI_1 = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: '<p class="fixation">Baggage incoming</p>',
@@ -72,7 +72,7 @@ async function runExperiment() {
     trial_duration: 500,
   };
 
-  // ── IMAGE TRIALS ──────────────────────────────
+  /* ------------------------------ Image trials ------------------------------ */
   const shuffled = jsPsych.randomization.shuffle(stimuli);
   const trials = shuffled.map((item) => ({
     type: jsPsychImageKeyboardResponse,
@@ -90,13 +90,36 @@ async function runExperiment() {
     },
     on_finish: function (data) {
       const responded_danger = data.response === KEY_DANGER;
-      const is_search = item.correct === "Search";
-      data.correct = responded_danger === is_search ? 1 : 0;
+      const correctAnswer = String(item.correct).trim().toLowerCase();
+      const correctIsDanger = correctAnswer.startsWith("d"); // Danger / danger / D
+      data.correct = responded_danger === correctIsDanger ? 1 : 0;
     },
   }));
 
+  /* ------------------------ Feebback after each trial ----------------------- */
+  function feedbackPerTrial() {
+    return {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function () {
+        const last = jsPsych.data
+          .get()
+          .filter({ trial_type: "image-keyboard-response" })
+          .values()
+          .slice(-1)[0];
+        const correct = last.correct == 1 || last.correct === true;  
+        const label = correct ? "Correct" : "Incorrect";
+        return `
+              <div style="font-family:sans-serif; text-align:center;">
+                <p style="font-size:1.5em;">${label}</p>
+              </div>`;
+      },
+      choices: "NO_KEYS",
+      trial_duration: 1000,
+    };
+  }
+  /* ------------------------ Feedback every 10 trials ------------------------ */
   // ── BLOCK FEEDBACK ────────────────────────────
-  function makeFeedback() {
+  function feedback10trials() {
     return {
       type: jsPsychHtmlKeyboardResponse,
       stimulus: function () {
@@ -116,18 +139,21 @@ async function runExperiment() {
     };
   }
 
-  // ── TIMELINE ────────────────────────────
+  /* -------------------------------------------------------------------------- */
+  /*                                  Timeline                                  */
+  /* -------------------------------------------------------------------------- */
   const timeline = [welcome];
   trials.forEach((trial, index) => {
     timeline.push(ITI_3);
     timeline.push(trial);
+    timeline.push(feedbackPerTrial());
 
     const position = index + 1;
     const isBlockEnd = position % BLOCK_SIZE === 0;
     const isLastTrial = position === trials.length;
 
     if (isBlockEnd && !isLastTrial) {
-      timeline.push(makeFeedback());
+      timeline.push(feedback10trials());
     }
   });
 
