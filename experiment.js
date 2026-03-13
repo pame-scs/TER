@@ -106,7 +106,7 @@ async function runExperiment() {
           .filter({ trial_type: "image-keyboard-response" })
           .values()
           .slice(-1)[0];
-        const correct = last.correct == 1 || last.correct === true;  
+        const correct = last.correct == 1 || last.correct === true;
         const label = correct ? "Correct" : "Incorrect";
         return `
               <div style="font-family:sans-serif; text-align:center;">
@@ -118,7 +118,6 @@ async function runExperiment() {
     };
   }
   /* ------------------------ Feedback every 10 trials ------------------------ */
-  // ── BLOCK FEEDBACK ────────────────────────────
   function feedback10trials() {
     return {
       type: jsPsychHtmlKeyboardResponse,
@@ -138,6 +137,50 @@ async function runExperiment() {
       choices: "ALL_KEYS",
     };
   }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Block 1                                  */
+  /* -------------------------------------------------------------------------- */
+  /* In this block, participants will see an inmediate feedback after each trial, 
+indicating whether their response was correct or not. It will also show a 
+feedback every 10 trials, indicating the number of correct responses in the 
+last 10 trials. It will also be just 30 trials long. There will be no 
+AI assistance in this block. So the ITI will be n1.
+*/
+
+  /* -------------------------------------------------------------------------- */
+  /*                                 Block No-AI                                */
+  /* -------------------------------------------------------------------------- */
+  /* In this block, participants will not receive any feedback after each trial, 
+but they will receive a feedback every 10 trials, indicating the number of 
+correct responses in the last 10 trials. It will be just 60 trials long. 
+There will be no AI assistance in this block. So the ITI will be n1.*/
+
+  /* -------------------------------------------------------------------------- */
+  /*                               Block Simple AI                              */
+  /* -------------------------------------------------------------------------- */
+  /* In this block, participants will not receive any feedback after each trial, 
+but they will receive a feedback every 10 trials, indicating the number of 
+correct responses in the last 10 trials. It will be just 60 trials long. 
+There will be a simple AI in this block. For trial 1 to 40 the AI will be 100%
+accurate, for trial 41 to 50 the AI will fail 6 consecutive times. 3 false 
+negatives and 3 false positives. For trial 51 to 60 the AI will be 100% accurate,
+So the ITI will be n2.
+*/
+
+  /* -------------------------------------------------------------------------- */
+  /*                            Block Transparent AI                            */
+  /* -------------------------------------------------------------------------- */
+  /* In this block, participants will not receive any feedback after each trial, 
+but they will receive a feedback every 10 trials, indicating the number of 
+correct responses in the last 10 trials. It will be just 60 trials long. 
+There will be a transparent AI in this block. For trial 1 to 40 the AI will be 100%
+accurate, for trial 41 to 50 the AI will fail 6 consecutive times. 3 false 
+negatives and 3 false positives. For trial 51 to 60 the AI will be 100% accurate. 
+The AI output will be a binary signal (Safe or Danger), also the level of 
+confidence (0-100%) and a square indicating the area of the image that 
+the AI considered more relevant for its decision. So the ITI will be n3.
+*/
 
   /* -------------------------------------------------------------------------- */
   /*                                  Timeline                                  */
