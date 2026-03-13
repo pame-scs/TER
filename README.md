@@ -9,17 +9,16 @@ The study investigates how AI assistance and AI transparency affect:
 - decision performance
 ---
 Total experiment duration:
-**≈ 60 minutes**
+≈ 60 minutes
 Breakdown:
-- Instructions + consent: **5–10 minutes**
-- Experimental task: **50–55 minutes**
+- Instructions + consent: 5–10 minutes
+- Experimental task: 50–55 minutes
 
 Total trials:
-- Practice: **30**
-- Experimental blocks: **3 × 60**
+- Practice: 30
+- Experimental blocks: 3 × 60
 
-**Total trials: 210**
+Total trials: 210
 
--> Find the method in [[method]]
 
 
