@@ -69,7 +69,7 @@ async function runExperiment() {
     stimulus:
       '<div class="ai-loader">  <div class="ai-bars"></div>  <div class="ai-cycle">    <span>Loading image…</span>    <span>Detecting objects…</span>  <span>Comparing with database…</span>  </div></div>',
     choices: "NO_KEYS",
-    trial_duration: 500,
+    trial_duration: 4000,
   };
 
   /* ------------------------------ Image trials ------------------------------ */
@@ -78,7 +78,7 @@ async function runExperiment() {
     type: jsPsychImageKeyboardResponse,
     stimulus: item.src,
     choices: [KEY_SAFE, KEY_DANGER],
-    prompt: `<p>
+    prompt: `<p class="prompt">
                S = Safe | D = Danger
              </p>`,
     data: {
@@ -110,7 +110,7 @@ async function runExperiment() {
         const label = correct ? "Correct" : "Incorrect";
         return `
               <div style="font-family:sans-serif; text-align:center;">
-                <p style="font-size:1.5em;">${label}</p>
+                <p class=${label.toLowerCase()}>${label}</p>
               </div>`;
       },
       choices: "NO_KEYS",
