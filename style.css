@@ -46,3 +46,22 @@ canvas {
   border: 1px dashed rgb(216, 0, 0);
   padding: 10px 40px;
 }
+
+.response-container {
+  font-family: var(--font-interface);
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.894);
+  border-radius: 10px;
+  border: 1px dashed rgb(0, 0, 0);
+  padding: 20px;
+}
+
+.response-label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.response {
+  font-size: larger;
+  font-weight: bold;
+}

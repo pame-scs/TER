@@ -118,6 +118,31 @@ async function runExperiment() {
       trial_duration: 1000,
     };
   }
+
+/* --------------------- Display of participants awnser --------------------- */
+function displayAnswer() {
+  return {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: function () {
+      const last = jsPsych.data
+        .get()
+        .filter({ trial_type: "image-keyboard-response" })
+        .values()
+        .slice(-1)[0];
+      const response = last.response;
+      const label = response === KEY_SAFE ? "Safe" : response === KEY_DANGER ? "Danger" : "No response";
+      return `
+            <div class="response-container">
+            <p class="response-label">Your answer:</p>
+              <p class="response">${label}</p>
+            </div>`;
+    },
+    choices: "NO_KEYS",
+    trial_duration: 1000,
+  };
+}
+
+
   /* ------------------------ Feedback every 10 trials ------------------------ */
   function feedback10trials() {
     return {
@@ -153,6 +178,7 @@ function block1() {
   for (let i = 0; i < 30; i++) {
     timeline.push(ITI_1);
     timeline.push(trials[i]);
+    timeline.push(displayAnswer());
     timeline.push(feedbackPerTrial());
 
     const position = i + 1;
@@ -187,6 +213,7 @@ function block_noAI() {
   for (let i = 30; i < 90; i++) {
     timeline.push(ITI_1);
     timeline.push(trials[i]);
+    timeline.push(displayAnswer());
 
     const position = i - 30 + 1;
     const isBlockEnd = position % BLOCK_SIZE === 0;
