@@ -175,6 +175,15 @@ correct responses in the last 10 trials. It will be just 60 trials long.
 There will be no AI assistance in this block. So the ITI will be n1.*/
 
 function block_noAI() {
+  const screen_NoAI = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `
+      <div>
+        <h1>Block No-AI</h1>
+      </div>`,
+    choices: "ALL_KEYS",
+  };
+  timeline.push(screen_NoAI);
   for (let i = 30; i < 90; i++) {
     timeline.push(ITI_1);
     timeline.push(trials[i]);
@@ -201,6 +210,18 @@ accurate, for trial 41 to 50 the AI will fail 6 consecutive times. 3 false
 negatives and 3 false positives. For trial 51 to 60 the AI will be 100% accurate,
 So the ITI will be n2.
 */
+function block_simpleAI() {
+  // To be implemented in the future
+  const placeholder_SimpleAI = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `
+      <div>
+        <h1>Block Simple AI</h1>
+      </div>`,
+    choices: "ALL_KEYS",
+  };
+  timeline.push(placeholder_SimpleAI);
+}
 
   /* -------------------------------------------------------------------------- */
   /*                            Block Transparent AI                            */
@@ -216,11 +237,27 @@ confidence (0-100%) and a square indicating the area of the image that
 the AI considered more relevant for its decision. So the ITI will be n3.
 */
 
+function block_transparentAI() {
+  // To be implemented in the future
+  const placeholder_TransparentAI = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `
+      <div>
+        <h1>Block Transparent AI</h1>
+      </div>`,
+    choices: "ALL_KEYS",
+  };
+  timeline.push(placeholder_TransparentAI);
+}
+
   /* -------------------------------------------------------------------------- */
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
   const timeline = [welcome];
+  block1();
   block_noAI();
+  block_simpleAI();
+  block_transparentAI();  
   jsPsych.run(timeline);
 }
 
