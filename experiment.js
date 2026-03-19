@@ -92,8 +92,9 @@ async function runExperiment() {
       const responded_danger = data.response === KEY_DANGER;
       const correctAnswer = String(item.correct).trim().toLowerCase();
       const correctIsDanger = correctAnswer.startsWith("d"); // Danger / danger / D
-      data.correct = responded_danger === correctIsDanger ? 1 : 0;
+      data.correct = data.response === null ? 0 : (responded_danger === correctIsDanger ? 1 : 0);
     },
+    trial_duration: 5000,
   }));
 
   /* ------------------------ Feebback after each trial ----------------------- */
@@ -148,6 +149,23 @@ last 10 trials. It will also be just 30 trials long. There will be no
 AI assistance in this block. So the ITI will be n1.
 */
 
+function block1() {
+  for (let i = 0; i < 30; i++) {
+    timeline.push(ITI_1);
+    timeline.push(trials[i]);
+    timeline.push(feedbackPerTrial());
+
+    const position = i + 1;
+    const isBlockEnd = position % BLOCK_SIZE === 0;
+    const isLastTrial = position === 30;
+
+    if (isBlockEnd && !isLastTrial) {
+      timeline.push(feedback10trials());
+    }
+  }
+  timeline.push(feedback10trials());
+}
+
   /* -------------------------------------------------------------------------- */
   /*                                 Block No-AI                                */
   /* -------------------------------------------------------------------------- */
@@ -186,19 +204,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
   const timeline = [welcome];
-  trials.forEach((trial, index) => {
-    timeline.push(ITI_3);
-    timeline.push(trial);
-    timeline.push(feedbackPerTrial());
-
-    const position = index + 1;
-    const isBlockEnd = position % BLOCK_SIZE === 0;
-    const isLastTrial = position === trials.length;
-
-    if (isBlockEnd && !isLastTrial) {
-      timeline.push(feedback10trials());
-    }
-  });
+  block1();
 
   jsPsych.run(timeline);
 }
