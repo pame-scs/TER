@@ -174,6 +174,22 @@ but they will receive a feedback every 10 trials, indicating the number of
 correct responses in the last 10 trials. It will be just 60 trials long. 
 There will be no AI assistance in this block. So the ITI will be n1.*/
 
+function block_noAI() {
+  for (let i = 30; i < 90; i++) {
+    timeline.push(ITI_1);
+    timeline.push(trials[i]);
+
+    const position = i - 30 + 1;
+    const isBlockEnd = position % BLOCK_SIZE === 0;
+    const isLastTrial = position === 60;
+
+    if (isBlockEnd && !isLastTrial) {
+      timeline.push(feedback10trials());
+    }
+  }
+  timeline.push(feedback10trials());
+}
+
   /* -------------------------------------------------------------------------- */
   /*                               Block Simple AI                              */
   /* -------------------------------------------------------------------------- */
@@ -204,8 +220,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
   const timeline = [welcome];
-  block1();
-
+  block_noAI();
   jsPsych.run(timeline);
 }
 
