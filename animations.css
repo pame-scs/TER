@@ -69,3 +69,17 @@
   35%  { opacity: 0; }
   100% { opacity: 0; }
 }
+
+/* --------------------------------- Luggage -------------------------------- */
+
+/* 1. Define the animation */
+@keyframes slide {
+  0%   { transform: translateX(-40px); }
+  50%  { transform: translateX(0px); }
+  100% { transform: translateX(-40px); }
+}
+
+/* 2. Apply it to your element */
+.icon {
+  animation: slide 2s linear infinite;
+}

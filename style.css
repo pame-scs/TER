@@ -66,12 +66,22 @@ canvas {
   font-weight: bold;
 }
 
+.fixation{
+  font-family: var(--font-interface);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-normal);
+}
+
 .ai_answer{
   font-family: var(--font-interface);
-  font-size: 1.2rem;
-  background-color: rgba(56, 56, 255, 0.1);
-  color: rgb(0, 0, 232);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color:blue;
+  background-color: aliceblue;
   border-radius: 10px;
-  border: 1px dashed rgb(17, 17, 173);
+  border: 1px dashed rgb(0, 0, 255);
   padding: 10px 40px;
 }

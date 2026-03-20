@@ -52,7 +52,7 @@ async function runExperiment() {
   const ITI_V1 = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus:
-      '<img src="resources/luggage.png" width="90" height="90"><p class="fixation">BAGGAGE INCOMING</p>',
+      '<img class="icon" src="resources/luggage.png" width="90" height="90"><p class="fixation">BAGGAGE INCOMING</p>',
     choices: "NO_KEYS",
     trial_duration: 4000,
   };
@@ -60,7 +60,7 @@ async function runExperiment() {
   const ITI_V2 = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus:
-      '<img src="resources/luggage.png" width="90" height="90"><p class="fixation">BAGGAGE INCOMING</p>',
+      '<img class="icon" src="resources/luggage.png" width="90" height="90"><p class="fixation">BAGGAGE INCOMING</p>',
     choices: "NO_KEYS",
     trial_duration: 1000,
   };
@@ -254,6 +254,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
       stimulus: `
       <div>
         <h1>Block No-AI</h1>
+        <p><em>Press any key to begin.</em></p>
       </div>`,
       choices: "ALL_KEYS",
     };
@@ -290,7 +291,8 @@ So the ITI will be n2.
       type: jsPsychHtmlKeyboardResponse,
       stimulus: `
       <div>
-        <h1>Block No-AI</h1>
+        <h1>Block Simple AI</h1>
+        <p><em>Press any key to begin.</em></p>
       </div>`,
       choices: "ALL_KEYS",
     };
