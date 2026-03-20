@@ -69,13 +69,3 @@
   35%  { opacity: 0; }
   100% { opacity: 0; }
 }
-
-/* --------------------------------- Luggage -------------------------------- */
-@keyframes conveyor {
-  from { transform: translateX(-60px); }
-  to   { transform: translateX(60px); }
-}
-
-.icon {
-  animation: conveyor 1.5s ease-in-out infinite alternate;
-}
