@@ -51,7 +51,8 @@ async function runExperiment() {
   /* --------------------------- Inter-trial interval ------------------------- */
   const ITI_1 = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<p class="fixation">Baggage incoming</p>',
+    stimulus:
+      '<img class="icon" src="resources/luggage.png" width="90" height="90"><p class="fixation">Baggage incoming</p>',
     choices: "NO_KEYS",
     trial_duration: 4000,
   };
@@ -92,7 +93,12 @@ async function runExperiment() {
       const responded_danger = data.response === KEY_DANGER;
       const correctAnswer = String(item.correct).trim().toLowerCase();
       const correctIsDanger = correctAnswer.startsWith("d"); // Danger / danger / D
-      data.correct = data.response === null ? 0 : (responded_danger === correctIsDanger ? 1 : 0);
+      data.correct =
+        data.response === null
+          ? 0
+          : responded_danger === correctIsDanger
+            ? 1
+            : 0;
     },
     trial_duration: 5000,
   }));
@@ -119,29 +125,33 @@ async function runExperiment() {
     };
   }
 
-/* --------------------- Display of participants awnser --------------------- */
-function displayAnswer() {
-  return {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: function () {
-      const last = jsPsych.data
-        .get()
-        .filter({ trial_type: "image-keyboard-response" })
-        .values()
-        .slice(-1)[0];
-      const response = last.response;
-      const label = response === KEY_SAFE ? "Safe" : response === KEY_DANGER ? "Danger" : "No response";
-      return `
+  /* --------------------- Display of participants awnser --------------------- */
+  function displayAnswer() {
+    return {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function () {
+        const last = jsPsych.data
+          .get()
+          .filter({ trial_type: "image-keyboard-response" })
+          .values()
+          .slice(-1)[0];
+        const response = last.response;
+        const label =
+          response === KEY_SAFE
+            ? "Safe"
+            : response === KEY_DANGER
+              ? "Danger"
+              : "No response";
+        return `
             <div class="response-container">
             <p class="response-label">Your answer:</p>
               <p class="response">${label}</p>
             </div>`;
-    },
-    choices: "NO_KEYS",
-    trial_duration: 1000,
-  };
-}
-
+      },
+      choices: "NO_KEYS",
+      trial_duration: 1000,
+    };
+  }
 
   /* ------------------------ Feedback every 10 trials ------------------------ */
   function feedback10trials() {
@@ -174,23 +184,23 @@ last 10 trials. It will also be just 30 trials long. There will be no
 AI assistance in this block. So the ITI will be n1.
 */
 
-function block1() {
-  for (let i = 0; i < 30; i++) {
-    timeline.push(ITI_1);
-    timeline.push(trials[i]);
-    timeline.push(displayAnswer());
-    timeline.push(feedbackPerTrial());
+  function block1() {
+    for (let i = 0; i < 30; i++) {
+      timeline.push(ITI_1);
+      timeline.push(trials[i]);
+      timeline.push(displayAnswer());
+      timeline.push(feedbackPerTrial());
 
-    const position = i + 1;
-    const isBlockEnd = position % BLOCK_SIZE === 0;
-    const isLastTrial = position === 30;
+      const position = i + 1;
+      const isBlockEnd = position % BLOCK_SIZE === 0;
+      const isLastTrial = position === 30;
 
-    if (isBlockEnd && !isLastTrial) {
-      timeline.push(feedback10trials());
+      if (isBlockEnd && !isLastTrial) {
+        timeline.push(feedback10trials());
+      }
     }
+    timeline.push(feedback10trials());
   }
-  timeline.push(feedback10trials());
-}
 
   /* -------------------------------------------------------------------------- */
   /*                                 Block No-AI                                */
@@ -200,31 +210,31 @@ but they will receive a feedback every 10 trials, indicating the number of
 correct responses in the last 10 trials. It will be just 60 trials long. 
 There will be no AI assistance in this block. So the ITI will be n1.*/
 
-function block_noAI() {
-  const screen_NoAI = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: `
+  function block_noAI() {
+    const screen_NoAI = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
       <div>
         <h1>Block No-AI</h1>
       </div>`,
-    choices: "ALL_KEYS",
-  };
-  timeline.push(screen_NoAI);
-  for (let i = 30; i < 90; i++) {
-    timeline.push(ITI_1);
-    timeline.push(trials[i]);
-    timeline.push(displayAnswer());
+      choices: "ALL_KEYS",
+    };
+    timeline.push(screen_NoAI);
+    for (let i = 30; i < 90; i++) {
+      timeline.push(ITI_1);
+      timeline.push(trials[i]);
+      timeline.push(displayAnswer());
 
-    const position = i - 30 + 1;
-    const isBlockEnd = position % BLOCK_SIZE === 0;
-    const isLastTrial = position === 60;
+      const position = i - 30 + 1;
+      const isBlockEnd = position % BLOCK_SIZE === 0;
+      const isLastTrial = position === 60;
 
-    if (isBlockEnd && !isLastTrial) {
-      timeline.push(feedback10trials());
+      if (isBlockEnd && !isLastTrial) {
+        timeline.push(feedback10trials());
+      }
     }
+    timeline.push(feedback10trials());
   }
-  timeline.push(feedback10trials());
-}
 
   /* -------------------------------------------------------------------------- */
   /*                               Block Simple AI                              */
@@ -237,18 +247,18 @@ accurate, for trial 41 to 50 the AI will fail 6 consecutive times. 3 false
 negatives and 3 false positives. For trial 51 to 60 the AI will be 100% accurate,
 So the ITI will be n2.
 */
-function block_simpleAI() {
-  // To be implemented in the future
-  const placeholder_SimpleAI = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: `
+  function block_simpleAI() {
+    // To be implemented in the future
+    const placeholder_SimpleAI = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
       <div>
         <h1>Block Simple AI</h1>
       </div>`,
-    choices: "ALL_KEYS",
-  };
-  timeline.push(placeholder_SimpleAI);
-}
+      choices: "ALL_KEYS",
+    };
+    timeline.push(placeholder_SimpleAI);
+  }
 
   /* -------------------------------------------------------------------------- */
   /*                            Block Transparent AI                            */
@@ -264,18 +274,18 @@ confidence (0-100%) and a square indicating the area of the image that
 the AI considered more relevant for its decision. So the ITI will be n3.
 */
 
-function block_transparentAI() {
-  // To be implemented in the future
-  const placeholder_TransparentAI = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: `
+  function block_transparentAI() {
+    // To be implemented in the future
+    const placeholder_TransparentAI = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
       <div>
         <h1>Block Transparent AI</h1>
       </div>`,
-    choices: "ALL_KEYS",
-  };
-  timeline.push(placeholder_TransparentAI);
-}
+      choices: "ALL_KEYS",
+    };
+    timeline.push(placeholder_TransparentAI);
+  }
 
   /* -------------------------------------------------------------------------- */
   /*                                  Timeline                                  */
@@ -284,7 +294,7 @@ function block_transparentAI() {
   block1();
   block_noAI();
   block_simpleAI();
-  block_transparentAI();  
+  block_transparentAI();
   jsPsych.run(timeline);
 }
 
