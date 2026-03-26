@@ -85,3 +85,23 @@ canvas {
   border: 1px dashed rgb(0, 0, 255);
   padding: 10px 40px;
 }
+
+.ai_certainty{
+  font-family: var(--font-interface);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color:blue;
+  background-color: aliceblue;
+  border-radius: 10px;
+  border: 1px dashed rgb(0, 0, 255);
+  padding: 10px 40px;
+  margin: 5%;
+}
+
+.ai-feedback{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

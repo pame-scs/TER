@@ -1,5 +1,5 @@
 const IMG_FOLDER = "img/";
-const IMG_FORLDER_TRANSPARENT = "img_transparent/";
+const IMG_FOLDER_TRANSPARENT = "img_transparent/";
 const XLSX_PATH = "stimuli.xlsx";
 
 const COL_NAME = "Slide Name";
