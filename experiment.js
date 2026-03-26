@@ -203,10 +203,10 @@ multiple functions are needed */
     /* The difficulty ranges between 0.04 to 0.80. The AI certainty lowest certainty
     is 75 so it needs to be adjusted */
     const certainty = Math.max(75, 100 - (difficulty / 0.80) * 25);
-    return certainty.toFixed(0);
+    return Math.round(certainty);
   };
 
-  const trialsAI2 = shuffled.map((item, index) => {
+  const trialsAI2 = shuffled_transparent.map((item, index) => {
     const positionInBlock = index - 30 + 1;
     const isWrong = positionInBlock > 40 && positionInBlock <= 50;
     const correctIsDanger = item.correct.toLowerCase().startsWith("d");
@@ -217,9 +217,14 @@ multiple functions are needed */
       stimulus: item.src,
       choices: [KEY_SAFE, KEY_DANGER],
       prompt: `
-        <div class="ai-feedback">
-          <p class="ai_answer">AI suggests: ${aiSuggestion}</p>
-          <p class="ai_certainty">Certainty: ${certainty}%</p>
+        <div class="ai-feedback" >
+          <p class="ai_answer" data-suggestion="${aiSuggestion}">AI suggests: ${aiSuggestion}</p>
+          <div class="ai_certainty_wrapper">
+            <div class="ai_certainty_label">Certainty: ${certainty}%</div>
+            <div class="ai_certainty_bar">
+              <div class="ai_certainty_fill" style="width: ${certainty}%;"></div>
+            </div>
+          </div>
         </div>`,
       data: {
         slide_name: item.name,
