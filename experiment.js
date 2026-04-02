@@ -99,7 +99,28 @@ async function runExperiment() {
     trial_duration: 3000,
   };
 
-  /* ------------------------------ Image trials ------------------------------ */
+/* -------------------------------------------------------------------------- */
+  /*                               Error Handling                               */
+  /* -------------------------------------------------------------------------- */
+/* Between trial 40 and 50 there will be a system failure which means that there 
+will be false positives and false negatives.*/
+
+  const isErrorTrial = (trialIndex) => trialIndex >= 40 && trialIndex < 50;
+
+  const getAISuggestion = (trialIndex, correctAnswer) => {
+    const correctIsDanger = String(correctAnswer).trim().toLowerCase().startsWith("d");
+    if (isErrorTrial(trialIndex)) {
+      return correctIsDanger ? "Safe" : "Danger";
+    } else {
+      return correctIsDanger ? "Danger" : "Safe";
+    }
+  };
+
+
+/* -------------------------------------------------------------------------- */
+/*                                Image Trials                                */
+/* -------------------------------------------------------------------------- */
+
   const shuffled = jsPsych.randomization.shuffle(stimuli);
   const trials = shuffled.map((item) => ({
     type: jsPsychImageKeyboardResponse,
@@ -125,48 +146,10 @@ async function runExperiment() {
     },
     trial_duration: 5000,
   }));
-
-  /* ------------------------ Image trials transparent ------------------------ */
-  const shuffled_transparent =
-    jsPsych.randomization.shuffle(stimuli_transparent);
-  const trials_transparent = shuffled_transparent.map((item) => ({
-    type: jsPsychImageKeyboardResponse,
-    stimulus: item.src,
-    choices: [KEY_SAFE, KEY_DANGER],
-    data: {
-      slide_name: item.name,
-      correct_answer: item.correct,
-      difficulty: item.difficulty,
-      rank: item.rank,
-      items: item.items,
-    },
-    on_finish: function (data) {
-      const responded_danger = data.response === KEY_DANGER;
-      const correctAnswer = String(item.correct).trim().toLowerCase();
-      const correctIsDanger = correctAnswer.startsWith("d");
-      data.correct =
-        data.response === null
-          ? 0
-          : responded_danger === correctIsDanger
-            ? 1
-            : 0;
-    },
-    trial_duration: 5000,
-  }));
-
   /* -------------------------- Simple AI Image trial ------------------------- */
 
   const trialsAI1 = shuffled.map((item, index) => {
-    const positionInBlock = index - 30 + 1;
-    const isWrong = positionInBlock > 40 && positionInBlock <= 50;
-    const correctIsDanger = item.correct.toLowerCase().startsWith("d");
-    const aiSuggestion = isWrong
-      ? correctIsDanger
-        ? "Safe"
-        : "Danger"
-      : correctIsDanger
-        ? "Danger"
-        : "Safe";
+    const aiSuggestion = getAISuggestion(index, item.correct);
     return {
       type: jsPsychImageKeyboardResponse,
       stimulus: item.src,
@@ -191,20 +174,23 @@ async function runExperiment() {
               ? 1
               : 0;
         data.ai_answer = aiSuggestion;
-        data.ai_correct =
-          (aiSuggestion === "Danger" ? "d" : "s") === correctAnswer;
+        const correctShort = correctAnswer.startsWith("d") ? "d" : "s";
+        data.ai_correct = (aiSuggestion === "Danger" ? "d" : "s") === correctShort;
       },
       trial_duration: 5000,
     };
   });
 
-  /* -------------------------------------------------------------------------- */
-  /*                         Transparent AI Image Trial                         */
-  /* -------------------------------------------------------------------------- */
+  /* ----------------------- Transparent AI Image trial ----------------------- */
+
   /* This is the most complex AI image trial, it includes the previous loading, 
 the AI suggestion and also the position indicator if there's a target and the
 certainty indicator which is calculated based on the image difficulty. I belive
 multiple functions are needed */
+
+  const shuffled_transparent =
+    jsPsych.randomization.shuffle(stimuli_transparent);
+
 
   const calculateCertainty = (difficulty) => {
     /* The difficulty ranges between 0.04 to 0.80. The AI certainty lowest certainty
@@ -214,16 +200,7 @@ multiple functions are needed */
   };
 
   const trialsAI2 = shuffled_transparent.map((item, index) => {
-    const positionInBlock = index - 30 + 1;
-    const isWrong = positionInBlock > 40 && positionInBlock <= 50;
-    const correctIsDanger = item.correct.toLowerCase().startsWith("d");
-    const aiSuggestion = isWrong
-      ? correctIsDanger
-        ? "Safe"
-        : "Danger"
-      : correctIsDanger
-        ? "Danger"
-        : "Safe";
+    const aiSuggestion = getAISuggestion(index, item.correct);
     const certainty = calculateCertainty(item.difficulty);
     return {
       type: jsPsychImageKeyboardResponse,
@@ -264,7 +241,11 @@ multiple functions are needed */
     };
   });
 
-  /* ------------------------ Feebback after each trial ----------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                                  Feedback                                  */
+/* -------------------------------------------------------------------------- */
+
   function feedbackPerTrial() {
     return {
       type: jsPsychHtmlKeyboardResponse,
@@ -345,7 +326,7 @@ last 10 trials. It will also be just 30 trials long. There will be no
 AI assistance in this block. So the ITI will be n1.
 */
 
-  function block1() {
+  function training() {
     for (let i = 0; i < 30; i++) {
       timeline.push(ITI_V1);
       timeline.push(trials[i]);
@@ -389,12 +370,12 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
       choices: "ALL_KEYS",
     };
     timeline.push(screen_NoAI);
-    for (let i = 30; i < 90; i++) {
+    for (let i = 0; i < 60; i++) {
       timeline.push(ITI_V1);
       timeline.push(trials[i]);
       timeline.push(displayAnswer());
 
-      const position = i - 30 + 1;
+      const position = i;
       const isBlockEnd = position % BLOCK_SIZE === 0;
       const isLastTrial = position === 60;
 
@@ -427,15 +408,15 @@ So the ITI will be n2.
       choices: "ALL_KEYS",
     };
     timeline.push(screen_NoAI);
-    for (let i = 30; i < 90; i++) {
+    for (let i = 0; i < 60; i++) {
       timeline.push(ITI_V2);
       timeline.push(ITI_2);
       timeline.push(trialsAI1[i]);
       timeline.push(displayAnswer());
 
-      const position = i - 30 + 1;
+      const position = i;
       const isBlockEnd = position % BLOCK_SIZE === 0;
-      const isLastTrial = position === 90;
+      const isLastTrial = position === 60;
 
       if (isBlockEnd && !isLastTrial) {
         timeline.push(feedback10trials());
@@ -470,14 +451,14 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       choices: "ALL_KEYS",
     };
     timeline.push(screen_TransparentAI);
-    for (let i = 30; i < 90; i++) {
+    for (let i = 0; i < 60; i++) {
       timeline.push(ITI_V2);
       timeline.push(ITI_3);
       timeline.push(trialsAI2[i]);
       timeline.push(displayAnswer());
-      const position = i - 30 + 1;
+      const position = i;
       const isBlockEnd = position % BLOCK_SIZE === 0;
-      const isLastTrial = position === 90;
+      const isLastTrial = position === 60;
 
       if (isBlockEnd && !isLastTrial) {
         timeline.push(feedback10trials());
@@ -489,7 +470,6 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /* -------------------------------------------------------------------------- */
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
-  /* End of Experiment Screen */
   const endScreen = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
@@ -513,9 +493,9 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   };
 
   const timeline = [welcome];
-  block_simpleAI();
   block_transparentAI();
-  timeline.push(endScreen); // Add this before jsPsych.run()
+  block_simpleAI();
+  timeline.push(endScreen); 
   jsPsych.run(timeline);
 }
 
