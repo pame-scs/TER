@@ -88,6 +88,8 @@ async function loadStimuli_error_transparentAI() {
 async function runExperiment() {
   const stimuli = await loadStimuli();
   const stimuli_transparent = await loadStimuli_transparent();
+  const errorStimuli_simple = await loadStimuli_error_simpleAI();
+  const errorStimuli_transparent = await loadStimuli_error_transparentAI();
   const jsPsych = initJsPsych({});
 
   /* ----------------------------- Welcome Screen ----------------------------- */
@@ -147,14 +149,20 @@ async function runExperiment() {
 will be false positives and false negatives. I have to fully control the content
 for the 10 trials*/
 
-  const isErrorTrial = (trialIndex) => trialIndex >= 100 && trialIndex <= 109;
+  const isErrorTrial = (trialIndex) => trialIndex >= 90 && trialIndex <= 99;
 
   itemChangesSimpleAI = (trialIndex, item) => {
-    
+    if (isErrorTrial(trialIndex)) {
+      return errorStimuli_simple[trialIndex - 90];
+    }
+    return item;
   };
 
   itemChangesTransparentAI = (trialIndex, item) => {
-    
+    if (isErrorTrial(trialIndex)) {
+      return errorStimuli_transparent[trialIndex - 90];
+    }
+    return item;
   };
 
   /* -------------------------------------------------------------------------- */
@@ -190,23 +198,23 @@ for the 10 trials*/
 
   const trials_simpleAI = shuffled.map((item, index) => {
     const modifiedItem = itemChangesSimpleAI(index, item);
-
+    console.log("Trial " + index + ": " + modifiedItem.name + " - AI suggests: " + modifiedItem.ai_answer);
     return {
       type: jsPsychImageKeyboardResponse,
-      stimulus: item.src,
+      stimulus: modifiedItem.src,
       choices: [KEY_SAFE, KEY_DANGER],
-      prompt: `<p class="ai_answer" data-suggestion="${item.ai_answer}">AI suggests: ${item.ai_answer}</p>`,
+      prompt: `<p class="ai_answer" data-suggestion="${modifiedItem.ai_answer}">AI suggests: ${modifiedItem.ai_answer}</p>`,
       data: {
-        slide_name: item.name,
-        correct_answer: item.correct,
-        ai_answer: item.ai_answer,
-        difficulty: item.difficulty,
-        rank: item.rank,
-        items: item.items,
+        slide_name: modifiedItem.name,
+        correct_answer: modifiedItem.correct,
+        ai_answer: modifiedItem.ai_answer,
+        difficulty: modifiedItem.difficulty,
+        rank: modifiedItem.rank,
+        items: modifiedItem.items,
       },
       on_finish: function (data) {
         const responded_danger = data.response === KEY_DANGER;
-        const correctAnswer = String(item.correct).trim().toLowerCase();
+        const correctAnswer = String(modifiedItem.correct).trim().toLowerCase();
         const correctIsDanger = correctAnswer.startsWith("d");
         data.correct =
           data.response === null
@@ -214,10 +222,10 @@ for the 10 trials*/
             : responded_danger === correctIsDanger
               ? 1
               : 0;
-        data.ai_answer = item.ai_answer;
+        data.ai_answer = modifiedItem.ai_answer;
         const correctShort = correctAnswer.startsWith("d") ? "d" : "s";
         data.ai_correct =
-          (item.ai_answer === "Danger" ? "d" : "s") === correctShort;
+          (modifiedItem.ai_answer === "Danger" ? "d" : "s") === correctShort;
       },
       trial_duration: 5000,
     };
@@ -243,13 +251,15 @@ multiple functions are needed */
   const trials_transparentAI = shuffled_transparent.map((item, index) => {
     const modifiedItem = itemChangesTransparentAI(index, item);
     const certainty = calculateCertainty(item.difficulty);
+    console.log("Trial " + index + ": " + modifiedItem.name + " - AI suggests: " + modifiedItem.ai_answer);
+
     return {
       type: jsPsychImageKeyboardResponse,
-      stimulus: item.src,
+      stimulus: modifiedItem.src,
       choices: [KEY_SAFE, KEY_DANGER],
       prompt: `
         <div class="ai-feedback" >
-          <p class="ai_answer" data-suggestion="${item.ai_answer}">AI suggests: ${item.ai_answer}</p>
+          <p class="ai_answer" data-suggestion="${modifiedItem.ai_answer}">AI suggests: ${modifiedItem.ai_answer}</p>
           <div class="ai_certainty_wrapper">
             <div class="ai_certainty_label">Certainty: ${certainty}%</div>
             <div class="ai_certainty_bar">
@@ -275,7 +285,7 @@ multiple functions are needed */
             : responded_danger === correctIsDanger
               ? 1
               : 0;
-        data.ai_answer = item.ai_answer;
+        data.ai_answer = modifiedItem.ai_answer;
         data.ai_certainty = certainty;
       },
       trial_duration: 5000,
