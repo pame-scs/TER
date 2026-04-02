@@ -3,12 +3,15 @@ const IMG_FOLDER_TRANSPARENT = "img_transparent/";
 const IMG_ERROR_SIMPLEAI = "img_error_simpleAI/";
 const IMG_ERROR_TRANSPARENTAI = "img_error_transparentAI/";
 const XLSX_PATH = "stimuli.xlsx";
+const XLSX_PATH_TRANSPARENT = "error_transparentAI.xlsx";
+const XLSX_PATH_SIMPLE = "error_simpleAI.xlsx";
 
 const COL_NAME = "Slide Name";
 const COL_ANSWER = "Correct Answer";
 const COL_DIFFICULTY = "Difficulty";
 const COL_RANK = "Difficulty Rank";
 const COL_ITEMS = "# individual items in slide";
+const COL_AI_SUGGESTION = "AI Suggestion";
 
 const KEY_SAFE = "s";
 const KEY_DANGER = "d";
@@ -27,6 +30,7 @@ async function loadStimuli() {
     difficulty: row[COL_DIFFICULTY],
     rank: row[COL_RANK],
     items: row[COL_ITEMS],
+    ai_answer: row[COL_AI_SUGGESTION],
   }));
 }
 
@@ -43,6 +47,41 @@ async function loadStimuli_transparent() {
     difficulty: row[COL_DIFFICULTY],
     rank: row[COL_RANK],
     items: row[COL_ITEMS],
+    ai_answer: row[COL_AI_SUGGESTION],
+  }));
+}
+
+async function loadStimuli_error_simpleAI() {
+  const response = await fetch(XLSX_PATH_SIMPLE);
+  const buffer = await response.arrayBuffer();
+  const workbook = XLSX.read(buffer, { type: "array" });
+  const sheet = workbook.Sheets[workbook.SheetNames[0]];
+  const rows = XLSX.utils.sheet_to_json(sheet);
+  return rows.map((row) => ({
+    name: row[COL_NAME],
+    src: IMG_ERROR_SIMPLEAI + row[COL_NAME] + ".jpg",
+    correct: row[COL_ANSWER],
+    difficulty: row[COL_DIFFICULTY],
+    rank: row[COL_RANK],
+    items: row[COL_ITEMS],
+    ai_answer: row[COL_AI_SUGGESTION],
+  }));
+}
+
+async function loadStimuli_error_transparentAI() {
+  const response = await fetch(XLSX_PATH_TRANSPARENT);
+  const buffer = await response.arrayBuffer();
+  const workbook = XLSX.read(buffer, { type: "array" });
+  const sheet = workbook.Sheets[workbook.SheetNames[0]];
+  const rows = XLSX.utils.sheet_to_json(sheet);
+  return rows.map((row) => ({
+    name: row[COL_NAME],
+    src: IMG_ERROR_TRANSPARENTAI + row[COL_NAME] + ".jpg",
+    correct: row[COL_ANSWER],
+    difficulty: row[COL_DIFFICULTY],
+    rank: row[COL_RANK],
+    items: row[COL_ITEMS],
+    ai_answer: row[COL_AI_SUGGESTION],
   }));
 }
 
@@ -101,49 +140,26 @@ async function runExperiment() {
     trial_duration: 3000,
   };
 
-/* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
   /*                               Error Handling                               */
   /* -------------------------------------------------------------------------- */
-/* Between trial 40 and 50 there will be a system failure which means that there 
+  /* Between trial 40 and 50 there will be a system failure which means that there 
 will be false positives and false negatives. I have to fully control the content
 for the 10 trials*/
 
-  const isErrorTrial = (trialIndex) => trialIndex >= 40 && trialIndex < 50;
-
-  const getAISuggestion = (trialIndex, correctAnswer) => {
-    const correctIsDanger = String(correctAnswer).trim().toLowerCase().startsWith("d");
-    if (isErrorTrial(trialIndex)) {
-      return correctIsDanger ? "Safe" : "Danger";
-    } else {
-      return correctIsDanger ? "Danger" : "Safe";
-    }
-  };
+  const isErrorTrial = (trialIndex) => trialIndex >= 100 && trialIndex <= 109;
 
   itemChangesSimpleAI = (trialIndex, item) => {
-    const correctIsDanger = String(item.correct).trim().toLowerCase().startsWith("d");
-    if (isErrorTrial(trialIndex)) {
-      return {
-        ...item,
-        src: item.src.replace(IMG_FOLDER, correctIsDanger ? IMG_ERROR_SIMPLEAI : IMG_ERROR_SIMPLEAI),
-      };
-    }
-    return item;
+    
   };
 
   itemChangesTransparentAI = (trialIndex, item) => {
-    const correctIsDanger = String(item.correct).trim().toLowerCase().startsWith("d");
-    if (isErrorTrial(trialIndex)) {
-      return {
-        ...item,
-        src: item.src.replace(IMG_FOLDER_TRANSPARENT, correctIsDanger ? IMG_ERROR_TRANSPARENTAI : IMG_ERROR_TRANSPARENTAI),
-      };
-    }
-    return item;
+    
   };
 
-/* -------------------------------------------------------------------------- */
-/*                                Image Trials                                */
-/* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+  /*                                Image Trials                                */
+  /* -------------------------------------------------------------------------- */
 
   const shuffled = jsPsych.randomization.shuffle(stimuli);
   const trials = shuffled.map((item) => ({
@@ -174,17 +190,16 @@ for the 10 trials*/
 
   const trials_simpleAI = shuffled.map((item, index) => {
     const modifiedItem = itemChangesSimpleAI(index, item);
-    const aiSuggestion = getAISuggestion(index, item.correct);
-    
+
     return {
       type: jsPsychImageKeyboardResponse,
-      stimulus: modifiedItem.src,
+      stimulus: item.src,
       choices: [KEY_SAFE, KEY_DANGER],
-      prompt: `<p class="ai_answer" data-suggestion="${aiSuggestion}">AI suggests: ${aiSuggestion}</p>`,
+      prompt: `<p class="ai_answer" data-suggestion="${item.ai_answer}">AI suggests: ${item.ai_answer}</p>`,
       data: {
         slide_name: item.name,
         correct_answer: item.correct,
-        ai_answer: aiSuggestion,
+        ai_answer: item.ai_answer,
         difficulty: item.difficulty,
         rank: item.rank,
         items: item.items,
@@ -199,9 +214,10 @@ for the 10 trials*/
             : responded_danger === correctIsDanger
               ? 1
               : 0;
-        data.ai_answer = aiSuggestion;
+        data.ai_answer = item.ai_answer;
         const correctShort = correctAnswer.startsWith("d") ? "d" : "s";
-        data.ai_correct = (aiSuggestion === "Danger" ? "d" : "s") === correctShort;
+        data.ai_correct =
+          (item.ai_answer === "Danger" ? "d" : "s") === correctShort;
       },
       trial_duration: 5000,
     };
@@ -217,7 +233,6 @@ multiple functions are needed */
   const shuffled_transparent =
     jsPsych.randomization.shuffle(stimuli_transparent);
 
-
   const calculateCertainty = (difficulty) => {
     /* The difficulty ranges between 0.04 to 0.80. The AI certainty lowest certainty
     is 75 so it needs to be adjusted */
@@ -227,15 +242,14 @@ multiple functions are needed */
 
   const trials_transparentAI = shuffled_transparent.map((item, index) => {
     const modifiedItem = itemChangesTransparentAI(index, item);
-    const aiSuggestion = getAISuggestion(index, item.correct);
     const certainty = calculateCertainty(item.difficulty);
     return {
       type: jsPsychImageKeyboardResponse,
-      stimulus: modifiedItem.src,
+      stimulus: item.src,
       choices: [KEY_SAFE, KEY_DANGER],
       prompt: `
         <div class="ai-feedback" >
-          <p class="ai_answer" data-suggestion="${aiSuggestion}">AI suggests: ${aiSuggestion}</p>
+          <p class="ai_answer" data-suggestion="${item.ai_answer}">AI suggests: ${item.ai_answer}</p>
           <div class="ai_certainty_wrapper">
             <div class="ai_certainty_label">Certainty: ${certainty}%</div>
             <div class="ai_certainty_bar">
@@ -246,7 +260,7 @@ multiple functions are needed */
       data: {
         slide_name: item.name,
         correct_answer: item.correct,
-        ai_answer: aiSuggestion,
+        ai_answer: item.ai_answer,
         difficulty: item.difficulty,
         rank: item.rank,
         items: item.items,
@@ -261,17 +275,16 @@ multiple functions are needed */
             : responded_danger === correctIsDanger
               ? 1
               : 0;
-        data.ai_answer = aiSuggestion;
+        data.ai_answer = item.ai_answer;
         data.ai_certainty = certainty;
       },
       trial_duration: 5000,
     };
   });
 
-
-/* -------------------------------------------------------------------------- */
-/*                                  Feedback                                  */
-/* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+  /*                                  Feedback                                  */
+  /* -------------------------------------------------------------------------- */
 
   function feedbackPerTrial() {
     return {
@@ -507,7 +520,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     </div>`,
     choices: "NO_KEYS",
     trial_duration: 2000,
-    on_finish: function() {
+    on_finish: function () {
       const csv = jsPsych.data
         .get()
         .filter({ trial_type: "image-keyboard-response" })
@@ -516,14 +529,12 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       link.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
       link.download = `experiment_data_${new Date().toISOString()}.csv`;
       link.click();
-    }
+    },
   };
 
   const timeline = [welcome];
-  block_noAI();
   block_simpleAI();
-  block_transparentAI();
-  timeline.push(endScreen); 
+  timeline.push(endScreen);
   jsPsych.run(timeline);
 }
 
