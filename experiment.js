@@ -103,7 +103,8 @@ async function runExperiment() {
   /*                               Error Handling                               */
   /* -------------------------------------------------------------------------- */
 /* Between trial 40 and 50 there will be a system failure which means that there 
-will be false positives and false negatives.*/
+will be false positives and false negatives. I have to fully control the content
+for the 10 trials*/
 
   const isErrorTrial = (trialIndex) => trialIndex >= 40 && trialIndex < 50;
 
@@ -115,8 +116,6 @@ will be false positives and false negatives.*/
       return correctIsDanger ? "Danger" : "Safe";
     }
   };
-
-
 /* -------------------------------------------------------------------------- */
 /*                                Image Trials                                */
 /* -------------------------------------------------------------------------- */
@@ -148,8 +147,9 @@ will be false positives and false negatives.*/
   }));
   /* -------------------------- Simple AI Image trial ------------------------- */
 
-  const trialsAI1 = shuffled.map((item, index) => {
+  const trials_simpleAI = shuffled.map((item, index) => {
     const aiSuggestion = getAISuggestion(index, item.correct);
+    
     return {
       type: jsPsychImageKeyboardResponse,
       stimulus: item.src,
@@ -199,7 +199,7 @@ multiple functions are needed */
     return Math.round(certainty);
   };
 
-  const trialsAI2 = shuffled_transparent.map((item, index) => {
+  const trials_transparentAI = shuffled_transparent.map((item, index) => {
     const aiSuggestion = getAISuggestion(index, item.correct);
     const certainty = calculateCertainty(item.difficulty);
     return {
@@ -370,12 +370,12 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
       choices: "ALL_KEYS",
     };
     timeline.push(screen_NoAI);
-    for (let i = 0; i < 60; i++) {
+    for (let i = 30; i < 90; i++) {
       timeline.push(ITI_V1);
       timeline.push(trials[i]);
       timeline.push(displayAnswer());
 
-      const position = i;
+      const position = i - 30 + 1;
       const isBlockEnd = position % BLOCK_SIZE === 0;
       const isLastTrial = position === 60;
 
@@ -408,13 +408,13 @@ So the ITI will be n2.
       choices: "ALL_KEYS",
     };
     timeline.push(screen_NoAI);
-    for (let i = 0; i < 60; i++) {
+    for (let i = 90; i < 150; i++) {
       timeline.push(ITI_V2);
       timeline.push(ITI_2);
-      timeline.push(trialsAI1[i]);
+      timeline.push(trials_simpleAI[i]);
       timeline.push(displayAnswer());
 
-      const position = i;
+      const position = i - 90 + 1;
       const isBlockEnd = position % BLOCK_SIZE === 0;
       const isLastTrial = position === 60;
 
@@ -451,12 +451,12 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       choices: "ALL_KEYS",
     };
     timeline.push(screen_TransparentAI);
-    for (let i = 0; i < 60; i++) {
+    for (let i = 90; i < 150; i++) {
       timeline.push(ITI_V2);
       timeline.push(ITI_3);
-      timeline.push(trialsAI2[i]);
+      timeline.push(trials_transparentAI[i]);
       timeline.push(displayAnswer());
-      const position = i;
+      const position = i - 90 + 1;
       const isBlockEnd = position % BLOCK_SIZE === 0;
       const isLastTrial = position === 60;
 
@@ -493,8 +493,9 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   };
 
   const timeline = [welcome];
-  block_transparentAI();
+  block_noAI();
   block_simpleAI();
+  block_transparentAI();
   timeline.push(endScreen); 
   jsPsych.run(timeline);
 }
