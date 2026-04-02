@@ -1,5 +1,7 @@
 const IMG_FOLDER = "img/";
 const IMG_FOLDER_TRANSPARENT = "img_transparent/";
+const IMG_ERROR_SIMPLEAI = "img_error_simpleAI/";
+const IMG_ERROR_TRANSPARENTAI = "img_error_transparentAI/";
 const XLSX_PATH = "stimuli.xlsx";
 
 const COL_NAME = "Slide Name";
@@ -116,6 +118,29 @@ for the 10 trials*/
       return correctIsDanger ? "Danger" : "Safe";
     }
   };
+
+  itemChangesSimpleAI = (trialIndex, item) => {
+    const correctIsDanger = String(item.correct).trim().toLowerCase().startsWith("d");
+    if (isErrorTrial(trialIndex)) {
+      return {
+        ...item,
+        src: item.src.replace(IMG_FOLDER, correctIsDanger ? IMG_ERROR_SIMPLEAI : IMG_ERROR_SIMPLEAI),
+      };
+    }
+    return item;
+  };
+
+  itemChangesTransparentAI = (trialIndex, item) => {
+    const correctIsDanger = String(item.correct).trim().toLowerCase().startsWith("d");
+    if (isErrorTrial(trialIndex)) {
+      return {
+        ...item,
+        src: item.src.replace(IMG_FOLDER_TRANSPARENT, correctIsDanger ? IMG_ERROR_TRANSPARENTAI : IMG_ERROR_TRANSPARENTAI),
+      };
+    }
+    return item;
+  };
+
 /* -------------------------------------------------------------------------- */
 /*                                Image Trials                                */
 /* -------------------------------------------------------------------------- */
@@ -148,11 +173,12 @@ for the 10 trials*/
   /* -------------------------- Simple AI Image trial ------------------------- */
 
   const trials_simpleAI = shuffled.map((item, index) => {
+    const modifiedItem = itemChangesSimpleAI(index, item);
     const aiSuggestion = getAISuggestion(index, item.correct);
     
     return {
       type: jsPsychImageKeyboardResponse,
-      stimulus: item.src,
+      stimulus: modifiedItem.src,
       choices: [KEY_SAFE, KEY_DANGER],
       prompt: `<p class="ai_answer" data-suggestion="${aiSuggestion}">AI suggests: ${aiSuggestion}</p>`,
       data: {
@@ -200,11 +226,12 @@ multiple functions are needed */
   };
 
   const trials_transparentAI = shuffled_transparent.map((item, index) => {
+    const modifiedItem = itemChangesTransparentAI(index, item);
     const aiSuggestion = getAISuggestion(index, item.correct);
     const certainty = calculateCertainty(item.difficulty);
     return {
       type: jsPsychImageKeyboardResponse,
-      stimulus: item.src,
+      stimulus: modifiedItem.src,
       choices: [KEY_SAFE, KEY_DANGER],
       prompt: `
         <div class="ai-feedback" >
@@ -356,7 +383,7 @@ AI assistance in this block. So the ITI will be n1.
   /* -------------------------------------------------------------------------- */
   /* In this block, participants will not receive any feedback after each trial, 
 but they will receive a feedback every 10 trials, indicating the number of 
-correct responses in the last 10 trials. It will be just 60 trials long. 
+correct responses in the last 10 trials. It will also be just 30 trials long. 
 There will be no AI assistance in this block. So the ITI will be n1.*/
 
   function block_noAI() {
