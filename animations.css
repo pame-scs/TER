@@ -83,3 +83,45 @@
 .icon {
   animation: slide 2s linear infinite;
 }
+
+.ai-pipeline {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 15px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+  padding: 1em;
+  gap: 6px;
+}
+
+.ai-pipeline div {
+  opacity: 0;
+  color: #ffffff;
+  animation: pip-fade 0.5s ease forwards;
+}
+
+.ai-pipeline div:nth-child(1) { animation-delay: 0.0s; }
+.ai-pipeline div:nth-child(2) { animation-delay: 0.8s; }
+.ai-pipeline div:nth-child(3) { animation-delay: 1.6s; }
+.ai-pipeline div:nth-child(4) { animation-delay: 2.4s; }
+.ai-pipeline div:nth-child(5) { animation-delay: 3.2s; }
+
+@keyframes pip-fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.baggage{
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 16px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  background-color: #000;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 1em;
+  gap: 6px;
+}

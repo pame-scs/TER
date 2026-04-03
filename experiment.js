@@ -113,33 +113,25 @@ async function runExperiment() {
   const ITI_V1 = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus:
-      '<p class="fixation">BAGGAGE INCOMING</p>',
+      '<div class="baggage"><div>Baggage incoming</div></div>',
     choices: "NO_KEYS",
-    trial_duration: 3000,
-  };
-
-  const ITI_V2 = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus:
-      '<p class="fixation">BAGGAGE INCOMING</p>',
-    choices: "NO_KEYS",
-    trial_duration: 1000,
+    trial_duration: 4000,
   };
 
   const ITI_2 = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus:
-      '<div class="ai-loader"><div class="ai-bars"></div>  <div class="ai-text-static">AI ANALYZING</div></div>',
+      '<div class="baggage">Baggage incoming</div> <div class="ai-pipeline"><div>AI is processing</div></div>',
     choices: "NO_KEYS",
-    trial_duration: 2000,
+    trial_duration: 4000,
   };
 
   const ITI_3 = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus:
-      '<div class="ai-loader">  <div class="ai-bars"></div>  <div class="ai-cycle">    <span>Loading image…</span>    <span>Detecting objects…</span>  <span>Comparing with database…</span>  </div></div>',
+      '<div class="baggage">Baggage incoming</div> <div class="ai-pipeline"><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>',
     choices: "NO_KEYS",
-    trial_duration: 2000,
+    trial_duration: 4000,
   };
 
   /* -------------------------------------------------------------------------- */
@@ -203,7 +195,12 @@ for the 10 trials*/
       type: jsPsychImageKeyboardResponse,
       stimulus: modifiedItem.src,
       choices: [KEY_SAFE, KEY_DANGER],
-      prompt: `<p class="ai_answer" data-suggestion="${modifiedItem.ai_answer}">AI suggests: ${modifiedItem.ai_answer}</p>`,
+      prompt: `<div class="ai-feedback"><div class="ai_suggestion_wrapper">
+          <p>AI suggests:</p>
+          <p class="ai_answer" data-suggestion="${modifiedItem.ai_answer}">
+            ${modifiedItem.ai_answer}
+          </p>
+        </div></div>`,
       data: {
         slide_name: modifiedItem.name,
         correct_answer: modifiedItem.correct,
@@ -254,16 +251,22 @@ multiple functions are needed */
       type: jsPsychImageKeyboardResponse,
       stimulus: modifiedItem.src,
       choices: [KEY_SAFE, KEY_DANGER],
-      prompt: `
-        <div class="ai-feedback" >
-          <p class="ai_answer" data-suggestion="${modifiedItem.ai_answer}">AI suggests: ${modifiedItem.ai_answer}</p>
-          <div class="ai_certainty_wrapper">
-            <div class="ai_certainty_label">Certainty: ${certainty}%</div>
-            <div class="ai_certainty_bar">
-              <div class="ai_certainty_fill" style="width: ${certainty}%;"></div>
-            </div>
-          </div>
-        </div>`,
+      prompt: `<div class="ai-feedback">
+        <div class="ai_suggestion_wrapper">
+          <p>AI suggests:</p>
+          <p class="ai_answer" data-suggestion="${modifiedItem.ai_answer}">
+            ${modifiedItem.ai_answer}
+          </p>
+        </div>
+        <div class="ai_certainty_wrapper">
+          <div class="ai_certainty_label">
+        Certainty: [${
+          "█".repeat(Math.round(certainty / 100 * 35)) +
+          "░".repeat(35 - Math.round(certainty / 100 * 35))
+        }] ${certainty}
+      </div>
+        </div>
+      </div>`,
       data: {
         slide_name: modifiedItem.name,
         correct_answer: modifiedItem.correct,
@@ -456,7 +459,6 @@ So the ITI will be n2.
     };
     timeline.push(screen_NoAI);
     for (let i = 90; i < 150; i++) {
-      timeline.push(ITI_V2);
       timeline.push(ITI_2);
       timeline.push(trials_simpleAI[i]);
       timeline.push(displayAnswer());
@@ -499,7 +501,6 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     };
     timeline.push(screen_TransparentAI);
     for (let i = 90; i < 150; i++) {
-      timeline.push(ITI_V2);
       timeline.push(ITI_3);
       timeline.push(trials_transparentAI[i]);
       timeline.push(displayAnswer());
@@ -540,7 +541,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   };
 
   const timeline = [welcome];
-  block_simpleAI();
+  training();
   timeline.push(endScreen);
   jsPsych.run(timeline);
 }
