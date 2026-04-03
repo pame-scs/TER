@@ -113,15 +113,15 @@ async function runExperiment() {
   const ITI_V1 = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus:
-      '<img class="icon" src="resources/luggage.png" width="90" height="90"><p class="fixation">BAGGAGE INCOMING</p>',
+      '<p class="fixation">BAGGAGE INCOMING</p>',
     choices: "NO_KEYS",
-    trial_duration: 4000,
+    trial_duration: 3000,
   };
 
   const ITI_V2 = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus:
-      '<img class="icon" src="resources/luggage.png" width="90" height="90"><p class="fixation">BAGGAGE INCOMING</p>',
+      '<p class="fixation">BAGGAGE INCOMING</p>',
     choices: "NO_KEYS",
     trial_duration: 1000,
   };
@@ -131,7 +131,7 @@ async function runExperiment() {
     stimulus:
       '<div class="ai-loader"><div class="ai-bars"></div>  <div class="ai-text-static">AI ANALYZING</div></div>',
     choices: "NO_KEYS",
-    trial_duration: 3000,
+    trial_duration: 2000,
   };
 
   const ITI_3 = {
@@ -139,7 +139,7 @@ async function runExperiment() {
     stimulus:
       '<div class="ai-loader">  <div class="ai-bars"></div>  <div class="ai-cycle">    <span>Loading image…</span>    <span>Detecting objects…</span>  <span>Comparing with database…</span>  </div></div>',
     choices: "NO_KEYS",
-    trial_duration: 3000,
+    trial_duration: 2000,
   };
 
   /* -------------------------------------------------------------------------- */
@@ -149,18 +149,18 @@ async function runExperiment() {
 will be false positives and false negatives. I have to fully control the content
 for the 10 trials*/
 
-  const isErrorTrial = (trialIndex) => trialIndex >= 90 && trialIndex <= 99;
+  const isErrorTrial = (trialIndex) => trialIndex >= 130 && trialIndex <= 139;
 
   itemChangesSimpleAI = (trialIndex, item) => {
     if (isErrorTrial(trialIndex)) {
-      return errorStimuli_simple[trialIndex - 90];
+      return errorStimuli_simple[trialIndex - 130];
     }
     return item;
   };
 
   itemChangesTransparentAI = (trialIndex, item) => {
     if (isErrorTrial(trialIndex)) {
-      return errorStimuli_transparent[trialIndex - 90];
+      return errorStimuli_transparent[trialIndex - 130];
     }
     return item;
   };
@@ -223,9 +223,6 @@ for the 10 trials*/
               ? 1
               : 0;
         data.ai_answer = modifiedItem.ai_answer;
-        const correctShort = correctAnswer.startsWith("d") ? "d" : "s";
-        data.ai_correct =
-          (modifiedItem.ai_answer === "Danger" ? "d" : "s") === correctShort;
       },
       trial_duration: 5000,
     };
@@ -268,16 +265,16 @@ multiple functions are needed */
           </div>
         </div>`,
       data: {
-        slide_name: item.name,
-        correct_answer: item.correct,
-        ai_answer: item.ai_answer,
-        difficulty: item.difficulty,
-        rank: item.rank,
-        items: item.items,
+        slide_name: modifiedItem.name,
+        correct_answer: modifiedItem.correct,
+        ai_answer: modifiedItem.ai_answer,
+        difficulty: modifiedItem.difficulty,
+        rank: modifiedItem.rank,
+        items: modifiedItem.items,
       },
       on_finish: function (data) {
         const responded_danger = data.response === KEY_DANGER;
-        const correctAnswer = String(item.correct).trim().toLowerCase();
+        const correctAnswer = String(modifiedItem.correct).trim().toLowerCase();
         const correctIsDanger = correctAnswer.startsWith("d");
         data.correct =
           data.response === null
