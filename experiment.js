@@ -366,6 +366,48 @@ multiple functions are needed */
     };
   }
 
+/* ------------------------------- Total count ------------------------------ */
+
+  function totalcountFeedback() {
+    return {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function () {
+        const allData = jsPsych.data
+          .get()
+          .filter({ trial_type: "image-keyboard-response" });
+        const correct = allData.values().filter((t) => t.correct === 1).length;
+        const total = allData.count();
+        return `
+              <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+                <h2>Total Performance</h2>
+                <p style="font-size:3em; font-weight:bold; margin-top:20px;">${correct} / ${total}</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>`;
+      },
+      choices: "ALL_KEYS",
+    };
+  }
+
+/* ------------------------------ Questionaire ------------------------------ */
+
+  function questionnaire() {
+    return {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function () {
+        return `
+              <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+                <h2>Total Performance</h2>
+                <p style="font-size:3em; font-weight:bold; margin-top:20px;">Confidence on your answers</p>
+                <p style="font-size:2em; font-weight:bold; margin-top:20px;">(1-5)</p>
+                <p style="font-size:1em; margin-top:20px;">1: Confidence on AI output </p>
+                <p style="font-size:2em; font-weight:bold; margin-top:20px;">(1-5)</p>                
+                <p><em>Press any key to continue.</em></p>
+              </div>`;
+      },
+      choices: "ALL_KEYS",
+    };
+  }
+
   /* -------------------------------------------------------------------------- */
   /*                                   Block 1                                  */
   /* -------------------------------------------------------------------------- */
@@ -392,13 +434,8 @@ AI assistance in this block. So the ITI will be n1.
       }
     }
     timeline.push(feedback10trials());
-    const blockComplete = {
-      type: jsPsychCallFunction,
-      func: () => {
-        console.log("Block 1 completed");
-      },
-    };
-    timeline.push(blockComplete);
+    timeline.push(totalcountFeedback());
+
   }
 
   /* -------------------------------------------------------------------------- */
@@ -434,6 +471,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
       }
     }
     timeline.push(feedback10trials());
+    timeline.push(totalcountFeedback());
   }
 
   /* -------------------------------------------------------------------------- */
@@ -472,6 +510,7 @@ So the ITI will be n2.
       }
     }
     timeline.push(feedback10trials());
+    timeline.push(totalcountFeedback());
   }
 
   /* -------------------------------------------------------------------------- */
@@ -513,6 +552,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       }
     }
     timeline.push(feedback10trials());
+    timeline.push(totalcountFeedback());
   }
 
   /* -------------------------------------------------------------------------- */
@@ -541,7 +581,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   };
 
   const timeline = [welcome];
-  training();
+  block_transparentAI();
   timeline.push(endScreen);
   jsPsych.run(timeline);
 }
