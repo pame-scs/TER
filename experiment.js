@@ -115,7 +115,7 @@ async function runExperiment() {
     stimulus:
       '<div class="baggage"><div>Baggage incoming</div></div>',
     choices: "NO_KEYS",
-    trial_duration: 4000,
+    trial_duration: 1000,
   };
 
   const ITI_2 = {
@@ -184,7 +184,7 @@ for the 10 trials*/
             ? 1
             : 0;
     },
-    trial_duration: 5000,
+    trial_duration: 1000,
   }));
   /* -------------------------- Simple AI Image trial ------------------------- */
 
@@ -392,19 +392,39 @@ multiple functions are needed */
 
   function questionnaire() {
     return {
-      type: jsPsychHtmlKeyboardResponse,
-      stimulus: function () {
-        return `
-              <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
-                <h2>Total Performance</h2>
-                <p style="font-size:3em; font-weight:bold; margin-top:20px;">Confidence on your answers</p>
-                <p style="font-size:2em; font-weight:bold; margin-top:20px;">(1-5)</p>
-                <p style="font-size:1em; margin-top:20px;">1: Confidence on AI output </p>
-                <p style="font-size:2em; font-weight:bold; margin-top:20px;">(1-5)</p>                
-                <p><em>Press any key to continue.</em></p>
-              </div>`;
+      type: jsPsychSurvey,
+      survey_json: {
+        title: "Questionnaire",
+        description: "Please answer the following questions about the previous block.",
+        showQuestionNumbers: "off",
+        pages: [
+          {
+            name: "page1",
+            elements: [
+              {
+                type: "rating",
+                name: "confidence",
+                title: "In a scale from 1 to 7, how confident are you in your responses?",
+                rateMin: 1,
+                rateMax: 7,
+                isRequired: true,
+              },
+              {
+                type: "rating",
+                name: "trust",
+                title: "In a scale from 1 to 7, do you trust ai ?",
+                rateMin: 1,
+                rateMax: 7,
+                isRequired: true,
+              },
+            ],
+          },
+        ],
       },
-      choices: "ALL_KEYS",
+      on_finish: function (data) {
+        data.confidence_rating = data.response.confidence;
+        data.trust_rating = data.response.trust;
+      }
     };
   }
 
@@ -430,6 +450,7 @@ AI assistance in this block. So the ITI will be n1.
       const isLastTrial = position === 30;
 
       if (isBlockEnd && !isLastTrial) {
+        timeline.push(questionnaire());
         timeline.push(feedback10trials());
       }
     }
@@ -548,6 +569,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       const isLastTrial = position === 60;
 
       if (isBlockEnd && !isLastTrial) {
+        timeline.push(questionnaire());
         timeline.push(feedback10trials());
       }
     }
@@ -569,10 +591,20 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     choices: "NO_KEYS",
     trial_duration: 2000,
     on_finish: function () {
-      const csv = jsPsych.data
-        .get()
-        .filter({ trial_type: "image-keyboard-response" })
-        .csv();
+      const allData = jsPsych.data.get();
+      allData.values().forEach(trial => {
+        if (trial.trial_type === 'survey' && trial.response) {
+          try {
+            const parsed = typeof trial.response === 'string' ? JSON.parse(trial.response) : trial.response;
+            Object.keys(parsed).forEach(key => {
+              trial[key] = parsed[key];
+            });
+          } catch (e) {
+            // ignore parsing errors
+          }
+        }
+      });
+      const csv = allData.csv();
       const link = document.createElement("a");
       link.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
       link.download = `experiment_data_${new Date().toISOString()}.csv`;
@@ -581,7 +613,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   };
 
   const timeline = [welcome];
-  block_transparentAI();
+  training();
   timeline.push(endScreen);
   jsPsych.run(timeline);
 }

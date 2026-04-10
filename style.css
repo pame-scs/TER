@@ -143,3 +143,9 @@ canvas {
 .ai_certainty_bar {
   display: none;
 }
+
+/* ------------------------------ Questionaire ------------------------------ */
+
+button >svg{
+  width: min-content;
+}
