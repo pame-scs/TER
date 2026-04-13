@@ -112,10 +112,9 @@ async function runExperiment() {
   /* --------------------------- Inter-trial interval ------------------------- */
   const ITI_V1 = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus:
-      '<div class="baggage"><div>Baggage incoming</div></div>',
+    stimulus: '<div class="baggage"><div>Baggage incoming</div></div>',
     choices: "NO_KEYS",
-    trial_duration: 1000,
+    trial_duration: 4000,
   };
 
   const ITI_2 = {
@@ -167,6 +166,7 @@ for the 10 trials*/
     stimulus: item.src,
     choices: [KEY_SAFE, KEY_DANGER],
     data: {
+      task: "standard_trial",
       slide_name: item.name,
       correct_answer: item.correct,
       difficulty: item.difficulty,
@@ -184,13 +184,20 @@ for the 10 trials*/
             ? 1
             : 0;
     },
-    trial_duration: 1000,
+    trial_duration: 5000,
   }));
   /* -------------------------- Simple AI Image trial ------------------------- */
 
   const trials_simpleAI = shuffled.map((item, index) => {
     const modifiedItem = itemChangesSimpleAI(index, item);
-    console.log("Trial " + index + ": " + modifiedItem.name + " - AI suggests: " + modifiedItem.ai_answer);
+    console.log(
+      "Trial " +
+        index +
+        ": " +
+        modifiedItem.name +
+        " - AI suggests: " +
+        modifiedItem.ai_answer,
+    );
     return {
       type: jsPsychImageKeyboardResponse,
       stimulus: modifiedItem.src,
@@ -202,6 +209,7 @@ for the 10 trials*/
           </p>
         </div></div>`,
       data: {
+        task: "simple_trial",
         slide_name: modifiedItem.name,
         correct_answer: modifiedItem.correct,
         ai_answer: modifiedItem.ai_answer,
@@ -245,7 +253,14 @@ multiple functions are needed */
   const trials_transparentAI = shuffled_transparent.map((item, index) => {
     const modifiedItem = itemChangesTransparentAI(index, item);
     const certainty = calculateCertainty(item.difficulty);
-    console.log("Trial " + index + ": " + modifiedItem.name + " - AI suggests: " + modifiedItem.ai_answer);
+    console.log(
+      "Trial " +
+        index +
+        ": " +
+        modifiedItem.name +
+        " - AI suggests: " +
+        modifiedItem.ai_answer,
+    );
 
     return {
       type: jsPsychImageKeyboardResponse,
@@ -261,13 +276,14 @@ multiple functions are needed */
         <div class="ai_certainty_wrapper">
           <div class="ai_certainty_label">
         Certainty: [${
-          "█".repeat(Math.round(certainty / 100 * 35)) +
-          "░".repeat(35 - Math.round(certainty / 100 * 35))
+          "█".repeat(Math.round((certainty / 100) * 35)) +
+          "░".repeat(35 - Math.round((certainty / 100) * 35))
         }] ${certainty}
       </div>
         </div>
       </div>`,
       data: {
+        task: "transparent_trial",
         slide_name: modifiedItem.name,
         correct_answer: modifiedItem.correct,
         ai_answer: modifiedItem.ai_answer,
@@ -366,7 +382,7 @@ multiple functions are needed */
     };
   }
 
-/* ------------------------------- Total count ------------------------------ */
+  /* ------------------------------- Total count ------------------------------ */
 
   function totalcountFeedback() {
     return {
@@ -388,14 +404,15 @@ multiple functions are needed */
     };
   }
 
-/* ------------------------------ Questionaire ------------------------------ */
+  /* ------------------------------ Questionaire ------------------------------ */
 
   function questionnaire() {
     return {
       type: jsPsychSurvey,
       survey_json: {
         title: "Questionnaire",
-        description: "Please answer the following questions about the previous block.",
+        description:
+          "Please answer the following questions about the previous block.",
         showQuestionNumbers: "off",
         pages: [
           {
@@ -404,7 +421,8 @@ multiple functions are needed */
               {
                 type: "rating",
                 name: "confidence",
-                title: "In a scale from 1 to 7, how confident are you in your responses?",
+                title:
+                  "In a scale from 1 to 7, how confident are you in your responses?",
                 rateMin: 1,
                 rateMax: 7,
                 isRequired: true,
@@ -412,7 +430,7 @@ multiple functions are needed */
               {
                 type: "rating",
                 name: "trust",
-                title: "In a scale from 1 to 7, do you trust ai ?",
+                title: "In a scale from 1 to 7, do you trust AI?",
                 rateMin: 1,
                 rateMax: 7,
                 isRequired: true,
@@ -421,10 +439,15 @@ multiple functions are needed */
           },
         ],
       },
+      data: {
+        task: "questionnaire",
+      },
+
       on_finish: function (data) {
-        data.confidence_rating = data.response.confidence;
-        data.trust_rating = data.response.trust;
-      }
+        const responses = data.response;
+        data.confidence_rating = responses.confidence;
+        data.trust_rating = responses.trust;
+      },
     };
   }
 
@@ -450,13 +473,11 @@ AI assistance in this block. So the ITI will be n1.
       const isLastTrial = position === 30;
 
       if (isBlockEnd && !isLastTrial) {
-        timeline.push(questionnaire());
         timeline.push(feedback10trials());
       }
     }
     timeline.push(feedback10trials());
     timeline.push(totalcountFeedback());
-
   }
 
   /* -------------------------------------------------------------------------- */
@@ -527,10 +548,14 @@ So the ITI will be n2.
       const isLastTrial = position === 60;
 
       if (isBlockEnd && !isLastTrial) {
+        timeline.push(questionnaire());
         timeline.push(feedback10trials());
+        timeline.push(questionnaire());
       }
     }
+    timeline.push(questionnaire());
     timeline.push(feedback10trials());
+    timeline.push(questionnaire());
     timeline.push(totalcountFeedback());
   }
 
@@ -571,9 +596,12 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       if (isBlockEnd && !isLastTrial) {
         timeline.push(questionnaire());
         timeline.push(feedback10trials());
+        timeline.push(questionnaire());
       }
     }
+    timeline.push(questionnaire());
     timeline.push(feedback10trials());
+    timeline.push(questionnaire());
     timeline.push(totalcountFeedback());
   }
 
@@ -591,20 +619,18 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     choices: "NO_KEYS",
     trial_duration: 2000,
     on_finish: function () {
-      const allData = jsPsych.data.get();
-      allData.values().forEach(trial => {
-        if (trial.trial_type === 'survey' && trial.response) {
-          try {
-            const parsed = typeof trial.response === 'string' ? JSON.parse(trial.response) : trial.response;
-            Object.keys(parsed).forEach(key => {
-              trial[key] = parsed[key];
-            });
-          } catch (e) {
-            // ignore parsing errors
-          }
-        }
-      });
-      const csv = allData.csv();
+      const csv = jsPsych.data
+        .get().ignore(["stimulus", "plugin_version","trial_type"])
+        .filterCustom(function (trial) {
+          return (
+            trial.task === "transparent_trial" ||
+            trial.task === "simple_trial" ||
+            trial.task === "standard_trial" ||
+            trial.task === "questionnaire"
+          );
+        })
+        .csv();
+
       const link = document.createElement("a");
       link.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
       link.download = `experiment_data_${new Date().toISOString()}.csv`;
@@ -613,7 +639,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   };
 
   const timeline = [welcome];
-  training();
+  block_transparentAI();
   timeline.push(endScreen);
   jsPsych.run(timeline);
 }
