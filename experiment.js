@@ -384,15 +384,15 @@ multiple functions are needed */
 
   /* ------------------------------- Total count ------------------------------ */
 
-  function totalcountFeedback() {
+  function totalcountFeedback(taskType, totalTrials) {
     return {
       type: jsPsychHtmlKeyboardResponse,
       stimulus: function () {
         const allData = jsPsych.data
           .get()
-          .filter({ trial_type: "image-keyboard-response" });
+          .filter({ task: taskType });
         const correct = allData.values().filter((t) => t.correct === 1).length;
-        const total = allData.count();
+        const total = totalTrials;
         return `
               <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
                 <h2>Total Performance</h2>
@@ -412,9 +412,9 @@ multiple functions are needed */
     return {
       type: jsPsychSurvey,
       survey_json: {
-        title: "Questionnaire",
+        title: "Self-Assessment",
         description:
-          "Please answer the following questions about the previous block.",
+          "Please answer the following questions about the previous 10 trials.",
         showQuestionNumbers: "off",
         pages: [
           {
@@ -618,7 +618,7 @@ AI assistance in this block. So the ITI will be n1.
       }
     }
     timeline.push(feedback10trials());
-    timeline.push(totalcountFeedback());
+    timeline.push(totalcountFeedback("standard_trial", 30));
   }
 
   /* -------------------------------------------------------------------------- */
@@ -654,7 +654,8 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
       }
     }
     timeline.push(feedback10trials());
-    timeline.push(totalcountFeedback());
+    timeline.push(totalcountFeedback("standard_trial", 60));
+    timeline.push(nasaTLX());
   }
 
   /* -------------------------------------------------------------------------- */
@@ -697,7 +698,8 @@ So the ITI will be n2.
     timeline.push(questionnaire());
     timeline.push(feedback10trials());
     timeline.push(questionnaire());
-    timeline.push(totalcountFeedback());
+    timeline.push(totalcountFeedback("simple_trial", 60));
+    timeline.push(nasaTLX());
   }
 
   /* -------------------------------------------------------------------------- */
@@ -725,7 +727,6 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       choices: "ALL_KEYS",
     };
     timeline.push(screen_TransparentAI);
-    timeline.push(nasaTLX());
     for (let i = 90; i < 150; i++) {
       timeline.push(ITI_3);
       timeline.push(trials_transparentAI[i]);
@@ -743,7 +744,9 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     timeline.push(questionnaire());
     timeline.push(feedback10trials());
     timeline.push(questionnaire());
-    timeline.push(totalcountFeedback());
+    timeline.push(totalcountFeedback("transparent_trial", 60));
+    timeline.push(nasaTLX());
+
   }
 
   /* -------------------------------------------------------------------------- */
@@ -768,7 +771,8 @@ the AI considered more relevant for its decision. So the ITI will be n3.
             trial.task === "transparent_trial" ||
             trial.task === "simple_trial" ||
             trial.task === "standard_trial" ||
-            trial.task === "questionnaire"
+            trial.task === "questionnaire" ||
+            trial.task === "nasa_tlx"
           );
         })
         .csv();
@@ -781,6 +785,9 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   };
 
   const timeline = [welcome];
+  training();
+  block_noAI();
+  block_simpleAI();
   block_transparentAI();
   timeline.push(endScreen);
   jsPsych.run(timeline);
