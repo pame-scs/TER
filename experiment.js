@@ -404,8 +404,10 @@ multiple functions are needed */
     };
   }
 
-  /* ------------------------------ Questionaire ------------------------------ */
-
+  /* -------------------------------------------------------------------------- */
+  /*                                 Assesments                                 */
+  /* -------------------------------------------------------------------------- */
+  /* ---------------------- Questionaire every 10 trials ---------------------- */
   function questionnaire() {
     return {
       type: jsPsychSurvey,
@@ -450,7 +452,146 @@ multiple functions are needed */
       },
     };
   }
+  /* -------------------------------- NASA LTX -------------------------------- */
+  function nasaTLX() {
+    return {
+      type: jsPsychSurvey,
+      survey_json: {
+        title: "NASA TLX",
+        description:
+          "Please answer the following questions about the previous block.",
+        showQuestionNumbers: "off",
+        pages: [
+          {
+            name: "page1",
+            elements: [
+              {
+                type: "slider",
+                name: "mental_demand",
+                title: "Mental Demand",
+                description:
+                  "How mentally demanding was this block?",
+                customLabels: [
+                  {
+                    value: 0,
+                    text: "Low",
+                  },
+                  {
+                    value: 100,
+                    text: "High",
+                  },
+                ],
+                isRequired: true,
+              },
+              {
+                type: "slider",
+                name: "physical_demand",
+                title: "Physical Demand",
+                description:
+                  "How physically demanding was this block?",
+                customLabels: [
+                  {
+                    value: 0,
+                    text: "Low",
+                  },
+                  {
+                    value: 100,
+                    text: "High",
+                  },
+                ],
+                isRequired: true,
+              },
+              {
+                type: "slider",
+                name: "temporal_demand",
+                title: "Temporal Demand",
+                description:
+                  "How hurried or rushed was the pace of this block?",
+                customLabels: [
+                  {
+                    value: 0,
+                    text: "Low",
+                  },
+                  {
+                    value: 100,
+                    text: "High",
+                  },
+                ],
+                isRequired: true,
+              },
+              {
+                type: "slider",
+                name: "performance",
+                title: "Performance",
+                description:
+                  "How successful were you in accomplishing what you were asked to do? ",
+                customLabels: [
+                  {
+                    value: 0,
+                    text: "Good",
+                  },
+                  {
+                    value: 100,
+                    text: "Poor",
+                  },
+                ],
+                isRequired: true,
+              },
+              {
+                type: "slider",
+                name: "effort",
+                title: "Effort",
+                description:
+                  "How hard did you have to work to accomplish your level of performance?",
+                customLabels: [
+                  {
+                    value: 0,
+                    text: "Low",
+                  },
+                  {
+                    value: 100,
+                    text: "High",
+                  },
+                ],
+                isRequired: true,
+              },
+              {
+                type: "slider",
+                name: "frustration",
+                title: "Frustration",
+                description:
+                  "How insecure, discouraged, irritated, stressed, and annoyed were you?",
+                customLabels: [
+                  {
+                    value: 0,
+                    text: "Low",
+                  },
+                  {
+                    value: 100,
+                    text: "High",
+                  },
+                ],
+                isRequired: true,
+              }
+            ],
+          },
+        ],
+      },
+      data: {
+        task: "nasa_tlx",
+      },
 
+      on_finish: function (data) {
+        const responses = data.response;
+        data.mental_demand = responses.mental_demand;
+        data.physical_demand = responses.physical_demand;
+        data.temporal_demand = responses.temporal_demand;
+        data.performance = responses.performance;
+        data.effort = responses.effort;
+        data.frustration = responses.frustration;
+      },
+    };
+  }
   /* -------------------------------------------------------------------------- */
   /*                                   Block 1                                  */
   /* -------------------------------------------------------------------------- */
@@ -574,7 +715,6 @@ the AI considered more relevant for its decision. So the ITI will be n3.
 */
 
   function block_transparentAI() {
-    // To be implemented in the future
     const screen_TransparentAI = {
       type: jsPsychHtmlKeyboardResponse,
       stimulus: `
@@ -585,6 +725,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       choices: "ALL_KEYS",
     };
     timeline.push(screen_TransparentAI);
+    timeline.push(nasaTLX());
     for (let i = 90; i < 150; i++) {
       timeline.push(ITI_3);
       timeline.push(trials_transparentAI[i]);
@@ -620,7 +761,8 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     trial_duration: 2000,
     on_finish: function () {
       const csv = jsPsych.data
-        .get().ignore(["stimulus", "plugin_version","trial_type"])
+        .get()
+        .ignore(["stimulus", "plugin_version", "trial_type"])
         .filterCustom(function (trial) {
           return (
             trial.task === "transparent_trial" ||
