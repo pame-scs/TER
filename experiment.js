@@ -122,7 +122,7 @@ async function runExperiment() {
     stimulus:
       '<div class="baggage">Baggage incoming</div> <div class="ai-pipeline"><div>AI is processing</div></div>',
     choices: "NO_KEYS",
-    trial_duration: 4000,
+    trial_duration: 500,
   };
 
   const ITI_3 = {
@@ -229,7 +229,7 @@ for the 10 trials*/
               : 0;
         data.ai_answer = modifiedItem.ai_answer;
       },
-      trial_duration: 5000,
+      trial_duration: 500,
     };
   });
 
@@ -357,7 +357,7 @@ multiple functions are needed */
             </div>`;
       },
       choices: "NO_KEYS",
-      trial_duration: 1000,
+      trial_duration: 500,
     };
   }
 
@@ -388,9 +388,7 @@ multiple functions are needed */
     return {
       type: jsPsychHtmlKeyboardResponse,
       stimulus: function () {
-        const allData = jsPsych.data
-          .get()
-          .filter({ task: taskType });
+        const allData = jsPsych.data.get().filter({ task: taskType });
         const correct = allData.values().filter((t) => t.correct === 1).length;
         const total = totalTrials;
         return `
@@ -403,6 +401,106 @@ multiple functions are needed */
       choices: "ALL_KEYS",
     };
   }
+
+  /* -------------------------------------------------------------------------- */
+  /*                          Contingencies Conditions                          */
+  /* -------------------------------------------------------------------------- */
+  /* ------------------------ Neutral - Gain condition ------------------------ */
+  /* In this condition, if the participant responds correctly, they receive 1€ and 
+  if they respond incorrectly, they receive nothing. The feedback will indicate 
+  the amount of money won every 10 trials. */
+
+  function feedback10trials_gain() {
+    return {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function () {
+        const allData = jsPsych.data
+          .get()
+          .filter({ trial_type: "image-keyboard-response" });
+        const blockData = allData.values().slice(-BLOCK_SIZE);
+        const correct = blockData.filter((t) => t.correct === 1).length;
+        const moneyWon = correct * 1; // 1€ per correct response
+        return `
+              <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+                <h2>Block Feedback</h2>
+                <p>You won ${moneyWon}€ in this block!</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>`;
+      },
+      choices: "ALL_KEYS",
+    };
+  }
+
+  function feedbackEND_gain() {
+    return {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function () {
+        const allData = jsPsych.data
+          .get()
+          .filter({ trial_type: "image-keyboard-response" });
+        const correct = allData.values().filter((t) => t.correct === 1).length;
+        const moneyWon = correct * 1; // 1€ per correct response
+        return `
+              <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+                <h2>Total Performance</h2>
+                <p>You won ${moneyWon}€ in total!</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>`;
+      },
+      choices: "ALL_KEYS",
+    };
+  } 
+
+  /* ------------------------ Neutral - Loss condition ------------------------ */
+  /* In this condition, if the participant responds correctly, they receive 1€ and 
+  if they respond incorrectly, they lose 1€. The feedback will indicate the amount 
+  of money gained every 10 trials. */
+  function feedback10trials_loss() {
+    return {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function () {
+        const allData = jsPsych.data
+          .get()
+          .filter({ trial_type: "image-keyboard-response" });
+        const blockData = allData.values().slice(-BLOCK_SIZE);
+        const correct = blockData.filter((t) => t.correct === 1).length;
+        const moneyWon = correct * 1; // 1€ per correct response
+        const moneyLost = (BLOCK_SIZE - correct) * 1; // 1€ lost per incorrect response
+        const netEarnings = moneyWon - moneyLost;
+        return `
+              <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+                <h2>Block Feedback</h2>
+                <p>You won ${moneyWon}€ and lost ${moneyLost}€ in this block! Your net earnings are ${netEarnings}€.</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>`;
+      },
+      choices: "ALL_KEYS",
+    };
+  }
+
+  function feedbackEND_loss() {
+    return {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function () {
+        const allData = jsPsych.data
+          .get()
+          .filter({ trial_type: "image-keyboard-response" });
+        const correct = allData.values().filter((t) => t.correct === 1).length;
+        const total = allData.count();
+        const moneyWon = correct * 1; // 1€ per correct response
+        const moneyLost = (total - correct) * 1; // 1€ lost per incorrect response
+        const netEarnings = moneyWon - moneyLost;
+        return `
+              <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+                <h2>Total Performance</h2>
+                <p>You won ${moneyWon}€ and lost ${moneyLost}€ in total! Your net earnings are ${netEarnings}€.</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>`;
+      },
+      choices: "ALL_KEYS",
+    };
+  }
+
 
   /* -------------------------------------------------------------------------- */
   /*                                 Assesments                                 */
@@ -457,9 +555,9 @@ multiple functions are needed */
     return {
       type: jsPsychSurvey,
       survey_json: {
-        title: "NASA TLX",
+        title: "NASA TLX Method: Workload Assessment",
         description:
-          "Please answer the following questions about the previous block.",
+          "We want to assess the \"workload\" you are experiencing. The factors that influence workload come from the task itself, how you feel about your own performance, the effort you have put in, the stress and frustration you have felt. Each scale has a descriptor at each end that encodes the scale. Note that for the Performance scale, the rating goes from \"good\" on the left to \"poor\" on the right, this order may be uncomfortable for some people. Pay close attention to your responses, consider each scale individually. Your ratings will play an important role in the resulting assessment.",
         showQuestionNumbers: "off",
         pages: [
           {
@@ -469,8 +567,7 @@ multiple functions are needed */
                 type: "slider",
                 name: "mental_demand",
                 title: "Mental Demand",
-                description:
-                  "How mentally demanding was this block?",
+                description: "How mentally demanding was this block?",
                 customLabels: [
                   {
                     value: 0,
@@ -487,8 +584,7 @@ multiple functions are needed */
                 type: "slider",
                 name: "physical_demand",
                 title: "Physical Demand",
-                description:
-                  "How physically demanding was this block?",
+                description: "How physically demanding was this block?",
                 customLabels: [
                   {
                     value: 0,
@@ -572,7 +668,7 @@ multiple functions are needed */
                   },
                 ],
                 isRequired: true,
-              }
+              },
             ],
           },
         ],
@@ -691,13 +787,16 @@ So the ITI will be n2.
 
       if (isBlockEnd && !isLastTrial) {
         timeline.push(questionnaire());
+        timeline.push(feedback10trials_loss());
         timeline.push(feedback10trials());
         timeline.push(questionnaire());
       }
     }
+    timeline.push(feedback10trials_loss());
     timeline.push(questionnaire());
     timeline.push(feedback10trials());
     timeline.push(questionnaire());
+    timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("simple_trial", 60));
     timeline.push(nasaTLX());
   }
@@ -746,7 +845,6 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     timeline.push(questionnaire());
     timeline.push(totalcountFeedback("transparent_trial", 60));
     timeline.push(nasaTLX());
-
   }
 
   /* -------------------------------------------------------------------------- */
@@ -785,10 +883,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   };
 
   const timeline = [welcome];
-  training();
-  block_noAI();
   block_simpleAI();
-  block_transparentAI();
   timeline.push(endScreen);
   jsPsych.run(timeline);
 }
