@@ -538,8 +538,9 @@ multiple functions are needed */
         task: "questionnaire",
       },
       on_finish: function (data) {
-        data.confidence_rating = data.responses.confidence;
-        data.trust_rating = data.responses.trust;
+        // In jsPsych 6, responses are keyed by index (0, 1, etc.) not by name
+        data.confidence_rating = data.response[0];
+        data.trust_rating = data.response[1];
       },
     };
   }
@@ -665,12 +666,13 @@ multiple functions are needed */
         task: "nasa_tlx",
       },
       on_finish: function (data) {
-        data.mental_demand = data.responses.mental_demand;
-        data.physical_demand = data.responses.physical_demand;
-        data.temporal_demand = data.responses.temporal_demand;
-        data.performance = data.responses.performance;
-        data.effort = data.responses.effort;
-        data.frustration = data.responses.frustration;
+        // In jsPsych 6, responses are keyed by index (0, 1, 2, 3, 4, 5)
+        data.mental_demand = data.response[0];
+        data.physical_demand = data.response[1];
+        data.temporal_demand = data.response[2];
+        data.performance = data.response[3];
+        data.effort = data.response[4];
+        data.frustration = data.response[5];
       },
     };
   }
