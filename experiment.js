@@ -114,7 +114,7 @@ async function runExperiment() {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: '<div class="baggage"><div>Baggage incoming</div></div>',
     choices: "NO_KEYS",
-    trial_duration: 4000,
+    trial_duration: 1000,
   };
 
   const ITI_2 = {
@@ -122,7 +122,7 @@ async function runExperiment() {
     stimulus:
       '<div class="baggage">Baggage incoming</div> <div class="ai-pipeline"><div>AI is processing</div></div>',
     choices: "NO_KEYS",
-    trial_duration: 500,
+    trial_duration: 1000,
   };
 
   const ITI_3 = {
@@ -130,7 +130,7 @@ async function runExperiment() {
     stimulus:
       '<div class="baggage">Baggage incoming</div> <div class="ai-pipeline"><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>',
     choices: "NO_KEYS",
-    trial_duration: 4000,
+    trial_duration: 1000,
   };
 
   /* -------------------------------------------------------------------------- */
@@ -184,7 +184,7 @@ for the 10 trials*/
             ? 1
             : 0;
     },
-    trial_duration: 5000,
+    trial_duration: 1500,
   }));
   /* -------------------------- Simple AI Image trial ------------------------- */
 
@@ -229,7 +229,7 @@ for the 10 trials*/
               : 0;
         data.ai_answer = modifiedItem.ai_answer;
       },
-      trial_duration: 500,
+      trial_duration: 1500,
     };
   });
 
@@ -304,7 +304,7 @@ multiple functions are needed */
         data.ai_answer = modifiedItem.ai_answer;
         data.ai_certainty = certainty;
       },
-      trial_duration: 5000,
+      trial_duration: 1500,
     };
   });
 
@@ -883,7 +883,10 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   };
 
   const timeline = [welcome];
+  training();
+  block_noAI();
   block_simpleAI();
+  block_transparentAI();
   timeline.push(endScreen);
   jsPsych.run(timeline);
 }
