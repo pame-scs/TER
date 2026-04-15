@@ -105,7 +105,7 @@ async function runExperiment() {
 
   /* ------------------------- Pavlovia Initialization ------------------------ */
   const pavlovia_init = {
-    type: jsPsychPavloviaPlugin,
+    type: 'pavlovia',
     command: "init"
   };
 
@@ -865,8 +865,9 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   };
 
   const pavlovia_finish = {
-    type: jsPsychPavloviaPlugin,
-    command: "finish"
+    type: 'pavlovia',
+    command: "finish",
+    participantId: 'PARTICIPANT'
   };
 
   const timeline = [pavlovia_init,preload, welcome];
