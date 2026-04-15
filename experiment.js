@@ -92,6 +92,16 @@ async function runExperiment() {
   const errorStimuli_transparent = await loadStimuli_error_transparentAI();
   const jsPsych = initJsPsych({});
 
+  const allImages = stimuli
+    .concat(stimuli_transparent)
+    .concat(errorStimuli_simple)
+    .concat(errorStimuli_transparent)
+    .map((item) => item.src);
+
+  const preload = {
+    type: jsPsychPreload,
+    images: allImages,
+  };
   /* ----------------------------- Welcome Screen ----------------------------- */
   const welcome = {
     type: jsPsychHtmlKeyboardResponse,
@@ -449,7 +459,7 @@ multiple functions are needed */
       },
       choices: "ALL_KEYS",
     };
-  } 
+  }
 
   /* ------------------------ Neutral - Loss condition ------------------------ */
   /* In this condition, if the participant responds correctly, they receive 1€ and 
@@ -500,7 +510,6 @@ multiple functions are needed */
       choices: "ALL_KEYS",
     };
   }
-
 
   /* -------------------------------------------------------------------------- */
   /*                                 Assesments                                 */
@@ -557,7 +566,7 @@ multiple functions are needed */
       survey_json: {
         title: "NASA TLX Method: Workload Assessment",
         description:
-          "We want to assess the \"workload\" you are experiencing. The factors that influence workload come from the task itself, how you feel about your own performance, the effort you have put in, the stress and frustration you have felt. Each scale has a descriptor at each end that encodes the scale. Note that for the Performance scale, the rating goes from \"good\" on the left to \"poor\" on the right, this order may be uncomfortable for some people. Pay close attention to your responses, consider each scale individually. Your ratings will play an important role in the resulting assessment.",
+          'We want to assess the "workload" you are experiencing. The factors that influence workload come from the task itself, how you feel about your own performance, the effort you have put in, the stress and frustration you have felt. Each scale has a descriptor at each end that encodes the scale. Note that for the Performance scale, the rating goes from "good" on the left to "poor" on the right, this order may be uncomfortable for some people. Pay close attention to your responses, consider each scale individually. Your ratings will play an important role in the resulting assessment.',
         showQuestionNumbers: "off",
         pages: [
           {
@@ -882,7 +891,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     },
   };
 
-  const timeline = [welcome];
+  const timeline = [preload, welcome];
   training();
   block_noAI();
   block_simpleAI();
