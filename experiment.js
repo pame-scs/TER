@@ -102,6 +102,13 @@ async function runExperiment() {
     type: jsPsychPreload,
     images: allImages,
   };
+
+  /* ------------------------- Pavlovia Initialization ------------------------ */
+  const pavlovia_init = {
+    type: jsPsychPavloviaPlugin,
+    command: "init"
+  };
+
   /* ----------------------------- Welcome Screen ----------------------------- */
   const welcome = {
     type: jsPsychHtmlKeyboardResponse,
@@ -200,14 +207,7 @@ for the 10 trials*/
 
   const trials_simpleAI = shuffled.map((item, index) => {
     const modifiedItem = itemChangesSimpleAI(index, item);
-    console.log(
-      "Trial " +
-        index +
-        ": " +
-        modifiedItem.name +
-        " - AI suggests: " +
-        modifiedItem.ai_answer,
-    );
+    
     return {
       type: jsPsychImageKeyboardResponse,
       stimulus: modifiedItem.src,
@@ -263,14 +263,6 @@ multiple functions are needed */
   const trials_transparentAI = shuffled_transparent.map((item, index) => {
     const modifiedItem = itemChangesTransparentAI(index, item);
     const certainty = calculateCertainty(item.difficulty);
-    console.log(
-      "Trial " +
-        index +
-        ": " +
-        modifiedItem.name +
-        " - AI suggests: " +
-        modifiedItem.ai_answer,
-    );
 
     return {
       type: jsPsychImageKeyboardResponse,
@@ -869,34 +861,18 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     </div>`,
     choices: "NO_KEYS",
     trial_duration: 2000,
-    on_finish: function () {
-      const csv = jsPsych.data
-        .get()
-        .ignore(["stimulus", "plugin_version", "trial_type"])
-        .filterCustom(function (trial) {
-          return (
-            trial.task === "transparent_trial" ||
-            trial.task === "simple_trial" ||
-            trial.task === "standard_trial" ||
-            trial.task === "questionnaire" ||
-            trial.task === "nasa_tlx"
-          );
-        })
-        .csv();
-
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
-      link.download = `experiment_data_${new Date().toISOString()}.csv`;
-      link.click();
-    },
+    // Pavlovia will handle data saving
   };
 
-  const timeline = [preload, welcome];
-  training();
-  block_noAI();
-  block_simpleAI();
+  const pavlovia_finish = {
+    type: jsPsychPavloviaPlugin,
+    command: "finish"
+  };
+
+  const timeline = [pavlovia_init,preload, welcome];
   block_transparentAI();
   timeline.push(endScreen);
+  timeline.push(pavlovia_finish);
   jsPsych.run(timeline);
 }
 

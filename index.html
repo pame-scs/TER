@@ -1,28 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Human-Automation Study</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Human-Automation Study</title>
 
-  <!-- jsPsych -->
-  <script src="jspsych/jspsych.js"></script>
-  <script src="jspsych/plugin-preload.js"></script>
-  <script src="jspsych/plugin-html-keyboard-response.js"></script>
-  <script src="jspsych/plugin-image-keyboard-response.js"></script>
-  <script src="jspsych/plugin-call-function.js"></script>
-  <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
-  <script src="jspsych/plugin-survey.js"></script>
-  <link rel="stylesheet" href="jspsych/plugin-survey.css">
+    <!-- jsPsych -->
+    <script src="https://unpkg.com/jspsych@8.2.1"></script>
+    <link
+      href="https://unpkg.com/jspsych@8.2.1/css/jspsych.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    
+    <!-- Pavlovia Plugin -->
+    <script
+      type="text/javascript"
+      src="lib/jspsych-7-pavlovia-2022.1.1.js"
+    ></script>
 
-  <!-- SheetJS -->
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <!-- Your jsPsych plugins -->
+    <script src="jspsych/plugin-preload.js"></script>
+    <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-image-keyboard-response.js"></script>
+    <script src="jspsych/plugin-call-function.js"></script>
+    <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+    <script src="jspsych/plugin-survey.js"></script>
+    <link rel="stylesheet" href="jspsych/survey.css" />
 
-  <link href="style.css" rel="stylesheet" type="text/css" />
-  <link href="animations.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="https://unpkg.com/survey-core@2.5.19/survey-core.min.css" />
-</head>
-<body>
-  <script src="experiment.js"></script>
-</body>
+    <!-- SheetJS -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <!-- Stylesheets -->
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="animations.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/survey-core@2.5.19/survey-core.min.css"
+    />
+  </head>
+  <body>
+    <script src="experiment.js"></script>
+  </body>
 </html>
