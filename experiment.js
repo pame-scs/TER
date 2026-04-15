@@ -98,13 +98,13 @@ async function runExperiment() {
     .map((item) => item.src);
 
   const preload = {
-    type: 'preload',
+    type: "preload",
     images: allImages,
   };
 
   /* ----------------------------- Welcome Screen ----------------------------- */
   const welcome = {
-    type: 'html-keyboard-response',
+    type: "html-keyboard-response",
     stimulus: `
       <div>
         <h1>Human-Automation Study</h1>
@@ -121,14 +121,14 @@ async function runExperiment() {
 
   /* --------------------------- Inter-trial interval ------------------------- */
   const ITI_V1 = {
-    type: 'html-keyboard-response',
+    type: "html-keyboard-response",
     stimulus: '<div class="baggage"><div>Baggage incoming</div></div>',
     choices: jsPsych.NO_KEYS,
     trial_duration: 1000,
   };
 
   const ITI_2 = {
-    type: 'html-keyboard-response',
+    type: "html-keyboard-response",
     stimulus:
       '<div class="baggage">Baggage incoming</div> <div class="ai-pipeline"><div>AI is processing</div></div>',
     choices: jsPsych.NO_KEYS,
@@ -136,7 +136,7 @@ async function runExperiment() {
   };
 
   const ITI_3 = {
-    type: 'html-keyboard-response',
+    type: "html-keyboard-response",
     stimulus:
       '<div class="baggage">Baggage incoming</div> <div class="ai-pipeline"><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>',
     choices: jsPsych.NO_KEYS,
@@ -172,7 +172,7 @@ for the 10 trials*/
 
   const shuffled = jsPsych.randomization.shuffle(stimuli);
   const trials = shuffled.map((item) => ({
-    type: 'image-keyboard-response',
+    type: "image-keyboard-response",
     stimulus: item.src,
     choices: [KEY_SAFE, KEY_DANGER],
     data: {
@@ -200,9 +200,9 @@ for the 10 trials*/
 
   const trials_simpleAI = shuffled.map((item, index) => {
     const modifiedItem = itemChangesSimpleAI(index, item);
-    
+
     return {
-      type: 'image-keyboard-response',
+      type: "image-keyboard-response",
       stimulus: modifiedItem.src,
       choices: [KEY_SAFE, KEY_DANGER],
       prompt: `<div class="ai-feedback"><div class="ai_suggestion_wrapper">
@@ -258,7 +258,7 @@ multiple functions are needed */
     const certainty = calculateCertainty(item.difficulty);
 
     return {
-      type: 'image-keyboard-response',
+      type: "image-keyboard-response",
       stimulus: modifiedItem.src,
       choices: [KEY_SAFE, KEY_DANGER],
       prompt: `<div class="ai-feedback">
@@ -309,7 +309,7 @@ multiple functions are needed */
 
   function feedbackPerTrial() {
     return {
-      type: 'html-keyboard-response',
+      type: "html-keyboard-response",
       stimulus: function () {
         const last = jsPsych.data
           .get()
@@ -331,7 +331,7 @@ multiple functions are needed */
   /* --------------------- Display of participants awnser --------------------- */
   function displayAnswer() {
     return {
-      type: 'html-keyboard-response',
+      type: "html-keyboard-response",
       stimulus: function () {
         const last = jsPsych.data
           .get()
@@ -359,7 +359,7 @@ multiple functions are needed */
   /* ------------------------ Feedback every 10 trials ------------------------ */
   function feedback10trials() {
     return {
-      type: 'html-keyboard-response',
+      type: "html-keyboard-response",
       stimulus: function () {
         const allData = jsPsych.data
           .get()
@@ -381,7 +381,7 @@ multiple functions are needed */
 
   function totalcountFeedback(taskType, totalTrials) {
     return {
-      type: 'html-keyboard-response',
+      type: "html-keyboard-response",
       stimulus: function () {
         const allData = jsPsych.data.get().filter({ task: taskType });
         const correct = allData.values().filter((t) => t.correct === 1).length;
@@ -407,7 +407,7 @@ multiple functions are needed */
 
   function feedback10trials_gain() {
     return {
-      type: 'html-keyboard-response',
+      type: "html-keyboard-response",
       stimulus: function () {
         const allData = jsPsych.data
           .get()
@@ -428,7 +428,7 @@ multiple functions are needed */
 
   function feedbackEND_gain() {
     return {
-      type: 'html-keyboard-response',
+      type: "html-keyboard-response",
       stimulus: function () {
         const allData = jsPsych.data
           .get()
@@ -452,7 +452,7 @@ multiple functions are needed */
   of money gained every 10 trials. */
   function feedback10trials_loss() {
     return {
-      type: 'html-keyboard-response',
+      type: "html-keyboard-response",
       stimulus: function () {
         const allData = jsPsych.data
           .get()
@@ -475,7 +475,7 @@ multiple functions are needed */
 
   function feedbackEND_loss() {
     return {
-      type: 'html-keyboard-response',
+      type: "html-keyboard-response",
       stimulus: function () {
         const allData = jsPsych.data
           .get()
@@ -502,183 +502,175 @@ multiple functions are needed */
   /* ---------------------- Questionaire every 10 trials ---------------------- */
   function questionnaire() {
     return {
-      type: 'survey',
-      survey_json: {
-        title: "Self-Assessment",
-        description:
-          "Please answer the following questions about the previous 10 trials.",
-        showQuestionNumbers: "off",
-        pages: [
-          {
-            name: "page1",
-            elements: [
-              {
-                type: "rating",
-                name: "confidence",
-                title:
-                  "In a scale from 1 to 7, how confident are you in your responses?",
-                rateMin: 1,
-                rateMax: 7,
-                isRequired: true,
-              },
-              {
-                type: "rating",
-                name: "trust",
-                title: "In a scale from 1 to 7, do you trust AI?",
-                rateMin: 1,
-                rateMax: 7,
-                isRequired: true,
-              },
-            ],
-          },
-        ],
-      },
+      type: "survey-likert",
+      questions: [
+        {
+          prompt:
+            "In a scale from 1 to 7, how confident are you in your responses?",
+          labels: [
+            "1 - Not confident",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7 - Very confident",
+          ],
+          required: true,
+          name: "confidence",
+        },
+        {
+          prompt: "In a scale from 1 to 7, do you trust AI?",
+          labels: [
+            "1 - Do not trust",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7 - Trust completely",
+          ],
+          required: true,
+          name: "trust",
+        },
+      ],
       data: {
         task: "questionnaire",
       },
-
       on_finish: function (data) {
-        const responses = data.response;
-        data.confidence_rating = responses.confidence;
-        data.trust_rating = responses.trust;
+        data.confidence_rating = data.responses.confidence;
+        data.trust_rating = data.responses.trust;
       },
     };
   }
+
   /* -------------------------------- NASA LTX -------------------------------- */
   function nasaTLX() {
     return {
-      type: 'survey',
-      survey_json: {
-        title: "NASA TLX Method: Workload Assessment",
-        description:
-          'We want to assess the "workload" you are experiencing. The factors that influence workload come from the task itself, how you feel about your own performance, the effort you have put in, the stress and frustration you have felt. Each scale has a descriptor at each end that encodes the scale. Note that for the Performance scale, the rating goes from "good" on the left to "poor" on the right, this order may be uncomfortable for some people. Pay close attention to your responses, consider each scale individually. Your ratings will play an important role in the resulting assessment.',
-        showQuestionNumbers: "off",
-        pages: [
-          {
-            name: "page1",
-            elements: [
-              {
-                type: "slider",
-                name: "mental_demand",
-                title: "Mental Demand",
-                description: "How mentally demanding was this block?",
-                customLabels: [
-                  {
-                    value: 0,
-                    text: "Low",
-                  },
-                  {
-                    value: 100,
-                    text: "High",
-                  },
-                ],
-                isRequired: true,
-              },
-              {
-                type: "slider",
-                name: "physical_demand",
-                title: "Physical Demand",
-                description: "How physically demanding was this block?",
-                customLabels: [
-                  {
-                    value: 0,
-                    text: "Low",
-                  },
-                  {
-                    value: 100,
-                    text: "High",
-                  },
-                ],
-                isRequired: true,
-              },
-              {
-                type: "slider",
-                name: "temporal_demand",
-                title: "Temporal Demand",
-                description:
-                  "How hurried or rushed was the pace of this block?",
-                customLabels: [
-                  {
-                    value: 0,
-                    text: "Low",
-                  },
-                  {
-                    value: 100,
-                    text: "High",
-                  },
-                ],
-                isRequired: true,
-              },
-              {
-                type: "slider",
-                name: "performance",
-                title: "Performance",
-                description:
-                  "How successful were you in accomplishing what you were asked to do? ",
-                customLabels: [
-                  {
-                    value: 0,
-                    text: "Good",
-                  },
-                  {
-                    value: 100,
-                    text: "Poor",
-                  },
-                ],
-                isRequired: true,
-              },
-              {
-                type: "slider",
-                name: "effort",
-                title: "Effort",
-                description:
-                  "How hard did you have to work to accomplish your level of performance?",
-                customLabels: [
-                  {
-                    value: 0,
-                    text: "Low",
-                  },
-                  {
-                    value: 100,
-                    text: "High",
-                  },
-                ],
-                isRequired: true,
-              },
-              {
-                type: "slider",
-                name: "frustration",
-                title: "Frustration",
-                description:
-                  "How insecure, discouraged, irritated, stressed, and annoyed were you?",
-                customLabels: [
-                  {
-                    value: 0,
-                    text: "Low",
-                  },
-                  {
-                    value: 100,
-                    text: "High",
-                  },
-                ],
-                isRequired: true,
-              },
-            ],
-          },
-        ],
-      },
+      type: "survey-likert",
+      questions: [
+        {
+          prompt: "How mentally demanding was this block?",
+          labels: [
+            "0 - Low",
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80",
+            "90",
+            "100 - High",
+          ],
+          required: true,
+          name: "mental_demand",
+        },
+        {
+          prompt: "How physically demanding was this block?",
+          labels: [
+            "0 - Low",
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80",
+            "90",
+            "100 - High",
+          ],
+          required: true,
+          name: "physical_demand",
+        },
+        {
+          prompt: "How hurried or rushed was the pace of this block?",
+          labels: [
+            "0 - Low",
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80",
+            "90",
+            "100 - High",
+          ],
+          required: true,
+          name: "temporal_demand",
+        },
+        {
+          prompt:
+            "How successful were you in accomplishing what you were asked to do?",
+          labels: [
+            "0 - Good",
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80",
+            "90",
+            "100 - Poor",
+          ],
+          required: true,
+          name: "performance",
+        },
+        {
+          prompt:
+            "How hard did you have to work to accomplish your level of performance?",
+          labels: [
+            "0 - Low",
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80",
+            "90",
+            "100 - High",
+          ],
+          required: true,
+          name: "effort",
+        },
+        {
+          prompt:
+            "How insecure, discouraged, irritated, stressed, and annoyed were you?",
+          labels: [
+            "0 - Low",
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80",
+            "90",
+            "100 - High",
+          ],
+          required: true,
+          name: "frustration",
+        },
+      ],
       data: {
         task: "nasa_tlx",
       },
-
       on_finish: function (data) {
-        const responses = data.response;
-        data.mental_demand = responses.mental_demand;
-        data.physical_demand = responses.physical_demand;
-        data.temporal_demand = responses.temporal_demand;
-        data.performance = responses.performance;
-        data.effort = responses.effort;
-        data.frustration = responses.frustration;
+        data.mental_demand = data.responses.mental_demand;
+        data.physical_demand = data.responses.physical_demand;
+        data.temporal_demand = data.responses.temporal_demand;
+        data.performance = data.responses.performance;
+        data.effort = data.responses.effort;
+        data.frustration = data.responses.frustration;
       },
     };
   }
@@ -721,7 +713,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
 
   function block_noAI() {
     const screen_NoAI = {
-      type: 'html-keyboard-response',
+      type: "html-keyboard-response",
       stimulus: `
       <div>
         <h1>Block No-AI</h1>
@@ -761,7 +753,7 @@ So the ITI will be n2.
 */
   function block_simpleAI() {
     const screen_NoAI = {
-      type: 'html-keyboard-response',
+      type: "html-keyboard-response",
       stimulus: `
       <div>
         <h1>Block Simple AI</h1>
@@ -811,7 +803,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
 
   function block_transparentAI() {
     const screen_TransparentAI = {
-      type: 'html-keyboard-response',
+      type: "html-keyboard-response",
       stimulus: `
       <div>
         <h1>Block Transparent AI</h1>
@@ -844,15 +836,15 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /* -------------------------------------------------------------------------- */
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
-   /* ===== PAVLOVIA INITIALIZATION ===== */
+  /* ===== PAVLOVIA INITIALIZATION ===== */
   const pavlovia_init = {
     type: "pavlovia",
-    command: "init"
+    command: "init",
   };
 
   /* ===== END SCREEN ===== */
   const endScreen = {
-    type: 'html-keyboard-response',
+    type: "html-keyboard-response",
     stimulus: `
     <div>
       <h1>Thank You!</h1>
@@ -867,7 +859,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   const pavlovia_finish = {
     type: "pavlovia",
     command: "finish",
-    participantId: "PARTICIPANT"
+    participantId: "PARTICIPANT",
   };
 
   /* ===== TIMELINE ===== */
@@ -878,11 +870,10 @@ the AI considered more relevant for its decision. So the ITI will be n3.
 
   jsPsych.init({
     timeline: timeline,
-    on_finish: function(data) {
+    on_finish: function (data) {
       jsPsych.data.displayData();
-    }
+    },
   });
 }
 
 runExperiment();
-
