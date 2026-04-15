@@ -1,0 +1,500 @@
+"trial_type","trial_index","time_elapsed","internal_node_id","success","timeout","failed_images","failed_audio","failed_video","rt","stimulus","response","task","slide_name","correct_answer","ai_answer","difficulty","rank","items","correct","ai_certainty","question_order","confidence_rating","trust_rating","mental_demand","physical_demand","temporal_demand","performance","effort","frustration"
+"pavlovia","0","609","0.0-0.0","","","","","","","","","","","","","","","","","","","","","","","","","",""
+"preload","1","1112","0.0-1.0","true","false","[]","[]","[]","","","","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","2","2274","0.0-2.0","","","","","","1161","
+      <div>
+        <h1>Human-Automation Study</h1>
+        <p>You will see a series of luggage X-ray images.</p>
+        <p>For each image, decide whether it contains a dangerous object.</p>
+        <br>
+        <p>Press S : Safe </p>
+        <p>Press D : Danger </p>
+        <br>
+        <p><em>Press any key to begin.</em></p>
+      </div>","s","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","3","2883","0.0-3.0","","","","","","609","
+      <div>
+        <h1>Block Transparent AI</h1>
+        <p><em>Press any key to begin.</em></p>
+      </div>","s","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","4","3884","0.0-4.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","5","4558","0.0-5.0","","","","","","666","img_transparent/Image88.jpg","d","transparent_trial","Image88","Danger","Danger","0.43","108","6","1","87","","","","","","","","",""
+"html-keyboard-response","6","5060","0.0-6.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","7","6120","0.0-7.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","8","6789","0.0-8.0","","","","","","662","img_transparent/Image19.jpg","s","transparent_trial","Image19","Safe","Safe","0.1","32","2","1","97","","","","","","","","",""
+"html-keyboard-response","9","7290","0.0-9.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","10","8293","0.0-10.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","11","8962","0.0-11.0","","","","","","657","img_transparent/Image54.jpg","s","transparent_trial","Image54","Safe","Safe","0.78","149","6","1","76","","","","","","","","",""
+"html-keyboard-response","12","9463","0.0-12.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","13","10465","0.0-13.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","14","11072","0.0-14.0","","","","","","600","img_transparent/Image6.jpg","s","transparent_trial","Image6","Safe","Safe","0.06","12","3","1","98","","","","","","","","",""
+"html-keyboard-response","15","11575","0.0-15.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","16","12578","0.0-16.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","17","13106","0.0-17.0","","","","","","513","img_transparent/Image63.jpg","s","transparent_trial","Image63","Safe","Safe","0.33","87","6","1","90","","","","","","","","",""
+"html-keyboard-response","18","13607","0.0-18.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","19","14608","0.0-19.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","20","15110","0.0-20.0","","","","","","490","img_transparent/Image1.jpg","s","transparent_trial","Image1","Safe","Safe","0.09","28","4","1","97","","","","","","","","",""
+"html-keyboard-response","21","15611","0.0-21.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","22","16613","0.0-22.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","23","17113","0.0-23.0","","","","","","489","img_transparent/Image50.jpg","s","transparent_trial","Image50","Safe","Safe","0.27","73","5","1","92","","","","","","","","",""
+"html-keyboard-response","24","17615","0.0-24.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","25","18616","0.0-25.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","26","19094","0.0-26.0","","","","","","466","img_transparent/Image102.jpg","s","transparent_trial","Image102","Safe","Safe","0.19","53","5","1","94","","","","","","","","",""
+"html-keyboard-response","27","19595","0.0-27.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","28","20596","0.0-28.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","29","21178","0.0-29.0","","","","","","574","img_transparent/Image90.jpg","d","transparent_trial","Image90","Danger","Danger","0.14","44","6","1","96","","","","","","","","",""
+"html-keyboard-response","30","21679","0.0-30.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","31","22679","0.0-31.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","32","23261","0.0-32.0","","","","","","565","img_transparent/Image12.jpg","s","transparent_trial","Image12","Safe","Safe","0.07","20","4","1","98","","","","","","","","",""
+"html-keyboard-response","33","23762","0.0-33.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"survey-likert","34","28234","0.0-34.0","","","","","","4469","","{""confidence"":6,""trust"":6}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","35","29512","0.0-35.0","","","","","","1276","
+              <div style=""font-family:sans-serif; text-align:center; margin-top:100px;"">
+                <h2>Block Feedback</h2>
+                <p style=""font-size:3em; font-weight:bold; margin-top:20px;"">10 / 10</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>","s","","","","","","","","","","","","","","","","","",""
+"survey-likert","36","34226","0.0-36.0","","","","","","4712","","{""confidence"":4,""trust"":4}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","37","35227","0.0-37.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","38","36460","0.0-38.0","","","","","","1224","img_transparent/Image122.jpg","s","transparent_trial","Image122","Safe","Safe","0.4","102","7","1","88","","","","","","","","",""
+"html-keyboard-response","39","36961","0.0-39.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","40","37962","0.0-40.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","41","38782","0.0-41.0","","","","","","807","img_transparent/Image97.jpg","s","transparent_trial","Image97","Safe","Safe","0.48","123","9","1","85","","","","","","","","",""
+"html-keyboard-response","42","39283","0.0-42.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","43","40286","0.0-43.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","44","40859","0.0-44.0","","","","","","565","img_transparent/Image30.jpg","d","transparent_trial","Image30","Danger","Danger","0.05","7","4","1","98","","","","","","","","",""
+"html-keyboard-response","45","41360","0.0-45.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","46","42361","0.0-46.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","47","42921","0.0-47.0","","","","","","551","img_transparent/Image131.jpg","s","transparent_trial","Image131","Safe","Safe","0.29","79","4","1","91","","","","","","","","",""
+"html-keyboard-response","48","43422","0.0-48.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","49","44423","0.0-49.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","50","44985","0.0-50.0","","","","","","552","img_transparent/Image93.jpg","s","transparent_trial","Image93","Safe","Safe","0.39","100","5","1","88","","","","","","","","",""
+"html-keyboard-response","51","45486","0.0-51.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","52","46486","0.0-52.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","53","47015","0.0-53.0","","","","","","520","img_transparent/Image44.jpg","s","transparent_trial","Image44","Safe","Safe","0.11","36","6","1","97","","","","","","","","",""
+"html-keyboard-response","54","47517","0.0-54.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","55","48517","0.0-55.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","56","48947","0.0-56.0","","","","","","421","img_transparent/Image11.jpg","s","transparent_trial","Image11","Safe","Safe","0.08","25","3","1","98","","","","","","","","",""
+"html-keyboard-response","57","49448","0.0-57.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","58","50450","0.0-58.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","59","51097","0.0-59.0","","","","","","633","img_transparent/Image114.jpg","s","transparent_trial","Image114","Safe","Safe","0.56","138","6","1","83","","","","","","","","",""
+"html-keyboard-response","60","51599","0.0-60.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","61","52600","0.0-61.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","62","53116","0.0-62.0","","","","","","506","img_transparent/Image124.jpg","s","transparent_trial","Image124","Safe","Safe","0.45","117","6","1","86","","","","","","","","",""
+"html-keyboard-response","63","53618","0.0-63.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","64","54620","0.0-64.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","65","55178","0.0-65.0","","","","","","544","img_transparent/Image73.jpg","s","transparent_trial","Image73","Safe","Safe","0.47","122","4","1","85","","","","","","","","",""
+"html-keyboard-response","66","55679","0.0-66.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"survey-likert","67","59286","0.0-67.0","","","","","","3604","","{""confidence"":5,""trust"":4}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","68","59841","0.0-68.0","","","","","","552","
+              <div style=""font-family:sans-serif; text-align:center; margin-top:100px;"">
+                <h2>Block Feedback</h2>
+                <p style=""font-size:3em; font-weight:bold; margin-top:20px;"">10 / 10</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>","s","","","","","","","","","","","","","","","","","",""
+"survey-likert","69","63033","0.0-69.0","","","","","","3192","","{""confidence"":5,""trust"":6}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","70","64036","0.0-70.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","71","64508","0.0-71.0","","","","","","463","img_transparent/Image75.jpg","s","transparent_trial","Image75","Safe","Safe","0.31","84","4","1","90","","","","","","","","",""
+"html-keyboard-response","72","65027","0.0-72.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","73","66045","0.0-73.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","74","66535","0.0-74.0","","","","","","477","img_transparent/Image39.jpg","s","transparent_trial","Image39","Safe","Safe","0.2","54","7","1","94","","","","","","","","",""
+"html-keyboard-response","75","67060","0.0-75.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","76","68064","0.0-76.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","77","68453","0.0-77.0","","","","","","373","img_transparent/Image136.jpg","s","transparent_trial","Image136","Safe","Safe","0.55","135","8","1","83","","","","","","","","",""
+"html-keyboard-response","78","68953","0.0-78.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","79","69955","0.0-79.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","80","70505","0.0-80.0","","","","","","538","img_transparent/Image132.jpg","s","transparent_trial","Image132","Safe","Safe","0.47","119","7","1","85","","","","","","","","",""
+"html-keyboard-response","81","71006","0.0-81.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","82","72109","0.0-82.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","83","72650","0.0-83.0","","","","","","530","img_transparent/Image134.jpg","s","transparent_trial","Image134","Safe","Safe","0.26","69","7","1","92","","","","","","","","",""
+"html-keyboard-response","84","73151","0.0-84.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","85","74152","0.0-85.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","86","74670","0.0-86.0","","","","","","503","img_transparent/Image133.jpg","s","transparent_trial","Image133","Safe","Safe","0.35","92","6","1","89","","","","","","","","",""
+"html-keyboard-response","87","75171","0.0-87.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","88","76172","0.0-88.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","89","76640","0.0-89.0","","","","","","458","img_transparent/Image40.jpg","s","transparent_trial","Image40","Safe","Safe","0.07","18","5","1","98","","","","","","","","",""
+"html-keyboard-response","90","77141","0.0-90.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","91","78174","0.0-91.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","92","78663","0.0-92.0","","","","","","480","img_transparent/Image89.jpg","s","transparent_trial","Image89","Danger","Danger","0.27","74","6","0","92","","","","","","","","",""
+"html-keyboard-response","93","79185","0.0-93.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","94","80188","0.0-94.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","95","80683","0.0-95.0","","","","","","488","img_transparent/Image18.jpg","s","transparent_trial","Image18","Safe","Safe","0.05","5","3","1","98","","","","","","","","",""
+"html-keyboard-response","96","81196","0.0-96.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","97","82200","0.0-97.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","98","82731","0.0-98.0","","","","","","521","img_transparent/Image16.jpg","s","transparent_trial","Image16","Safe","Safe","0.05","8","4","1","98","","","","","","","","",""
+"html-keyboard-response","99","83232","0.0-99.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"survey-likert","100","87021","0.0-100.0","","","","","","3787","","{""confidence"":3,""trust"":5}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","101","87686","0.0-101.0","","","","","","663","
+              <div style=""font-family:sans-serif; text-align:center; margin-top:100px;"">
+                <h2>Block Feedback</h2>
+                <p style=""font-size:3em; font-weight:bold; margin-top:20px;"">9 / 10</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>","s","","","","","","","","","","","","","","","","","",""
+"survey-likert","102","91025","0.0-102.0","","","","","","3337","","{""confidence"":4,""trust"":6}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","103","92028","0.0-103.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","104","92674","0.0-104.0","","","","","","624","img_transparent/Image103.jpg","s","transparent_trial","Image103","Safe","Safe","0.15","46","7","1","95","","","","","","","","",""
+"html-keyboard-response","105","93175","0.0-105.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","106","94176","0.0-106.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","107","94814","0.0-107.0","","","","","","629","img_transparent/Image148.jpg","d","transparent_trial","Image148","Danger","Danger","0.28","78","9","1","91","","","","","","","","",""
+"html-keyboard-response","108","95314","0.0-108.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","109","96315","0.0-109.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","110","96872","0.0-110.0","","","","","","538","img_transparent/Image48.jpg","s","transparent_trial","Image48","Safe","Safe","0.24","65","6","1","93","","","","","","","","",""
+"html-keyboard-response","111","97372","0.0-111.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","112","98373","0.0-112.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","113","98848","0.0-113.0","","","","","","461","img_transparent/Image59.jpg","s","transparent_trial","Image59","Safe","Safe","0.27","75","6","1","92","","","","","","","","",""
+"html-keyboard-response","114","99349","0.0-114.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","115","100349","0.0-115.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","116","100907","0.0-116.0","","","","","","548","img_transparent/Image67.jpg","s","transparent_trial","Image67","Safe","Safe","0.13","41","5","1","96","","","","","","","","",""
+"html-keyboard-response","117","101408","0.0-117.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","118","102409","0.0-118.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","119","102978","0.0-119.0","","","","","","560","img_transparent/Image85.jpg","d","transparent_trial","Image85","Danger","Danger","0.3","80","6","1","91","","","","","","","","",""
+"html-keyboard-response","120","103479","0.0-120.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","121","104480","0.0-121.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","122","104972","0.0-122.0","","","","","","483","img_transparent/Image14.jpg","s","transparent_trial","Image14","Safe","Safe","0.05","9","4","1","98","","","","","","","","",""
+"html-keyboard-response","123","105482","0.0-123.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","124","106482","0.0-124.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","125","106990","0.0-125.0","","","","","","502","img_transparent/Image143.jpg","s","transparent_trial","Image143","Danger","Danger","0.12","39","8","0","96","","","","","","","","",""
+"html-keyboard-response","126","107491","0.0-126.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","127","108518","0.0-127.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","128","109402","0.0-128.0","","","","","","871","img_transparent/Image137.jpg","s","transparent_trial","Image137","Safe","Safe","0.37","98","8","1","88","","","","","","","","",""
+"html-keyboard-response","129","109903","0.0-129.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","130","111011","0.0-130.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","131","111470","0.0-131.0","","","","","","451","img_transparent/Image69.jpg","s","transparent_trial","Image69","Safe","Safe","0.57","140","6","1","82","","","","","","","","",""
+"html-keyboard-response","132","111971","0.0-132.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"survey-likert","133","115070","0.0-133.0","","","","","","3097","","{""confidence"":5,""trust"":5}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","134","115626","0.0-134.0","","","","","","553","
+              <div style=""font-family:sans-serif; text-align:center; margin-top:100px;"">
+                <h2>Block Feedback</h2>
+                <p style=""font-size:3em; font-weight:bold; margin-top:20px;"">9 / 10</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>","s","","","","","","","","","","","","","","","","","",""
+"survey-likert","135","119556","0.0-135.0","","","","","","3928","","{""confidence"":6,""trust"":6}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","136","120561","0.0-136.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","137","121047","0.0-137.0","","","","","","477","img_error_transparentAI/Transparent_Error1.jpg","s","transparent_trial","Transparent_Error1","Safe","Safe","0.53","131","6","1","97","","","","","","","","",""
+"html-keyboard-response","138","121571","0.0-138.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","139","122573","0.0-139.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","140","123178","0.0-140.0","","","","","","597","img_error_transparentAI/Transparent_Error2.jpg","d","transparent_trial","Transparent_Error2","Safe","Danger","0.52","128","5","0","92","","","","","","","","",""
+"html-keyboard-response","141","123679","0.0-141.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","142","124681","0.0-142.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","143","125533","0.0-143.0","","","","","","843","img_error_transparentAI/Transparent_Error3.jpg","d","transparent_trial","Transparent_Error3","Danger","Safe","0.16","48","9","1","98","","","","","","","","",""
+"html-keyboard-response","144","126035","0.0-144.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","145","127036","0.0-145.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","146","128228","0.0-146.0","","","","","","1181","img_error_transparentAI/Transparent_Error4.jpg","d","transparent_trial","Transparent_Error4","Danger","Safe","0.51","127","9","1","92","","","","","","","","",""
+"html-keyboard-response","147","128729","0.0-147.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","148","129730","0.0-148.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","149","131247","0.0-149.0","","","","","","null","img_error_transparentAI/Transparent_Error5.jpg","null","transparent_trial","Transparent_Error5","Danger","Safe","0.3","81","9","0","93","","","","","","","","",""
+"html-keyboard-response","150","131749","0.0-150.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">No response</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","151","132750","0.0-151.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","152","133663","0.0-152.0","","","","","","907","img_error_transparentAI/Transparent_Error6.jpg","s","transparent_trial","Transparent_Error6","Danger","Danger","0.05","7","4","0","89","","","","","","","","",""
+"html-keyboard-response","153","134165","0.0-153.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","154","135165","0.0-154.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","155","136459","0.0-155.0","","","","","","1288","img_error_transparentAI/Transparent_Error7.jpg","d","transparent_trial","Transparent_Error7","Safe","Danger","0.55","134","5","0","87","","","","","","","","",""
+"html-keyboard-response","156","136961","0.0-156.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","157","137961","0.0-157.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","158","138717","0.0-158.0","","","","","","748","img_error_transparentAI/Transparent_Error8.jpg","s","transparent_trial","Transparent_Error8","Safe","Danger","0.71","146","6","1","89","","","","","","","","",""
+"html-keyboard-response","159","139218","0.0-159.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","160","140219","0.0-160.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","161","140903","0.0-161.0","","","","","","675","img_error_transparentAI/Transparent_Error9.jpg","s","transparent_trial","Transparent_Error9","Safe","Safe","0.54","132","5","1","98","","","","","","","","",""
+"html-keyboard-response","162","141404","0.0-162.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","163","142405","0.0-163.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","164","143022","0.0-164.0","","","","","","605","img_error_transparentAI/Transparent_Error10.jpg","s","transparent_trial","Transparent_Error10","Safe","Safe","0.8","150","4","1","90","","","","","","","","",""
+"html-keyboard-response","165","143524","0.0-165.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"survey-likert","166","147743","0.0-166.0","","","","","","4218","","{""confidence"":4,""trust"":2}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","167","148395","0.0-167.0","","","","","","648","
+              <div style=""font-family:sans-serif; text-align:center; margin-top:100px;"">
+                <h2>Block Feedback</h2>
+                <p style=""font-size:3em; font-weight:bold; margin-top:20px;"">6 / 10</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>","s","","","","","","","","","","","","","","","","","",""
+"survey-likert","168","151477","0.0-168.0","","","","","","3081","","{""confidence"":4,""trust"":3}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","169","152481","0.0-169.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","170","153151","0.0-170.0","","","","","","663","img_transparent/Image32.jpg","s","transparent_trial","Image32","Safe","Safe","0.22","58","4","1","93","","","","","","","","",""
+"html-keyboard-response","171","153652","0.0-171.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","172","154653","0.0-172.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","173","155313","0.0-173.0","","","","","","654","img_transparent/Image140.jpg","d","transparent_trial","Image140","Danger","Danger","0.28","77","9","1","91","","","","","","","","",""
+"html-keyboard-response","174","155815","0.0-174.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","175","156816","0.0-175.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","176","157765","0.0-176.0","","","","","","943","img_transparent/Image83.jpg","d","transparent_trial","Image83","Danger","Danger","0.34","89","5","1","89","","","","","","","","",""
+"html-keyboard-response","177","158266","0.0-177.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","178","159268","0.0-178.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","179","160028","0.0-179.0","","","","","","756","img_transparent/Image147.jpg","s","transparent_trial","Image147","Danger","Danger","0.36","97","7","0","89","","","","","","","","",""
+"html-keyboard-response","180","160530","0.0-180.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","181","161530","0.0-181.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","182","162403","0.0-182.0","","","","","","863","img_transparent/Image130.jpg","s","transparent_trial","Image130","Safe","Safe","0.44","111","4","1","86","","","","","","","","",""
+"html-keyboard-response","183","162904","0.0-183.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","184","163904","0.0-184.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","185","164532","0.0-185.0","","","","","","615","img_transparent/Image66.jpg","s","transparent_trial","Image66","Safe","Safe","0.2","55","6","1","94","","","","","","","","",""
+"html-keyboard-response","186","165033","0.0-186.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","187","166034","0.0-187.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","188","166627","0.0-188.0","","","","","","585","img_transparent/Image5.jpg","s","transparent_trial","Image5","Safe","Safe","0.1","33","3","1","97","","","","","","","","",""
+"html-keyboard-response","189","167128","0.0-189.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","190","168130","0.0-190.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","191","168804","0.0-191.0","","","","","","668","img_transparent/Image145.jpg","d","transparent_trial","Image145","Danger","Danger","0.44","115","10","1","86","","","","","","","","",""
+"html-keyboard-response","192","169305","0.0-192.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Danger</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","193","170307","0.0-193.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","194","171061","0.0-194.0","","","","","","746","img_transparent/Image110.jpg","s","transparent_trial","Image110","Safe","Safe","0.3","82","7","1","91","","","","","","","","",""
+"html-keyboard-response","195","171563","0.0-195.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"html-keyboard-response","196","172588","0.0-196.0","","","","","","null","<div class=""baggage"">Baggage incoming</div> <div class=""ai-pipeline""><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>","null","","","","","","","","","","","","","","","","","",""
+"image-keyboard-response","197","173308","0.0-197.0","","","","","","706","img_transparent/Image47.jpg","s","transparent_trial","Image47","Safe","Safe","0.1","34","5","1","97","","","","","","","","",""
+"html-keyboard-response","198","173809","0.0-198.0","","","","","","null","
+            <div class=""response-container"">
+            <p class=""response-label"">Your answer:</p>
+              <p class=""response"">Safe</p>
+            </div>","null","","","","","","","","","","","","","","","","","",""
+"survey-likert","199","177183","0.0-199.0","","","","","","3372","","{""confidence"":4,""trust"":4}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","200","177950","0.0-200.0","","","","","","766","
+              <div style=""font-family:sans-serif; text-align:center; margin-top:100px;"">
+                <h2>Block Feedback</h2>
+                <p style=""font-size:3em; font-weight:bold; margin-top:20px;"">9 / 10</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>","s","","","","","","","","","","","","","","","","","",""
+"survey-likert","201","182307","0.0-201.0","","","","","","4356","","{""confidence"":3,""trust"":3}","questionnaire","","","","","","","","","[0,1]","","","","","","","",""
+"html-keyboard-response","202","183082","0.0-202.0","","","","","","770","
+              <div style=""font-family:sans-serif; text-align:center; margin-top:100px;"">
+                <h2>Total Performance</h2>
+                <p style=""font-size:3em; font-weight:bold; margin-top:20px;"">53 / 60</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>","s","","","","","","","","","","","","","","","","","",""
+"survey-likert","203","193166","0.0-203.0","","","","","","10080","","{""mental_demand"":7,""physical_demand"":6,""temporal_demand"":6,""performance"":8,""effort"":6,""frustration"":7}","nasa_tlx","","","","","","","","","[0,1,2,3,4,5]","","","","","","","",""
+"html-keyboard-response","204","195170","0.0-204.0","","","","","","null","
+    <div>
+      <h1>Thank You!</h1>
+      <p>The experiment has been completed.</p>
+      <p>Your data is being saved...</p>
+    </div>","null","","","","","","","","","","","","","","","","","",""
