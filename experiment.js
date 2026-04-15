@@ -90,7 +90,6 @@ async function runExperiment() {
   const stimuli_transparent = await loadStimuli_transparent();
   const errorStimuli_simple = await loadStimuli_error_simpleAI();
   const errorStimuli_transparent = await loadStimuli_error_transparentAI();
-  const jsPsych = initJsPsych({});
 
   const allImages = stimuli
     .concat(stimuli_transparent)
@@ -99,19 +98,19 @@ async function runExperiment() {
     .map((item) => item.src);
 
   const preload = {
-    type: jsPsychPreload,
+    type: 'preload',
     images: allImages,
   };
 
   /* ------------------------- Pavlovia Initialization ------------------------ */
   const pavlovia_init = {
-    type: 'pavlovia',
+    type: "pavlovia",
     command: "init"
   };
 
   /* ----------------------------- Welcome Screen ----------------------------- */
   const welcome = {
-    type: jsPsychHtmlKeyboardResponse,
+    type: 'html-keyboard-response',
     stimulus: `
       <div>
         <h1>Human-Automation Study</h1>
@@ -123,30 +122,30 @@ async function runExperiment() {
         <br>
         <p><em>Press any key to begin.</em></p>
       </div>`,
-    choices: "ALL_KEYS",
+    choices: jsPsych.ALL_KEYS,
   };
 
   /* --------------------------- Inter-trial interval ------------------------- */
   const ITI_V1 = {
-    type: jsPsychHtmlKeyboardResponse,
+    type: 'html-keyboard-response',
     stimulus: '<div class="baggage"><div>Baggage incoming</div></div>',
-    choices: "NO_KEYS",
+    choices: jsPsych.NO_KEYS,
     trial_duration: 1000,
   };
 
   const ITI_2 = {
-    type: jsPsychHtmlKeyboardResponse,
+    type: 'html-keyboard-response',
     stimulus:
       '<div class="baggage">Baggage incoming</div> <div class="ai-pipeline"><div>AI is processing</div></div>',
-    choices: "NO_KEYS",
+    choices: jsPsych.NO_KEYS,
     trial_duration: 1000,
   };
 
   const ITI_3 = {
-    type: jsPsychHtmlKeyboardResponse,
+    type: 'html-keyboard-response',
     stimulus:
       '<div class="baggage">Baggage incoming</div> <div class="ai-pipeline"><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>',
-    choices: "NO_KEYS",
+    choices: jsPsych.NO_KEYS,
     trial_duration: 1000,
   };
 
@@ -179,7 +178,7 @@ for the 10 trials*/
 
   const shuffled = jsPsych.randomization.shuffle(stimuli);
   const trials = shuffled.map((item) => ({
-    type: jsPsychImageKeyboardResponse,
+    type: 'image-keyboard-response',
     stimulus: item.src,
     choices: [KEY_SAFE, KEY_DANGER],
     data: {
@@ -209,7 +208,7 @@ for the 10 trials*/
     const modifiedItem = itemChangesSimpleAI(index, item);
     
     return {
-      type: jsPsychImageKeyboardResponse,
+      type: 'image-keyboard-response',
       stimulus: modifiedItem.src,
       choices: [KEY_SAFE, KEY_DANGER],
       prompt: `<div class="ai-feedback"><div class="ai_suggestion_wrapper">
@@ -265,7 +264,7 @@ multiple functions are needed */
     const certainty = calculateCertainty(item.difficulty);
 
     return {
-      type: jsPsychImageKeyboardResponse,
+      type: 'image-keyboard-response',
       stimulus: modifiedItem.src,
       choices: [KEY_SAFE, KEY_DANGER],
       prompt: `<div class="ai-feedback">
@@ -316,7 +315,7 @@ multiple functions are needed */
 
   function feedbackPerTrial() {
     return {
-      type: jsPsychHtmlKeyboardResponse,
+      type: 'html-keyboard-response',
       stimulus: function () {
         const last = jsPsych.data
           .get()
@@ -330,7 +329,7 @@ multiple functions are needed */
                 <p class=${label.toLowerCase()}>${label}</p>
               </div>`;
       },
-      choices: "NO_KEYS",
+      choices: jsPsych.NO_KEYS,
       trial_duration: 1000,
     };
   }
@@ -338,7 +337,7 @@ multiple functions are needed */
   /* --------------------- Display of participants awnser --------------------- */
   function displayAnswer() {
     return {
-      type: jsPsychHtmlKeyboardResponse,
+      type: 'html-keyboard-response',
       stimulus: function () {
         const last = jsPsych.data
           .get()
@@ -358,7 +357,7 @@ multiple functions are needed */
               <p class="response">${label}</p>
             </div>`;
       },
-      choices: "NO_KEYS",
+      choices: jsPsych.NO_KEYS,
       trial_duration: 500,
     };
   }
@@ -366,7 +365,7 @@ multiple functions are needed */
   /* ------------------------ Feedback every 10 trials ------------------------ */
   function feedback10trials() {
     return {
-      type: jsPsychHtmlKeyboardResponse,
+      type: 'html-keyboard-response',
       stimulus: function () {
         const allData = jsPsych.data
           .get()
@@ -380,7 +379,7 @@ multiple functions are needed */
                 <p><em>Press any key to continue.</em></p>
               </div>`;
       },
-      choices: "ALL_KEYS",
+      choices: jsPsych.ALL_KEYS,
     };
   }
 
@@ -388,7 +387,7 @@ multiple functions are needed */
 
   function totalcountFeedback(taskType, totalTrials) {
     return {
-      type: jsPsychHtmlKeyboardResponse,
+      type: 'html-keyboard-response',
       stimulus: function () {
         const allData = jsPsych.data.get().filter({ task: taskType });
         const correct = allData.values().filter((t) => t.correct === 1).length;
@@ -400,7 +399,7 @@ multiple functions are needed */
                 <p><em>Press any key to continue.</em></p>
               </div>`;
       },
-      choices: "ALL_KEYS",
+      choices: jsPsych.ALL_KEYS,
     };
   }
 
@@ -414,7 +413,7 @@ multiple functions are needed */
 
   function feedback10trials_gain() {
     return {
-      type: jsPsychHtmlKeyboardResponse,
+      type: 'html-keyboard-response',
       stimulus: function () {
         const allData = jsPsych.data
           .get()
@@ -429,13 +428,13 @@ multiple functions are needed */
                 <p><em>Press any key to continue.</em></p>
               </div>`;
       },
-      choices: "ALL_KEYS",
+      choices: jsPsych.ALL_KEYS,
     };
   }
 
   function feedbackEND_gain() {
     return {
-      type: jsPsychHtmlKeyboardResponse,
+      type: 'html-keyboard-response',
       stimulus: function () {
         const allData = jsPsych.data
           .get()
@@ -449,7 +448,7 @@ multiple functions are needed */
                 <p><em>Press any key to continue.</em></p>
               </div>`;
       },
-      choices: "ALL_KEYS",
+      choices: jsPsych.ALL_KEYS,
     };
   }
 
@@ -459,7 +458,7 @@ multiple functions are needed */
   of money gained every 10 trials. */
   function feedback10trials_loss() {
     return {
-      type: jsPsychHtmlKeyboardResponse,
+      type: 'html-keyboard-response',
       stimulus: function () {
         const allData = jsPsych.data
           .get()
@@ -476,13 +475,13 @@ multiple functions are needed */
                 <p><em>Press any key to continue.</em></p>
               </div>`;
       },
-      choices: "ALL_KEYS",
+      choices: jsPsych.ALL_KEYS,
     };
   }
 
   function feedbackEND_loss() {
     return {
-      type: jsPsychHtmlKeyboardResponse,
+      type: 'html-keyboard-response',
       stimulus: function () {
         const allData = jsPsych.data
           .get()
@@ -499,7 +498,7 @@ multiple functions are needed */
                 <p><em>Press any key to continue.</em></p>
               </div>`;
       },
-      choices: "ALL_KEYS",
+      choices: jsPsych.ALL_KEYS,
     };
   }
 
@@ -509,7 +508,7 @@ multiple functions are needed */
   /* ---------------------- Questionaire every 10 trials ---------------------- */
   function questionnaire() {
     return {
-      type: jsPsychSurvey,
+      type: 'survey',
       survey_json: {
         title: "Self-Assessment",
         description:
@@ -554,7 +553,7 @@ multiple functions are needed */
   /* -------------------------------- NASA LTX -------------------------------- */
   function nasaTLX() {
     return {
-      type: jsPsychSurvey,
+      type: 'survey',
       survey_json: {
         title: "NASA TLX Method: Workload Assessment",
         description:
@@ -728,13 +727,13 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
 
   function block_noAI() {
     const screen_NoAI = {
-      type: jsPsychHtmlKeyboardResponse,
+      type: 'html-keyboard-response',
       stimulus: `
       <div>
         <h1>Block No-AI</h1>
         <p><em>Press any key to begin.</em></p>
       </div>`,
-      choices: "ALL_KEYS",
+      choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_NoAI);
     for (let i = 30; i < 90; i++) {
@@ -768,13 +767,13 @@ So the ITI will be n2.
 */
   function block_simpleAI() {
     const screen_NoAI = {
-      type: jsPsychHtmlKeyboardResponse,
+      type: 'html-keyboard-response',
       stimulus: `
       <div>
         <h1>Block Simple AI</h1>
         <p><em>Press any key to begin.</em></p>
       </div>`,
-      choices: "ALL_KEYS",
+      choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_NoAI);
     for (let i = 90; i < 150; i++) {
@@ -818,13 +817,13 @@ the AI considered more relevant for its decision. So the ITI will be n3.
 
   function block_transparentAI() {
     const screen_TransparentAI = {
-      type: jsPsychHtmlKeyboardResponse,
+      type: 'html-keyboard-response',
       stimulus: `
       <div>
         <h1>Block Transparent AI</h1>
         <p><em>Press any key to begin.</em></p>
       </div>`,
-      choices: "ALL_KEYS",
+      choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_TransparentAI);
     for (let i = 90; i < 150; i++) {
@@ -852,29 +851,30 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
   const endScreen = {
-    type: jsPsychHtmlKeyboardResponse,
+    type: 'html-keyboard-response',
     stimulus: `
     <div>
       <h1>Thank You!</h1>
       <p>The experiment has been completed.</p>
       <p>Your data is being saved...</p>
     </div>`,
-    choices: "NO_KEYS",
+    choices: jsPsych.NO_KEYS,
     trial_duration: 2000,
     // Pavlovia will handle data saving
   };
 
-  const pavlovia_finish = {
-    type: 'pavlovia',
-    command: "finish",
-    participantId: 'PARTICIPANT'
-  };
-
-  const timeline = [pavlovia_init,preload, welcome];
+  const timeline = [pavlovia_init, preload, welcome];
   block_transparentAI();
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
-  jsPsych.run(timeline);
+
+  // jsPsych 6 uses jsPsych.init() instead of initJsPsych()
+  jsPsych.init({
+    timeline: timeline,
+    on_finish: function(data) {
+      // Pavlovia plugin handles data saving automatically
+    }
+  });
 }
 
 runExperiment();
