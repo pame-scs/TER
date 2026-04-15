@@ -102,12 +102,6 @@ async function runExperiment() {
     images: allImages,
   };
 
-  /* ------------------------- Pavlovia Initialization ------------------------ */
-  const pavlovia_init = {
-    type: "pavlovia",
-    command: "init"
-  };
-
   /* ----------------------------- Welcome Screen ----------------------------- */
   const welcome = {
     type: 'html-keyboard-response',
@@ -850,6 +844,13 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /* -------------------------------------------------------------------------- */
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
+   /* ===== PAVLOVIA INITIALIZATION ===== */
+  const pavlovia_init = {
+    type: "pavlovia",
+    command: "init"
+  };
+
+  /* ===== END SCREEN ===== */
   const endScreen = {
     type: 'html-keyboard-response',
     stimulus: `
@@ -860,21 +861,28 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     </div>`,
     choices: jsPsych.NO_KEYS,
     trial_duration: 2000,
-    // Pavlovia will handle data saving
   };
 
+  /* ===== PAVLOVIA FINISH ===== */
+  const pavlovia_finish = {
+    type: "pavlovia",
+    command: "finish",
+    participantId: "PARTICIPANT"
+  };
+
+  /* ===== TIMELINE ===== */
   const timeline = [pavlovia_init, preload, welcome];
   block_transparentAI();
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
 
-  // jsPsych 6 uses jsPsych.init() instead of initJsPsych()
   jsPsych.init({
     timeline: timeline,
     on_finish: function(data) {
-      // Pavlovia plugin handles data saving automatically
+      jsPsych.data.displayData();
     }
   });
 }
 
 runExperiment();
+
