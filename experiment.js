@@ -835,16 +835,14 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     timeline.push(nasaTLX());
   }
 
-  /* -------------------------------------------------------------------------- */
-  /*                                  Timeline                                  */
-  /* -------------------------------------------------------------------------- */
-  /* ===== PAVLOVIA INITIALIZATION ===== */
+  
+  /* ------------------------- pavlovia initilization ------------------------- */
   const pavlovia_init = {
     type: "pavlovia",
     command: "init",
   };
 
-  /* ===== END SCREEN ===== */
+  /* ------------------------------- end screen ------------------------------- */
   const endScreen = {
     type: "html-keyboard-response",
     stimulus: `
@@ -857,14 +855,16 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     trial_duration: 2000,
   };
 
-  /* ===== PAVLOVIA FINISH ===== */
+  /* ----------------------------- pavlovia finish ---------------------------- */
   const pavlovia_finish = {
     type: "pavlovia",
     command: "finish",
     participantId: "PARTICIPANT",
   };
 
-  /* ===== TIMELINE ===== */
+  /* -------------------------------------------------------------------------- */
+  /*                                  Timeline                                  */
+  /* -------------------------------------------------------------------------- */
   const timeline = [pavlovia_init, preload, welcome];
   block_transparentAI();
   timeline.push(endScreen);
