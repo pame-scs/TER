@@ -146,7 +146,54 @@ canvas {
 
 /* ------------------------------ Questionaire ------------------------------ */
 
+/* -------------------------------- NASA TLX -------------------------------- */
+/* NASA TLX slider */
+.tlx-question {
+  margin: 32px 0;
+}
 
+.tlx-slider-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.tlx-slider-row span {
+  font-size: 13px;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.tlx-slider {
+  width: 500px;
+  flex: none;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: #aaa;
+  outline: none;
+  border: none;
+}
+
+.tlx-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #333;
+  cursor: pointer;
+}
+
+.tlx-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #333;
+  cursor: pointer;
+  border: none;
+}
 
 /* -------------------------- Inter-trial interval -------------------------- */
 

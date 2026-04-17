@@ -503,38 +503,26 @@ multiple functions are needed */
   /* ---------------------- Questionaire every 10 trials ---------------------- */
   function questionnaire() {
     return {
-      type: "survey-likert",
-      questions: [
-        {
-          prompt:
-            "In a scale from 1 to 7, how confident are you in your responses?",
-          labels: [
-            "1 - Not confident",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7 - Very confident",
-          ],
-          required: true,
-          name: "confidence",
-        },
-        {
-          prompt: "In a scale from 1 to 7, do you trust AI?",
-          labels: [
-            "1 - Do not trust",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7 - Trust completely",
-          ],
-          required: true,
-          name: "trust",
-        },
-      ],
+      type: "survey-html-form",
+      html: `
+      <div class="tlx-question">
+        <p><b>How confident are you in your responses?</b></p>
+        <div class="tlx-slider-row">
+          <span>Not confident</span>
+          <input type="range" name="confidence" min="0" max="100" step="10" value="50" class="tlx-slider">
+          <span>Very confident</span>
+        </div>
+      </div>
+
+      <div class="tlx-question">
+        <p><b>Do you trust AI?</b></p>
+        <div class="tlx-slider-row">
+          <span>Do not trust</span>
+          <input type="range" name="trust" min="0" max="100" step="10" value="50" class="tlx-slider">
+          <span>Trust completely</span>
+        </div>
+      </div>
+    `,
       data: {
         task: "questionnaire",
       },
@@ -543,121 +531,79 @@ multiple functions are needed */
 
   /* -------------------------------- NASA LTX -------------------------------- */
   function nasaTLX() {
+    const questions = [
+      {
+        name: "mental_demand",
+        prompt: "How mentally demanding was this block?",
+        low: "Low",
+        high: "High",
+        reversed: false,
+      },
+      {
+        name: "physical_demand",
+        prompt: "How physically demanding was this block?",
+        low: "Low",
+        high: "High",
+        reversed: false,
+      },
+      {
+        name: "temporal_demand",
+        prompt: "How hurried or rushed was the pace of this block?",
+        low: "Low",
+        high: "High",
+        reversed: false,
+      },
+      {
+        name: "performance",
+        prompt:
+          "How successful were you in accomplishing what you were asked to do?",
+        low: "Good",
+        high: "Poor",
+        reversed: true,
+      },
+      {
+        name: "effort",
+        prompt:
+          "How hard did you have to work to accomplish your level of performance?",
+        low: "Low",
+        high: "High",
+        reversed: false,
+      },
+      {
+        name: "frustration",
+        prompt:
+          "How insecure, discouraged, irritated, stressed, and annoyed were you?",
+        low: "Low",
+        high: "High",
+        reversed: false,
+      },
+    ];
+
+    const questionsHTML = questions
+      .map(
+        ({ name, prompt, low, high }) => `
+    <div class="tlx-question">
+      <p><b>${prompt}</b></p>
+      <div class="tlx-slider-row">
+        <span>${low}</span>
+        <input type="range" name="${name}" min="0" max="100" step="10" value="50" class="tlx-slider">
+        <span>${high}</span>
+      </div>
+    </div>
+  `,
+      )
+      .join("");
+
     return {
-      type: "survey-likert",
-      questions: [
-        {
-          prompt: "How mentally demanding was this block?",
-          labels: [
-            "0 - Low",
-            "10",
-            "20",
-            "30",
-            "40",
-            "50",
-            "60",
-            "70",
-            "80",
-            "90",
-            "100 - High",
-          ],
-          required: true,
-          name: "mental_demand",
-        },
-        {
-          prompt: "How physically demanding was this block?",
-          labels: [
-            "0 - Low",
-            "10",
-            "20",
-            "30",
-            "40",
-            "50",
-            "60",
-            "70",
-            "80",
-            "90",
-            "100 - High",
-          ],
-          required: true,
-          name: "physical_demand",
-        },
-        {
-          prompt: "How hurried or rushed was the pace of this block?",
-          labels: [
-            "0 - Low",
-            "10",
-            "20",
-            "30",
-            "40",
-            "50",
-            "60",
-            "70",
-            "80",
-            "90",
-            "100 - High",
-          ],
-          required: true,
-          name: "temporal_demand",
-        },
-        {
-          prompt:
-            "How successful were you in accomplishing what you were asked to do?",
-          labels: [
-            "100 - Good",
-            "90",
-            "80",
-            "70",
-            "60",
-            "50",
-            "40",
-            "30",
-            "20",
-            "10",
-            "00 - Poor",
-          ],
-          required: true,
-          name: "performance",
-        },
-        {
-          prompt:
-            "How hard did you have to work to accomplish your level of performance?",
-          labels: [
-            "0 - Low",
-            "10",
-            "20",
-            "30",
-            "40",
-            "50",
-            "60",
-            "70",
-            "80",
-            "90",
-            "100 - High",
-          ],
-          required: true,
-          name: "effort",
-        },
-        {
-          prompt:
-            "How insecure, discouraged, irritated, stressed, and annoyed were you?",
-          labels: [
-            "0 - Low",
-            "10",
-            "20",
-            "30",
-            "40",
-            "50",
-            "60",
-            "70",
-            "80",
-            "90",
-            "100 - High",
-          ],
-          required: true,
-          name: "frustration",
-        },
-      ],
+      type: "survey-html-form",
+      html: questionsHTML,
+      on_finish: function (data) {
+        const r = data.response;
+        if (r.performance !== undefined) {
+          r.performance = String(100 - parseInt(r.performance));
+        }
+        data.response = r;
+      },
       data: {
         task: "nasa_tlx",
       },
