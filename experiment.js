@@ -262,12 +262,7 @@ multiple functions are needed */
       stimulus: modifiedItem.src,
       choices: [KEY_SAFE, KEY_DANGER],
       prompt: `<div class="ai-feedback">
-        <div class="ai_suggestion_wrapper">
-          <p>AI suggests:</p>
-          <p class="ai_answer" data-suggestion="${modifiedItem.ai_answer}">
-            ${modifiedItem.ai_answer}
-          </p>
-        </div>
+        
         <div class="ai_certainty_wrapper">
           <div class="ai_certainty_label">
         Certainty: [${
@@ -275,6 +270,12 @@ multiple functions are needed */
           "░".repeat(35 - Math.round((certainty / 100) * 35))
         }] ${certainty}
       </div>
+        </div>
+        <div class="ai_suggestion_wrapper">
+          <p>AI suggests:</p>
+          <p class="ai_answer" data-suggestion="${modifiedItem.ai_answer}">
+            ${modifiedItem.ai_answer}
+          </p>
         </div>
       </div>`,
       data: {
@@ -537,11 +538,6 @@ multiple functions are needed */
       data: {
         task: "questionnaire",
       },
-      on_finish: function (data) {
-        // In jsPsych 6, responses are keyed by index (0, 1, etc.) not by name
-        data.confidence_rating = data.response[0];
-        data.trust_rating = data.response[1];
-      },
     };
   }
 
@@ -608,17 +604,17 @@ multiple functions are needed */
           prompt:
             "How successful were you in accomplishing what you were asked to do?",
           labels: [
-            "0 - Good",
-            "10",
-            "20",
-            "30",
-            "40",
-            "50",
-            "60",
-            "70",
-            "80",
+            "100 - Good",
             "90",
-            "100 - Poor",
+            "80",
+            "70",
+            "60",
+            "50",
+            "40",
+            "30",
+            "20",
+            "10",
+            "00 - Poor",
           ],
           required: true,
           name: "performance",
@@ -664,15 +660,6 @@ multiple functions are needed */
       ],
       data: {
         task: "nasa_tlx",
-      },
-      on_finish: function (data) {
-        // In jsPsych 6, responses are keyed by index (0, 1, 2, 3, 4, 5)
-        data.mental_demand = data.response[0];
-        data.physical_demand = data.response[1];
-        data.temporal_demand = data.response[2];
-        data.performance = data.response[3];
-        data.effort = data.response[4];
-        data.frustration = data.response[5];
       },
     };
   }
