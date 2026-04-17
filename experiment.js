@@ -124,7 +124,7 @@ async function runExperiment() {
     type: "html-keyboard-response",
     stimulus: '<div class="baggage"><div>Baggage incoming</div></div>',
     choices: jsPsych.NO_KEYS,
-    trial_duration: 1000,
+    trial_duration: 4000,
   };
 
   const ITI_2 = {
@@ -132,7 +132,7 @@ async function runExperiment() {
     stimulus:
       '<div class="baggage">Baggage incoming</div> <div class="ai-pipeline"><div>AI is processing</div></div>',
     choices: jsPsych.NO_KEYS,
-    trial_duration: 1000,
+    trial_duration: 4000,
   };
 
   const ITI_3 = {
@@ -140,7 +140,7 @@ async function runExperiment() {
     stimulus:
       '<div class="baggage">Baggage incoming</div> <div class="ai-pipeline"><div>Initializing runtime environment</div>  <div>Loading image</div>  <div>Searching database</div>  <div>Comparing patterns</div>  <div>Resolving output</div></div>',
     choices: jsPsych.NO_KEYS,
-    trial_duration: 1000,
+    trial_duration: 4000,
   };
 
   /* -------------------------------------------------------------------------- */
@@ -194,7 +194,7 @@ for the 10 trials*/
             ? 1
             : 0;
     },
-    trial_duration: 1500,
+    trial_duration: 5000,
   }));
   /* -------------------------- Simple AI Image trial ------------------------- */
 
@@ -232,7 +232,7 @@ for the 10 trials*/
               : 0;
         data.ai_answer = modifiedItem.ai_answer;
       },
-      trial_duration: 1500,
+      trial_duration: 5000,
     };
   });
 
@@ -299,7 +299,7 @@ multiple functions are needed */
         data.ai_answer = modifiedItem.ai_answer;
         data.ai_certainty = certainty;
       },
-      trial_duration: 1500,
+      trial_duration: 5000,
     };
   });
 
@@ -352,7 +352,7 @@ multiple functions are needed */
             </div>`;
       },
       choices: jsPsych.NO_KEYS,
-      trial_duration: 500,
+      trial_duration: 1000,
     };
   }
 
@@ -866,6 +866,9 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
   const timeline = [pavlovia_init, preload, welcome];
+  training();
+  block_noAI();
+  block_simpleAI();
   block_transparentAI();
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
