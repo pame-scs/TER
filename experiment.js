@@ -522,7 +522,11 @@ multiple functions are needed */
           <span>Trust completely</span>
         </div>
       </div>
-    `,
+    `,on_finish: function (data) {
+      const r = data.response;
+      data.confidence = parseInt(r.confidence);
+      data.trust = parseInt(r.trust);
+    },
       data: {
         task: "questionnaire",
       },
@@ -604,9 +608,6 @@ multiple functions are needed */
         }
         data.response = r;
       },
-      data: {
-        task: "nasa_tlx",
-      },
       on_finish: function (data) {
         const r = data.response;
 
@@ -620,6 +621,9 @@ multiple functions are needed */
         data.performance = parseInt(r.performance);
         data.effort = parseInt(r.effort);
         data.frustration = parseInt(r.frustration);
+      },
+      data: {
+        task: "nasa_tlx",
       },
     };
   }
