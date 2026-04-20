@@ -607,6 +607,20 @@ multiple functions are needed */
       data: {
         task: "nasa_tlx",
       },
+      on_finish: function (data) {
+        const r = data.response;
+
+        if (r.performance !== undefined) {
+          r.performance = 10 - parseInt(r.performance);
+        }
+
+        data.mental_demand = parseInt(r.mental_demand);
+        data.physical_demand = parseInt(r.physical_demand);
+        data.temporal_demand = parseInt(r.temporal_demand);
+        data.performance = parseInt(r.performance);
+        data.effort = parseInt(r.effort);
+        data.frustration = parseInt(r.frustration);
+      },
     };
   }
   /* -------------------------------------------------------------------------- */
@@ -768,7 +782,6 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     timeline.push(nasaTLX());
   }
 
-  
   /* ------------------------- pavlovia initilization ------------------------- */
   const pavlovia_init = {
     type: "pavlovia",
