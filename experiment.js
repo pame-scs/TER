@@ -171,7 +171,33 @@ for the 10 trials*/
   /* -------------------------------------------------------------------------- */
 
   const shuffled = jsPsych.randomization.shuffle(stimuli);
-  const trials = shuffled.map((item) => ({
+  const training_trials = shuffled.map((item, index) => ({
+    type: "image-keyboard-response",
+    stimulus: item.src,
+    choices: [KEY_SAFE, KEY_DANGER],
+    data: {
+      task: "training_trial",
+      slide_name: item.name,
+      correct_answer: item.correct,
+      difficulty: item.difficulty,
+      rank: item.rank,
+      items: item.items,
+    },
+    on_finish: function (data) {
+      const responded_danger = data.response === KEY_DANGER;
+      const correctAnswer = String(item.correct).trim().toLowerCase();
+      const correctIsDanger = correctAnswer.startsWith("d");
+      data.correct =
+        data.response === null
+          ? 0
+          : responded_danger === correctIsDanger
+            ? 1
+            : 0;
+    },
+    trial_duration: 5000,
+  }));
+
+  const standard_trials = shuffled.map((item, index) => ({
     type: "image-keyboard-response",
     stimulus: item.src,
     choices: [KEY_SAFE, KEY_DANGER],
@@ -640,7 +666,7 @@ AI assistance in this block. So the ITI will be n1.
   function training() {
     for (let i = 0; i < 30; i++) {
       timeline.push(ITI_V1);
-      timeline.push(trials[i]);
+      timeline.push(training_trials[i]);
       timeline.push(displayAnswer());
       timeline.push(feedbackPerTrial());
 
@@ -652,8 +678,7 @@ AI assistance in this block. So the ITI will be n1.
         timeline.push(feedback10trials());
       }
     }
-    timeline.push(feedback10trials());
-    timeline.push(totalcountFeedback("standard_trial", 30));
+    timeline.push(totalcountFeedback("training_trial", 30));
   }
 
   /* -------------------------------------------------------------------------- */
@@ -677,7 +702,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     timeline.push(screen_NoAI);
     for (let i = 30; i < 90; i++) {
       timeline.push(ITI_V1);
-      timeline.push(trials[i]);
+      timeline.push(standard_trials[i]);
       timeline.push(displayAnswer());
 
       const position = i - 30 + 1;
@@ -685,10 +710,11 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
       const isLastTrial = position === 60;
 
       if (isBlockEnd && !isLastTrial) {
-        timeline.push(feedback10trials());
+        timeline.push(feedback10trials_loss());
       }
     }
-    timeline.push(feedback10trials());
+    timeline.push(feedback10trials_loss());
+    timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("standard_trial", 60));
     timeline.push(nasaTLX());
   }
@@ -727,13 +753,11 @@ So the ITI will be n2.
       if (isBlockEnd && !isLastTrial) {
         timeline.push(questionnaire());
         timeline.push(feedback10trials_loss());
-        timeline.push(feedback10trials());
         timeline.push(questionnaire());
       }
     }
-    timeline.push(feedback10trials_loss());
     timeline.push(questionnaire());
-    timeline.push(feedback10trials());
+    timeline.push(feedback10trials_loss());
     timeline.push(questionnaire());
     timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("simple_trial", 60));
@@ -775,13 +799,14 @@ the AI considered more relevant for its decision. So the ITI will be n3.
 
       if (isBlockEnd && !isLastTrial) {
         timeline.push(questionnaire());
-        timeline.push(feedback10trials());
+        timeline.push(feedback10trials_loss());
         timeline.push(questionnaire());
       }
     }
     timeline.push(questionnaire());
-    timeline.push(feedback10trials());
+    timeline.push(feedback10trials_loss());
     timeline.push(questionnaire());
+    timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("transparent_trial", 60));
     timeline.push(nasaTLX());
   }
@@ -816,6 +841,9 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
   const timeline = [pavlovia_init, preload, welcome];
+  training();
+  block_noAI();
+  block_simpleAI();
   block_transparentAI();
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
