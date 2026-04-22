@@ -445,7 +445,7 @@ multiple functions are needed */
         return `
               <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
                 <h2>Block Feedback</h2>
-                <p>You won ${moneyWon}€ in this block!</p>
+                <p>You won ${moneyWon} in this block!</p>
                 <p><em>Press any key to continue.</em></p>
               </div>`;
       },
@@ -465,7 +465,7 @@ multiple functions are needed */
         return `
               <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
                 <h2>Total Performance</h2>
-                <p>You won ${moneyWon}€ in total!</p>
+                <p>You won ${moneyWon} in total!</p>
                 <p><em>Press any key to continue.</em></p>
               </div>`;
       },
@@ -492,7 +492,7 @@ multiple functions are needed */
         return `
               <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
                 <h2>Block Feedback</h2>
-                <p>You won ${moneyWon}€ and lost ${moneyLost}€ in this block! Your net earnings are ${netEarnings}€.</p>
+                <p>You won ${moneyWon} and lost ${moneyLost} in this block! Your net earnings are ${netEarnings}.</p>
                 <p><em>Press any key to continue.</em></p>
               </div>`;
       },
@@ -515,7 +515,7 @@ multiple functions are needed */
         return `
               <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
                 <h2>Total Performance</h2>
-                <p>You won ${moneyWon}€ and lost ${moneyLost}€ in total! Your net earnings are ${netEarnings}€.</p>
+                <p>You won ${moneyWon} and lost ${moneyLost} in total! Your net earnings are ${netEarnings}.</p>
                 <p><em>Press any key to continue.</em></p>
               </div>`;
       },
