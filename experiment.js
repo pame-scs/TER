@@ -102,6 +102,37 @@ async function runExperiment() {
     images: allImages,
   };
 
+  /* -------------------------------------------------------------------------- */
+  /*                             URL group creation                             */
+  /* -------------------------------------------------------------------------- */
+  const options = {
+    A: "noAI",
+    B: "simpleAI",
+    C: "transparentAI",
+  };
+  let group = jsPsych.data.getURLVariable("group");
+
+  // fallback for testing
+  if (!group) {
+    group = "C1_ABC";
+  }
+
+  // split into parts
+  let parts = group.split("_");
+
+  let orderStr = parts.pop(); // "ABC"
+  let contingency = parts.join("_"); // "C1" or "C2"
+
+  let order = orderStr.split(""); // ["A","B","C"]
+
+  let orderedConditions = order.map((x) => options[x]);
+  jsPsych.data.addProperties({
+    group,
+    contingency,
+    order: orderStr,
+    conditions: orderedConditions,
+  });
+
   /* ----------------------------- Welcome Screen ----------------------------- */
   const welcome = {
     type: "html-keyboard-response",
@@ -665,8 +696,6 @@ AI assistance in this block. So the ITI will be n1.
 */
 
   function training() {
-    console.log("expInfo:", expInfo);
-    console.log("Assigned group:", expInfo.group);
     for (let i = 0; i < 30; i++) {
       timeline.push(ITI_V1);
       timeline.push(training_trials[i]);
@@ -845,9 +874,11 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /* -------------------------------------------------------------------------- */
   const timeline = [pavlovia_init, preload, welcome];
   training();
-  block_noAI();
-  block_simpleAI();
-  block_transparentAI();
+  orderedConditions.forEach((cond) => {
+    if (cond === "noAI") block_noAI();
+    if (cond === "simpleAI") block_simpleAI();
+    if (cond === "transparentAI") block_transparentAI();
+  });
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
 
