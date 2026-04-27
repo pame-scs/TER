@@ -548,11 +548,12 @@ multiple functions are needed */
           <span>Trust completely</span>
         </div>
       </div>
-    `,on_finish: function (data) {
-      const r = data.response;
-      data.confidence = parseInt(r.confidence);
-      data.trust = parseInt(r.trust);
-    },
+    `,
+      on_finish: function (data) {
+        const r = data.response;
+        data.confidence = parseInt(r.confidence);
+        data.trust = parseInt(r.trust);
+      },
       data: {
         task: "questionnaire",
       },
@@ -664,6 +665,8 @@ AI assistance in this block. So the ITI will be n1.
 */
 
   function training() {
+    console.log("expInfo:", expInfo);
+    console.log("Assigned group:", expInfo.group);
     for (let i = 0; i < 30; i++) {
       timeline.push(ITI_V1);
       timeline.push(training_trials[i]);
