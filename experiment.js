@@ -112,26 +112,35 @@ async function runExperiment() {
   };
   let group = jsPsych.data.getURLVariable("group");
 
-  // fallback for testing
-  if (!group) {
-    group = "C1_ABC";
-  }
+  if (!group) group = "C1_ABC";
 
-  // split into parts
   let parts = group.split("_");
+  let orderStr = parts.pop();
+  let contingency = parts.join("_");
 
-  let orderStr = parts.pop(); // "ABC"
-  let contingency = parts.join("_"); // "C1" or "C2"
+  let orderedConditions = orderStr.split("").map(
+    (x) =>
+      ({
+        A: "noAI",
+        B: "simpleAI",
+        C: "transparentAI",
+      })[x],
+  );
 
-  let order = orderStr.split(""); // ["A","B","C"]
-
-  let orderedConditions = order.map((x) => options[x]);
-  jsPsych.data.addProperties({
-    group,
-    contingency,
-    order: orderStr,
-    conditions: orderedConditions,
-  });
+  const blockMap = {
+    noAI: {
+      C1: block_noAI_C1,
+      C2: block_noAI_C2,
+    },
+    simpleAI: {
+      C1: block_simpleAI_C1,
+      C2: block_simpleAI_C2,
+    },
+    transparentAI: {
+      C1: block_transparentAI_C1,
+      C2: block_transparentAI_C2,
+    },
+  };
 
   /* ----------------------------- Welcome Screen ----------------------------- */
   const welcome = {
@@ -721,7 +730,37 @@ but they will receive a feedback every 10 trials, indicating the number of
 correct responses in the last 10 trials. It will also be just 30 trials long. 
 There will be no AI assistance in this block. So the ITI will be n1.*/
 
-  function block_noAI() {
+  function block_noAI_C1() {
+    const screen_NoAI = {
+      type: "html-keyboard-response",
+      stimulus: `
+      <div>
+        <h1>Block No-AI</h1>
+        <p><em>Press any key to begin.</em></p>
+      </div>`,
+      choices: jsPsych.ALL_KEYS,
+    };
+    timeline.push(screen_NoAI);
+    for (let i = 30; i < 90; i++) {
+      timeline.push(ITI_V1);
+      timeline.push(standard_trials[i]);
+      timeline.push(displayAnswer());
+
+      const position = i - 30 + 1;
+      const isBlockEnd = position % BLOCK_SIZE === 0;
+      const isLastTrial = position === 60;
+
+      if (isBlockEnd && !isLastTrial) {
+        timeline.push(feedback10trials_gain());
+      }
+    }
+    timeline.push(feedback10trials_gain());
+    timeline.push(feedbackEND_gain());
+    timeline.push(totalcountFeedback("standard_trial", 60));
+    timeline.push(nasaTLX());
+  }
+
+  function block_noAI_C2() {
     const screen_NoAI = {
       type: "html-keyboard-response",
       stimulus: `
@@ -762,7 +801,41 @@ accurate, for trial 41 to 50 the AI will fail 6 consecutive times. 3 false
 negatives and 3 false positives. For trial 51 to 60 the AI will be 100% accurate,
 So the ITI will be n2.
 */
-  function block_simpleAI() {
+  function block_simpleAI_C1() {
+    const screen_NoAI = {
+      type: "html-keyboard-response",
+      stimulus: `
+      <div>
+        <h1>Block Simple AI</h1>
+        <p><em>Press any key to begin.</em></p>
+      </div>`,
+      choices: jsPsych.ALL_KEYS,
+    };
+    timeline.push(screen_NoAI);
+    for (let i = 90; i < 150; i++) {
+      timeline.push(ITI_2);
+      timeline.push(trials_simpleAI[i]);
+      timeline.push(displayAnswer());
+
+      const position = i - 90 + 1;
+      const isBlockEnd = position % BLOCK_SIZE === 0;
+      const isLastTrial = position === 60;
+
+      if (isBlockEnd && !isLastTrial) {
+        timeline.push(questionnaire());
+        timeline.push(feedback10trials_gain());
+        timeline.push(questionnaire());
+      }
+    }
+    timeline.push(questionnaire());
+    timeline.push(feedback10trials_gain());
+    timeline.push(questionnaire());
+    timeline.push(feedbackEND_gain());
+    timeline.push(totalcountFeedback("simple_trial", 60));
+    timeline.push(nasaTLX());
+  }
+
+  function block_simpleAI_C2() {
     const screen_NoAI = {
       type: "html-keyboard-response",
       stimulus: `
@@ -809,8 +882,40 @@ The AI output will be a binary signal (Safe or Danger), also the level of
 confidence (0-100%) and a square indicating the area of the image that 
 the AI considered more relevant for its decision. So the ITI will be n3.
 */
+  function block_transparentAI_C1() {
+    const screen_TransparentAI = {
+      type: "html-keyboard-response",
+      stimulus: `
+      <div>
+        <h1>Block Transparent AI</h1>
+        <p><em>Press any key to begin.</em></p>
+      </div>`,
+      choices: jsPsych.ALL_KEYS,
+    };
+    timeline.push(screen_TransparentAI);
+    for (let i = 90; i < 150; i++) {
+      timeline.push(ITI_3);
+      timeline.push(trials_transparentAI[i]);
+      timeline.push(displayAnswer());
+      const position = i - 90 + 1;
+      const isBlockEnd = position % BLOCK_SIZE === 0;
+      const isLastTrial = position === 60;
 
-  function block_transparentAI() {
+      if (isBlockEnd && !isLastTrial) {
+        timeline.push(questionnaire());
+        timeline.push(feedback10trials_gain());
+        timeline.push(questionnaire());
+      }
+    }
+    timeline.push(questionnaire());
+    timeline.push(feedback10trials_gain());
+    timeline.push(questionnaire());
+    timeline.push(feedbackEND_gain());
+    timeline.push(totalcountFeedback("transparent_trial", 60));
+    timeline.push(nasaTLX());
+  }
+
+  function block_transparentAI_C2() {
     const screen_TransparentAI = {
       type: "html-keyboard-response",
       stimulus: `
@@ -873,11 +978,9 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
   const timeline = [pavlovia_init, preload, welcome];
-  training();
+  // training();
   orderedConditions.forEach((cond) => {
-    if (cond === "noAI") block_noAI();
-    if (cond === "simpleAI") block_simpleAI();
-    if (cond === "transparentAI") block_transparentAI();
+    blockMap[cond][contingency]();
   });
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
