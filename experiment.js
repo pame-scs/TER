@@ -118,6 +118,12 @@ async function runExperiment() {
   let orderStr = parts.pop();
   let contingency = parts.join("_");
 
+  jsPsych.data.addProperties({
+    group: group,
+    contingency: contingency,
+    permutation: orderStr,
+  });
+
   let orderedConditions = orderStr.split("").map(
     (x) =>
       ({
