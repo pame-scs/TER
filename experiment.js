@@ -1116,12 +1116,10 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
   const timeline = [pavlovia_init, preload, welcome];
-  //training();
-  /*orderedConditions.forEach((cond) => {
+  training();
+  orderedConditions.forEach((cond) => {
     blockMap[cond][contingency]();
-  });*/
-  timeline.push(nasaTLX_part1());
-  block_transparentAI_C1();
+  });
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
 
