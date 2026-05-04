@@ -152,16 +152,49 @@ async function runExperiment() {
   const welcome = {
     type: "html-keyboard-response",
     stimulus: `
-      <div>
-        <h1>Human-Automation Study</h1>
-        <p>You will see a series of luggage X-ray images.</p>
-        <p>For each image, decide whether it contains a dangerous object.</p>
-        <br>
-        <p>Press S : Safe </p>
-        <p>Press D : Danger </p>
-        <br>
-        <p><em>Press any key to begin.</em></p>
-      </div>`,
+    <div style="max-width: 800px; margin: auto; text-align: left;">
+      
+      <h2 style="text-align: center;">Human–Automation Decision Task</h2>
+
+      <p>
+        In this study, you will view a series of X-ray images of luggage.
+        Your task is to decide whether each image contains a dangerous object.
+      </p>
+
+      <p>
+        Dangerous objects include:
+      </p>
+      <ul>
+        <li>Firearms (e.g., guns)</li>
+        <li>Sharp objects (e.g., knives or similar items)</li>
+      </ul>
+
+      <p>
+        For each image, respond as quickly and accurately as possible:
+      </p>
+
+      <p>
+        <b>S</b> = Safe (no dangerous object)<br>
+        <b>D</b> = Dangerous (contains a dangerous object)
+      </p>
+
+      <p>
+        During the experiment, you will also interact with different AI systems
+        designed to assist your decisions. Their behavior may vary across trials.
+      </p>
+
+      <p>
+        Please pay close attention and rely on your own judgment when making decisions.
+      </p>
+
+      <br>
+
+      <p style="text-align: center;">
+        <em>Press any key to begin.</em>
+      </p>
+
+    </div>
+  `,
     choices: jsPsych.ALL_KEYS,
   };
 
@@ -490,7 +523,7 @@ multiple functions are needed */
           .filter({ trial_type: "image-keyboard-response" });
         const blockData = allData.values().slice(-BLOCK_SIZE);
         const correct = blockData.filter((t) => t.correct === 1).length;
-        const moneyWon = correct * 1; // 1€ per correct response
+        const moneyWon = correct * 1;
         return `
               <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
                 <h2>Block Feedback</h2>
@@ -510,7 +543,7 @@ multiple functions are needed */
           .get()
           .filter({ trial_type: "image-keyboard-response" });
         const correct = allData.values().filter((t) => t.correct === 1).length;
-        const moneyWon = correct * 1; // 1€ per correct response
+        const moneyWon = correct * 1;
         return `
               <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
                 <h2>Total Performance</h2>
@@ -524,7 +557,7 @@ multiple functions are needed */
 
   /* ------------------------ Neutral - Loss condition ------------------------ */
   /* In this condition, if the participant responds correctly, they receive 1€ and 
-  if they respond incorrectly, they lose 1€. The feedback will indicate the amount 
+  if they respond incorrectly, they lose 1. The feedback will indicate the amount 
   of money gained every 10 trials. */
   function feedback10trials_loss() {
     return {
@@ -535,8 +568,8 @@ multiple functions are needed */
           .filter({ trial_type: "image-keyboard-response" });
         const blockData = allData.values().slice(-BLOCK_SIZE);
         const correct = blockData.filter((t) => t.correct === 1).length;
-        const moneyWon = correct * 1; // 1€ per correct response
-        const moneyLost = (BLOCK_SIZE - correct) * 1; // 1€ lost per incorrect response
+        const moneyWon = correct * 1;
+        const moneyLost = (BLOCK_SIZE - correct) * 1;
         const netEarnings = moneyWon - moneyLost;
         return `
               <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
@@ -558,8 +591,8 @@ multiple functions are needed */
           .filter({ trial_type: "image-keyboard-response" });
         const correct = allData.values().filter((t) => t.correct === 1).length;
         const total = allData.count();
-        const moneyWon = correct * 1; // 1€ per correct response
-        const moneyLost = (total - correct) * 1; // 1€ lost per incorrect response
+        const moneyWon = correct * 1;
+        const moneyLost = (total - correct) * 1;
         const netEarnings = moneyWon - moneyLost;
         return `
               <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
@@ -800,7 +833,7 @@ multiple functions are needed */
       workload_index: wwI,
     };
   }
-   */ 
+   */
 
   /* -------------------------------------------------------------------------- */
   /*                                   Block 1                                  */
