@@ -610,25 +610,28 @@ multiple functions are needed */
   }
 
   /* -------------------------------- NASA LTX -------------------------------- */
-  function nasaTLX() {
+  function nasaTLX_part1() {
     const questions = [
       {
         name: "mental_demand",
-        prompt: "How mentally demanding was this block?",
+        prompt:
+          "How much mental and perceptual activity was required (e.g. thinking, deciding, calculating, remembering, looking, searching, etc)? Was the task easy or demanding, simple or complex, exacting or forgiving?",
         low: "Low",
         high: "High",
         reversed: false,
       },
       {
         name: "physical_demand",
-        prompt: "How physically demanding was this block?",
+        prompt:
+          "How much physical activity was required (e.g. pushing, pulling, turning, controlling, activating, etc)? Was the task easy or demanding, slow or brisk, slack or strenuous, restful or laborious?",
         low: "Low",
         high: "High",
         reversed: false,
       },
       {
         name: "temporal_demand",
-        prompt: "How hurried or rushed was the pace of this block?",
+        prompt:
+          "How much time pressure did you feel due to the rate of pace at which the tasks or task elements occurred? Was the pace slow and leisurely or rapid and frantic?",
         low: "Low",
         high: "High",
         reversed: false,
@@ -636,7 +639,7 @@ multiple functions are needed */
       {
         name: "performance",
         prompt:
-          "How successful were you in accomplishing what you were asked to do?",
+          "How successful do you think you were in accomplishing the goals of the task set by the experimenter (or yourself)? How satisfied were you with your performance in accomplishing these goals?",
         low: "Good",
         high: "Poor",
         reversed: true,
@@ -644,7 +647,7 @@ multiple functions are needed */
       {
         name: "effort",
         prompt:
-          "How hard did you have to work to accomplish your level of performance?",
+          "How hard did you have to work (mentally and physically) to accomplish your level of performance?",
         low: "Low",
         high: "High",
         reversed: false,
@@ -652,43 +655,45 @@ multiple functions are needed */
       {
         name: "frustration",
         prompt:
-          "How insecure, discouraged, irritated, stressed, and annoyed were you?",
+          "How insecure, discouraged, irritated, stressed and annoyed versus secure, gratified, content, relaxed and complacent did you feel during the task?",
         low: "Low",
         high: "High",
         reversed: false,
       },
     ];
 
-    const questionsHTML = questions
-      .map(
-        ({ name, prompt, low, high }) => `
-    <div class="tlx-question">
-      <p><b>${prompt}</b></p>
-      <div class="tlx-slider-row">
-        <span>${low}</span>
-        <input type="range" name="${name}" min="0" max="100" step="10" value="50" class="tlx-slider">
-        <span>${high}</span>
+    const questionsHTML =
+      `
+      <div class="tlx-instructions">
+        <p>
+          For each question below, please indicate your response using the slider.
+          Move the slider to the position that best reflects your judgment.
+        </p>
       </div>
-    </div>
-  `,
-      )
-      .join("");
+    ` +
+      questions
+        .map(
+          ({ name, prompt, low, high }) => `
+        <div class="tlx-question">
+          <p><b>${prompt}</b></p>
+          <div class="tlx-slider-row">
+            <span>${low}</span>
+            <input type="range" name="${name}" min="0" max="100" step="10" value="50" class="tlx-slider">
+            <span>${high}</span>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
 
     return {
       type: "survey-html-form",
       html: questionsHTML,
       on_finish: function (data) {
         const r = data.response;
-        if (r.performance !== undefined) {
-          r.performance = String(100 - parseInt(r.performance));
-        }
-        data.response = r;
-      },
-      on_finish: function (data) {
-        const r = data.response;
 
         if (r.performance !== undefined) {
-          r.performance = 10 - parseInt(r.performance);
+          r.performance = 100 - parseInt(r.performance); // reverse scoring
         }
 
         data.mental_demand = parseInt(r.mental_demand);
@@ -703,6 +708,104 @@ multiple functions are needed */
       },
     };
   }
+
+  function nasaTLX_part2() {
+    const comparisons = [
+      ["Performance", "Mental demand"],
+      ["Effort", "Physical demand"],
+      ["Performance", "Temporal demand"],
+      ["Effort", "Performance"],
+      ["Temporal demand", "Frustration"],
+      ["Physical demand", "Frustration"],
+      ["Frustration", "Effort"],
+      ["Performance", "Frustration"],
+      ["Mental demand", "Physical demand"],
+      ["Frustration", "Mental demand"],
+      ["Physical demand", "Temporal demand"],
+      ["Temporal demand", "Mental demand"],
+      ["Physical demand", "Performance"],
+      ["Mental demand", "Effort"],
+      ["Temporal demand", "Effort"],
+    ];
+
+    const trials = comparisons.map(([left, right], i) => ({
+      type: "html-button-response",
+      stimulus: `
+      <div class="tlx-instructions">
+        <p><b>Trial ${i + 1} of ${comparisons.length}</b></p>
+        <p>Which factor contributed more to your workload during the task?</p>
+      </div>
+    `,
+      choices: [left, right],
+      data: {
+        task: "nasa_tlx_weighting",
+        comparison_left: left,
+        comparison_right: right,
+      },
+      on_finish: function (data) {
+        data.selected =
+          data.response === 0 ? data.comparison_left : data.comparison_right;
+      },
+    }));
+
+    return {
+      timeline: trials,
+    };
+  }
+
+  function computeTLX(dataArray) {
+    const ratings = {};
+    const weights = {
+      "Mental demand": 0,
+      "Physical demand": 0,
+      "Temporal demand": 0,
+      Performance: 0,
+      Effort: 0,
+      Frustration: 0,
+    };
+
+    let ratingData = null;
+
+    // 1. Extract Part 1 ratings
+    dataArray.forEach((d) => {
+      if (d.task === "nasa_tlx") {
+        ratingData = d;
+      }
+    });
+
+    const r = ratingData;
+
+    ratings["Mental demand"] = r.mental_demand;
+    ratings["Physical demand"] = r.physical_demand;
+    ratings["Temporal demand"] = r.temporal_demand;
+    ratings["Performance"] = r.performance;
+    ratings["Effort"] = r.effort;
+    ratings["Frustration"] = r.frustration;
+
+    // 2. Extract Part 2 weights
+    dataArray.forEach((d) => {
+      if (d.task === "nasa_tlx_weighting") {
+        const chosen = d.selected;
+        weights[chosen] += 1;
+      }
+    });
+
+    // 3. Compute weighted sum
+    let sum = 0;
+
+    for (const key in ratings) {
+      sum += ratings[key] * weights[key];
+    }
+
+    const wwI = sum / 15;
+
+    return {
+      ratings,
+      weights,
+      workload_index: wwI,
+    };
+  }
+
   /* -------------------------------------------------------------------------- */
   /*                                   Block 1                                  */
   /* -------------------------------------------------------------------------- */
@@ -729,6 +832,22 @@ AI assistance in this block. So the ITI will be n1.
       }
     }
     timeline.push(totalcountFeedback("training_trial", 30));
+    timeline.push(nasaTLX_part1());
+    timeline.push(nasaTLX_part2());
+    timeline.push({
+      type: "call-function",
+      func: function () {
+        const result = computeTLX(jsPsych.data.get().values());
+
+        console.log("TLX RESULT:", result);
+
+        jsPsych.data.addProperties({
+          tlx_workload_index: result.workload_index,
+          tlx_weights: result.weights,
+          tlx_ratings: result.ratings,
+        });
+      },
+    });
   }
 
   /* -------------------------------------------------------------------------- */
@@ -766,7 +885,8 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     timeline.push(feedback10trials_gain());
     timeline.push(feedbackEND_gain());
     timeline.push(totalcountFeedback("standard_trial", 60));
-    timeline.push(nasaTLX());
+    timeline.push(nasaTLX_part1());
+    timeline.push(nasaTLX_part2());
   }
 
   function block_noAI_C2() {
@@ -796,7 +916,22 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     timeline.push(feedback10trials_loss());
     timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("standard_trial", 60));
-    timeline.push(nasaTLX());
+    timeline.push(nasaTLX_part1());
+    timeline.push(nasaTLX_part2());
+    timeline.push({
+      type: "call-function",
+      func: function () {
+        const result = computeTLX(jsPsych.data.get().values());
+
+        console.log("TLX RESULT:", result);
+
+        jsPsych.data.addProperties({
+          tlx_workload_index: result.workload_index,
+          tlx_weights: result.weights,
+          tlx_ratings: result.ratings,
+        });
+      },
+    });
   }
 
   /* -------------------------------------------------------------------------- */
@@ -841,7 +976,8 @@ So the ITI will be n2.
     timeline.push(questionnaire());
     timeline.push(feedbackEND_gain());
     timeline.push(totalcountFeedback("simple_trial", 60));
-    timeline.push(nasaTLX());
+    timeline.push(nasaTLX_part1());
+    timeline.push(nasaTLX_part2());
   }
 
   function block_simpleAI_C2() {
@@ -875,7 +1011,8 @@ So the ITI will be n2.
     timeline.push(questionnaire());
     timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("simple_trial", 60));
-    timeline.push(nasaTLX());
+    timeline.push(nasaTLX_part1());
+    timeline.push(nasaTLX_part2());
   }
 
   /* -------------------------------------------------------------------------- */
@@ -921,7 +1058,8 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     timeline.push(questionnaire());
     timeline.push(feedbackEND_gain());
     timeline.push(totalcountFeedback("transparent_trial", 60));
-    timeline.push(nasaTLX());
+    timeline.push(nasaTLX_part1());
+    timeline.push(nasaTLX_part2());
   }
 
   function block_transparentAI_C2() {
@@ -954,7 +1092,8 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     timeline.push(questionnaire());
     timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("transparent_trial", 60));
-    timeline.push(nasaTLX());
+    timeline.push(nasaTLX_part1());
+    timeline.push(nasaTLX_part2());
   }
 
   /* ------------------------- pavlovia initilization ------------------------- */
