@@ -179,7 +179,7 @@ async function runExperiment() {
       </p>
 
       <p>
-        During the experiment, you will also interact with different two AI systems
+        During the experiment, you will also interact with two different AI systems
         designed to assist your decisions. 
       </p>
 
@@ -189,7 +189,7 @@ async function runExperiment() {
 
       <br>
 
-      <p style="text-align: center;">
+      <p style="text-align: center; color: #2c00af;">
         <em>Press any key to begin.</em>
       </p>
 
