@@ -318,16 +318,20 @@ multiple functions are needed */
   const shuffled_transparent =
     jsPsych.randomization.shuffle(stimuli_transparent);
 
-  const calculateCertainty = (difficulty) => {
-    /* The difficulty ranges between 0.04 to 0.80. The AI certainty lowest certainty
-    is 75 so it needs to be adjusted */
-    const certainty = Math.max(75, 100 - (difficulty / 0.8) * 25);
-    return Math.round(certainty);
+  const calculateCertainty = (difficulty, index) => {
+    if (isErrorTrial(index)){
+      const certainty = Math.max(55, 70 - (difficulty / 0.8) * 25);
+      return Math.round(certainty);
+    }
+    else{
+      const certainty = Math.max(75, 100 - (difficulty / 0.8) * 25);
+      return Math.round(certainty);
+    }
   };
 
   const trials_transparentAI = shuffled_transparent.map((item, index) => {
     const modifiedItem = itemChangesTransparentAI(index, item);
-    const certainty = calculateCertainty(item.difficulty);
+    const certainty = calculateCertainty(item.difficulty, index);
 
     return {
       type: "image-keyboard-response",
