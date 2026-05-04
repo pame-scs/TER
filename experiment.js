@@ -1120,9 +1120,10 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /* -------------------------------------------------------------------------- */
   const timeline = [pavlovia_init, preload, welcome];
   training();
-  orderedConditions.forEach((cond) => {
+  /*orderedConditions.forEach((cond) => {
     blockMap[cond][contingency]();
-  });
+  });*/
+  block_transparentAI_C1();
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
 
