@@ -195,6 +195,11 @@ canvas {
   border: none;
 }
 
+.tlx-prompt{
+  width: 70%;
+  font-weight: normal;
+}
+
 /* -------------------------- Inter-trial interval -------------------------- */
 
 .baggage{

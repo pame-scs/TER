@@ -675,7 +675,7 @@ multiple functions are needed */
         .map(
           ({ name, prompt, low, high }) => `
         <div class="tlx-question">
-          <p><b>${prompt}</b></p>
+          <p class="tlx-prompt"><b>${prompt}</b></p>
           <div class="tlx-slider-row">
             <span>${low}</span>
             <input type="range" name="${name}" min="0" max="100" step="10" value="50" class="tlx-slider">
