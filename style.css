@@ -196,8 +196,7 @@ canvas {
 }
 
 .tlx-prompt{
-  width: 70%;
-  font-weight: normal;
+  font-size: smaller;
 }
 
 /* -------------------------- Inter-trial interval -------------------------- */

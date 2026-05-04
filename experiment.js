@@ -203,7 +203,7 @@ async function runExperiment() {
     type: "html-keyboard-response",
     stimulus: '<div class="baggage"><div>Baggage incoming</div></div>',
     choices: jsPsych.NO_KEYS,
-    trial_duration: 300,
+    trial_duration: 4000,
   };
 
   const ITI_2 = {
@@ -648,7 +648,7 @@ multiple functions are needed */
       {
         name: "mental_demand",
         prompt:
-          "How much mental and perceptual activity was required (e.g. thinking, deciding, calculating, remembering, looking, searching, etc)? Was the task easy or demanding, simple or complex, exacting or forgiving?",
+          "How much mental and perceptual activity was required (e.g. thinking, deciding, calculating, remembering, looking, searching, etc)? <br>Was the task easy or demanding, simple or complex, exacting or forgiving?",
         low: "Low",
         high: "High",
         reversed: false,
@@ -656,7 +656,7 @@ multiple functions are needed */
       {
         name: "physical_demand",
         prompt:
-          "How much physical activity was required (e.g. pushing, pulling, turning, controlling, activating, etc)? Was the task easy or demanding, slow or brisk, slack or strenuous, restful or laborious?",
+          "How much physical activity was required (e.g. pushing, pulling, turning, controlling, activating, etc)? <br>Was the task easy or demanding, slow or brisk, slack or strenuous, restful or laborious?",
         low: "Low",
         high: "High",
         reversed: false,
@@ -664,7 +664,7 @@ multiple functions are needed */
       {
         name: "temporal_demand",
         prompt:
-          "How much time pressure did you feel due to the rate of pace at which the tasks or task elements occurred? Was the pace slow and leisurely or rapid and frantic?",
+          "How much time pressure did you feel due to the rate of pace at which the tasks or task elements occurred? <br> Was the pace slow and leisurely or rapid and frantic?",
         low: "Low",
         high: "High",
         reversed: false,
@@ -672,7 +672,7 @@ multiple functions are needed */
       {
         name: "performance",
         prompt:
-          "How successful do you think you were in accomplishing the goals of the task set by the experimenter (or yourself)? How satisfied were you with your performance in accomplishing these goals?",
+          "How successful do you think you were in accomplishing the goals of the task set by the experimenter (or yourself)? <br> How satisfied were you with your performance in accomplishing these goals?",
         low: "Good",
         high: "Poor",
         reversed: true,
@@ -698,6 +698,7 @@ multiple functions are needed */
     const questionsHTML =
       `
       <div class="tlx-instructions">
+      <h1>NASA Task Load Index (NASA-TLX)</h1>
         <p>
           For each question below, please indicate your response using the slider.
           Move the slider to the position that best reflects your judgment.
@@ -708,7 +709,7 @@ multiple functions are needed */
         .map(
           ({ name, prompt, low, high }) => `
         <div class="tlx-question">
-          <p class="tlx-prompt"><b>${prompt}</b></p>
+          <p class="tlx-prompt"><${prompt}</p>
           <div class="tlx-slider-row">
             <span>${low}</span>
             <input type="range" name="${name}" min="0" max="100" step="10" value="50" class="tlx-slider">
