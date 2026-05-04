@@ -709,7 +709,7 @@ multiple functions are needed */
     };
   }
 
-  function nasaTLX_part2() {
+  /*function nasaTLX_part2() {
     const comparisons = [
       ["Performance", "Mental demand"],
       ["Effort", "Physical demand"],
@@ -766,7 +766,6 @@ multiple functions are needed */
 
     let ratingData = null;
 
-    // 1. Extract Part 1 ratings
     dataArray.forEach((d) => {
       if (d.task === "nasa_tlx") {
         ratingData = d;
@@ -781,16 +780,12 @@ multiple functions are needed */
     ratings["Performance"] = r.performance;
     ratings["Effort"] = r.effort;
     ratings["Frustration"] = r.frustration;
-
-    // 2. Extract Part 2 weights
     dataArray.forEach((d) => {
       if (d.task === "nasa_tlx_weighting") {
         const chosen = d.selected;
         weights[chosen] += 1;
       }
     });
-
-    // 3. Compute weighted sum
     let sum = 0;
 
     for (const key in ratings) {
@@ -805,6 +800,7 @@ multiple functions are needed */
       workload_index: wwI,
     };
   }
+   */ 
 
   /* -------------------------------------------------------------------------- */
   /*                                   Block 1                                  */
@@ -833,21 +829,6 @@ AI assistance in this block. So the ITI will be n1.
     }
     timeline.push(totalcountFeedback("training_trial", 30));
     timeline.push(nasaTLX_part1());
-    timeline.push(nasaTLX_part2());
-    timeline.push({
-      type: "call-function",
-      func: function () {
-        const result = computeTLX(jsPsych.data.get().values());
-
-        console.log("TLX RESULT:", result);
-
-        jsPsych.data.addProperties({
-          tlx_workload_index: result.workload_index,
-          tlx_weights: result.weights,
-          tlx_ratings: result.ratings,
-        });
-      },
-    });
   }
 
   /* -------------------------------------------------------------------------- */
@@ -886,7 +867,6 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     timeline.push(feedbackEND_gain());
     timeline.push(totalcountFeedback("standard_trial", 60));
     timeline.push(nasaTLX_part1());
-    timeline.push(nasaTLX_part2());
   }
 
   function block_noAI_C2() {
@@ -917,7 +897,6 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("standard_trial", 60));
     timeline.push(nasaTLX_part1());
-    timeline.push(nasaTLX_part2());
     timeline.push({
       type: "call-function",
       func: function () {
@@ -977,7 +956,6 @@ So the ITI will be n2.
     timeline.push(feedbackEND_gain());
     timeline.push(totalcountFeedback("simple_trial", 60));
     timeline.push(nasaTLX_part1());
-    timeline.push(nasaTLX_part2());
   }
 
   function block_simpleAI_C2() {
@@ -1012,7 +990,6 @@ So the ITI will be n2.
     timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("simple_trial", 60));
     timeline.push(nasaTLX_part1());
-    timeline.push(nasaTLX_part2());
   }
 
   /* -------------------------------------------------------------------------- */
@@ -1059,7 +1036,6 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     timeline.push(feedbackEND_gain());
     timeline.push(totalcountFeedback("transparent_trial", 60));
     timeline.push(nasaTLX_part1());
-    timeline.push(nasaTLX_part2());
   }
 
   function block_transparentAI_C2() {
@@ -1093,7 +1069,6 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("transparent_trial", 60));
     timeline.push(nasaTLX_part1());
-    timeline.push(nasaTLX_part2());
   }
 
   /* ------------------------- pavlovia initilization ------------------------- */
