@@ -179,8 +179,8 @@ async function runExperiment() {
       </p>
 
       <p>
-        During the experiment, you will also interact with different AI systems
-        designed to assist your decisions. Their behavior may vary across trials.
+        During the experiment, you will also interact with different two AI systems
+        designed to assist your decisions. 
       </p>
 
       <p>
@@ -1103,7 +1103,6 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     <div>
       <h1>Thank You!</h1>
       <p>The experiment has been completed.</p>
-      <p>Your data is being saved...</p>
     </div>`,
     choices: jsPsych.NO_KEYS,
     trial_duration: 2000,
