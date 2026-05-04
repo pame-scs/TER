@@ -203,7 +203,7 @@ async function runExperiment() {
     type: "html-keyboard-response",
     stimulus: '<div class="baggage"><div>Baggage incoming</div></div>',
     choices: jsPsych.NO_KEYS,
-    trial_duration: 4000,
+    trial_duration: 300,
   };
 
   const ITI_2 = {
