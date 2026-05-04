@@ -648,7 +648,7 @@ multiple functions are needed */
       {
         name: "mental_demand",
         prompt:
-          "How much mental and perceptual activity was required (e.g. thinking, deciding, calculating, remembering, looking, searching, etc)? <br>Was the task easy or demanding, simple or complex, exacting or forgiving?",
+          "How much mental and perceptual activity was required (e.g. thinking, deciding, calculating, remembering, looking, searching, etc)? Was the task easy or demanding, simple or complex, exacting or forgiving?",
         low: "Low",
         high: "High",
         reversed: false,
@@ -656,7 +656,7 @@ multiple functions are needed */
       {
         name: "physical_demand",
         prompt:
-          "How much physical activity was required (e.g. pushing, pulling, turning, controlling, activating, etc)? <br>Was the task easy or demanding, slow or brisk, slack or strenuous, restful or laborious?",
+          "How much physical activity was required (e.g. pushing, pulling, turning, controlling, activating, etc)? Was the task easy or demanding, slow or brisk, slack or strenuous, restful or laborious?",
         low: "Low",
         high: "High",
         reversed: false,
@@ -664,7 +664,7 @@ multiple functions are needed */
       {
         name: "temporal_demand",
         prompt:
-          "How much time pressure did you feel due to the rate of pace at which the tasks or task elements occurred? <br> Was the pace slow and leisurely or rapid and frantic?",
+          "How much time pressure did you feel due to the rate of pace at which the tasks or task elements occurred? Was the pace slow and leisurely or rapid and frantic?",
         low: "Low",
         high: "High",
         reversed: false,
@@ -672,7 +672,7 @@ multiple functions are needed */
       {
         name: "performance",
         prompt:
-          "How successful do you think you were in accomplishing the goals of the task set by the experimenter (or yourself)? <br> How satisfied were you with your performance in accomplishing these goals?",
+          "How successful do you think you were in accomplishing the goals of the task set by the experimenter (or yourself)? How satisfied were you with your performance in accomplishing these goals?",
         low: "Good",
         high: "Poor",
         reversed: true,
@@ -1123,6 +1123,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /*orderedConditions.forEach((cond) => {
     blockMap[cond][contingency]();
   });*/
+  timeline.push(nasaTLX_part1());
   block_transparentAI_C1();
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
