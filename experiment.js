@@ -319,11 +319,10 @@ multiple functions are needed */
     jsPsych.randomization.shuffle(stimuli_transparent);
 
   const calculateCertainty = (difficulty, index) => {
-    if (isErrorTrial(index)){
+    if (isErrorTrial(index)) {
       const certainty = Math.max(55, 70 - (difficulty / 0.8) * 25);
       return Math.round(certainty);
-    }
-    else{
+    } else {
       const certainty = Math.max(75, 100 - (difficulty / 0.8) * 25);
       return Math.round(certainty);
     }
@@ -582,20 +581,20 @@ multiple functions are needed */
       type: "survey-html-form",
       html: `
       <div class="tlx-question">
-        <p><b>How confident are you in your responses?</b></p>
+        <p><b>How certain are you about your answers?</b></p>
         <div class="tlx-slider-row">
-          <span>Not confident</span>
+          <span>Not at all certain</span>
           <input type="range" name="confidence" min="0" max="100" step="10" value="50" class="tlx-slider">
-          <span>Very confident</span>
+          <span>Extremely certain</span>
         </div>
       </div>
 
       <div class="tlx-question">
-        <p><b>Do you trust AI?</b></p>
+        <p><b>How reliable do you consider AI-generated responses to be?</b></p>
         <div class="tlx-slider-row">
-          <span>Do not trust</span>
+          <span>Not reliable at all</span>
           <input type="range" name="trust" min="0" max="100" step="10" value="50" class="tlx-slider">
-          <span>Trust completely</span>
+          <span>Very reliable</span>
         </div>
       </div>
     `,
