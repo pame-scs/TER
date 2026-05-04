@@ -699,10 +699,7 @@ multiple functions are needed */
       `
       <div class="tlx-instructions">
       <h1>NASA Task Load Index (NASA-TLX)</h1>
-        <p>
-          For each question below, please indicate your response using the slider.
-          Move the slider to the position that best reflects your judgment.
-        </p>
+        <p><b>Please rate the following aspects of your experience during the task:</b></p>
       </div>
     ` +
       questions

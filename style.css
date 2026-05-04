@@ -195,6 +195,9 @@ canvas {
   border: none;
 }
 
+.tlx-prompt{
+  font-size: smaller;
+}
 
 /* -------------------------- Inter-trial interval -------------------------- */
 
