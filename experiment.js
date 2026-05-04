@@ -897,20 +897,6 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("standard_trial", 60));
     timeline.push(nasaTLX_part1());
-    timeline.push({
-      type: "call-function",
-      func: function () {
-        const result = computeTLX(jsPsych.data.get().values());
-
-        console.log("TLX RESULT:", result);
-
-        jsPsych.data.addProperties({
-          tlx_workload_index: result.workload_index,
-          tlx_weights: result.weights,
-          tlx_ratings: result.ratings,
-        });
-      },
-    });
   }
 
   /* -------------------------------------------------------------------------- */
