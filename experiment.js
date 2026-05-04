@@ -861,7 +861,6 @@ AI assistance in this block. So the ITI will be n1.
       }
     }
     timeline.push(totalcountFeedback("training_trial", 30));
-    timeline.push(nasaTLX_part1());
   }
 
   /* -------------------------------------------------------------------------- */
@@ -1119,7 +1118,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
   const timeline = [pavlovia_init, preload, welcome];
-  training();
+  //training();
   /*orderedConditions.forEach((cond) => {
     blockMap[cond][contingency]();
   });*/
