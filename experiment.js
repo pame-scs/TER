@@ -171,8 +171,6 @@ async function runExperiment() {
         influence the use of AI systems.
       </p>
 
-      <hr style="margin: 25px 0;">
-
       <h3>Task</h3>
 
       <p>
@@ -197,8 +195,6 @@ async function runExperiment() {
         <b>S</b> = Safe (no dangerous object)<br>
         <b>D</b> = Dangerous (contains a dangerous object)
       </p>
-
-      <hr style="margin: 25px 0;">
 
       <h3>Experiment Structure</h3>
 
@@ -227,16 +223,12 @@ async function runExperiment() {
         Every 10 trials, you will receive a performance summary.
       </p>
 
-      <hr style="margin: 25px 0;">
-
       <h3>Duration</h3>
 
       <p>
         The experiment lasts approximately 50 minutes in total,
         including instructions and questionnaires.
       </p>
-
-      <hr style="margin: 25px 0;">
 
       <h3>Ethics and Consent</h3>
 
@@ -685,7 +677,7 @@ multiple functions are needed */
   /*                                 Assesments                                 */
   /* -------------------------------------------------------------------------- */
   /* ---------------------- Questionaire every 10 trials ---------------------- */
-  function questionnaire() {
+  function questionnaire1() {
     return {
       type: "survey-html-form",
       html: `
@@ -719,33 +711,75 @@ multiple functions are needed */
   }
 
   function questionnaire2() {
-    // pour comfirmer
     return {
       type: "survey-html-form",
       html: `
       <div class="tlx-question">
+
+        <p><b>Do you agree with your previous answers regarding the reliability of AI-generated responses and your level of confidence?</b></p>
+
+        <div style="margin-top: 10px; margin-bottom: 20px;">
+          <label style="margin-right: 20px;"><input type="radio" name="agreement" value="yes" required>Yes</label>
+          <label><input type="radio" name="agreement" value="no">No</label>
+        </div>
+
+        <p>
+          If not, please adjust your answers below.
+        </p>
+
+      </div>
+
+      <div class="tlx-question">
         <p><b>How certain are you about your answers?</b></p>
+
         <div class="tlx-slider-row">
           <span>Not at all certain</span>
-          <input type="range" name="confidence" min="0" max="100" step="10" value="50" class="tlx-slider">
+
+          <input
+            type="range"
+            name="confidence"
+            min="0"
+            max="100"
+            step="10"
+            value="50"
+            class="tlx-slider"
+          >
+
           <span>Extremely certain</span>
         </div>
       </div>
 
       <div class="tlx-question">
         <p><b>How reliable do you consider AI-generated responses to be?</b></p>
+
         <div class="tlx-slider-row">
           <span>Not reliable at all</span>
-          <input type="range" name="trust" min="0" max="100" step="10" value="50" class="tlx-slider">
+
+          <input
+            type="range"
+            name="trust"
+            min="0"
+            max="100"
+            step="10"
+            value="50"
+            class="tlx-slider"
+          >
+
           <span>Very reliable</span>
         </div>
       </div>
     `,
+
       on_finish: function (data) {
         const r = data.response;
+
+        data.agreement = r.agreement;
+
         data.confidence = parseInt(r.confidence);
+
         data.trust = parseInt(r.trust);
       },
+
       data: {
         task: "questionnaire",
       },
@@ -1071,14 +1105,14 @@ So the ITI will be n2.
       const isLastTrial = position === 60;
 
       if (isBlockEnd && !isLastTrial) {
-        timeline.push(questionnaire());
+        timeline.push(questionnaire1());
         timeline.push(feedback10trials_gain());
-        timeline.push(questionnaire());
+        timeline.push(questionnaire2());
       }
     }
-    timeline.push(questionnaire());
+    timeline.push(questionnaire1());
     timeline.push(feedback10trials_gain());
-    timeline.push(questionnaire());
+    timeline.push(questionnaire2());
     timeline.push(feedbackEND_gain());
     timeline.push(totalcountFeedback("simple_trial", 60));
     timeline.push(nasaTLX_part1());
@@ -1105,14 +1139,14 @@ So the ITI will be n2.
       const isLastTrial = position === 60;
 
       if (isBlockEnd && !isLastTrial) {
-        timeline.push(questionnaire());
+        timeline.push(questionnaire1());
         timeline.push(feedback10trials_loss());
-        timeline.push(questionnaire());
+        timeline.push(questionnaire2());
       }
     }
     timeline.push(questionnaire());
     timeline.push(feedback10trials_loss());
-    timeline.push(questionnaire());
+    timeline.push(questionnaire2());
     timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("simple_trial", 60));
     timeline.push(nasaTLX_part1());
@@ -1151,14 +1185,14 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       const isLastTrial = position === 60;
 
       if (isBlockEnd && !isLastTrial) {
-        timeline.push(questionnaire());
+        timeline.push(questionnaire1());
         timeline.push(feedback10trials_gain());
-        timeline.push(questionnaire());
+        timeline.push(questionnaire2());
       }
     }
-    timeline.push(questionnaire());
+    timeline.push(questionnaire1());
     timeline.push(feedback10trials_gain());
-    timeline.push(questionnaire());
+    timeline.push(questionnaire2());
     timeline.push(feedbackEND_gain());
     timeline.push(totalcountFeedback("transparent_trial", 60));
     timeline.push(nasaTLX_part1());
@@ -1184,14 +1218,14 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       const isLastTrial = position === 60;
 
       if (isBlockEnd && !isLastTrial) {
-        timeline.push(questionnaire());
+        timeline.push(questionnaire1());
         timeline.push(feedback10trials_loss());
-        timeline.push(questionnaire());
+        timeline.push(questionnaire2());
       }
     }
-    timeline.push(questionnaire());
+    timeline.push(questionnaire1());
     timeline.push(feedback10trials_loss());
-    timeline.push(questionnaire());
+    timeline.push(questionnaire2());
     timeline.push(feedbackEND_loss());
     timeline.push(totalcountFeedback("transparent_trial", 60));
     timeline.push(nasaTLX_part1());
