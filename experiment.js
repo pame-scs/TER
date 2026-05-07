@@ -1255,7 +1255,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
         timeline.push(questionnaire2());
       }
     }
-    timeline.push(questionnaire1());
+    timeline.push(questionnaire1()); 
     timeline.push(feedback10trials_loss());
     timeline.push(questionnaire2());
     timeline.push(feedbackEND_loss());
