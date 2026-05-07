@@ -1174,7 +1174,7 @@ So the ITI will be n2.
         timeline.push(questionnaire2());
       }
     }
-    timeline.push(questionnaire());
+    timeline.push(questionnaire1());
     timeline.push(feedback10trials_loss());
     timeline.push(questionnaire2());
     timeline.push(feedbackEND_loss());
