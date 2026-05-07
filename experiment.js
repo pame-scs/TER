@@ -581,6 +581,32 @@ multiple functions are needed */
   /* In this condition, if the participant responds correctly, they receive 1€ and 
   if they respond incorrectly, they receive nothing. The feedback will indicate 
   the amount of money won every 10 trials. */
+  function explanationGain() {
+    return {
+      type: "html-keyboard-response",
+      stimulus: `
+        <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+          <h1>Rewards</h1>
+          <p>You will receive 1 for each correct response and nothing for each incorrect one.</p>
+        </div>
+      `,
+      choices: jsPsych.ALL_KEYS,
+    };
+  }
+
+  function explanationLoss() {
+    return {
+      type: "html-keyboard-response",
+      stimulus: `
+        <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+          <h1>Penalties</h1>
+          <p>You will lose 1 for each incorrect response and receive 1 for each correct one.</p>
+        </div>
+      `,
+      choices: jsPsych.ALL_KEYS,
+    };
+  }
+
 
   function feedback10trials_gain() {
     return {
@@ -1024,6 +1050,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
       choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_NoAI);
+    timeline.push(explanationGain());
     for (let i = 30; i < 90; i++) {
       timeline.push(ITI_V1);
       timeline.push(standard_trials[i]);
@@ -1054,6 +1081,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
       choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_NoAI);
+    timeline.push(explanationLoss());
     for (let i = 30; i < 90; i++) {
       timeline.push(ITI_V1);
       timeline.push(standard_trials[i]);
@@ -1089,12 +1117,13 @@ So the ITI will be n2.
       type: "html-keyboard-response",
       stimulus: `
       <div>
-        <h1>Block Simple AI</h1>
+        <h1>System A1.0</h1>
         <p><em>Press any key to begin.</em></p>
       </div>`,
       choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_NoAI);
+    timeline.push(explanationGain());
     for (let i = 90; i < 150; i++) {
       timeline.push(ITI_2);
       timeline.push(trials_simpleAI[i]);
@@ -1123,12 +1152,13 @@ So the ITI will be n2.
       type: "html-keyboard-response",
       stimulus: `
       <div>
-        <h1>Block Simple AI</h1>
+        <h1>System A1.0</h1>
         <p><em>Press any key to begin.</em></p>
       </div>`,
       choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_NoAI);
+    timeline.push(explanationLoss());
     for (let i = 90; i < 150; i++) {
       timeline.push(ITI_2);
       timeline.push(trials_simpleAI[i]);
@@ -1170,12 +1200,13 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       type: "html-keyboard-response",
       stimulus: `
       <div>
-        <h1>Block Transparent AI</h1>
+        <h1>System A2.0</h1>
         <p><em>Press any key to begin.</em></p>
       </div>`,
       choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_TransparentAI);
+    timeline.push(explanationGain());
     for (let i = 90; i < 150; i++) {
       timeline.push(ITI_3);
       timeline.push(trials_transparentAI[i]);
@@ -1203,12 +1234,13 @@ the AI considered more relevant for its decision. So the ITI will be n3.
       type: "html-keyboard-response",
       stimulus: `
       <div>
-        <h1>Block Transparent AI</h1>
+        <h1>System A2.0</h1>
         <p><em>Press any key to begin.</em></p>
       </div>`,
       choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_TransparentAI);
+    timeline.push(explanationLoss());
     for (let i = 90; i < 150; i++) {
       timeline.push(ITI_3);
       timeline.push(trials_transparentAI[i]);
