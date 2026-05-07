@@ -152,45 +152,121 @@ async function runExperiment() {
   const welcome = {
     type: "html-keyboard-response",
     stimulus: `
-    <div style="max-width: 800px; margin: auto; text-align: left;">
-      
-      <h2 style="text-align: center;">Human–Automation Decision Task</h2>
+    <div style="
+      max-width: 850px;
+      margin: auto;
+      text-align: left;
+      line-height: 1.5;
+      font-size: 17px;
+    ">
+
+      <h2 style="text-align: center; margin-bottom: 25px;">
+        Human–AI Collaboration Study
+      </h2>
 
       <p>
-        In this study, you will view a series of X-ray images of luggage.
-        Your task is to decide whether each image contains a dangerous object.
+        The objective of this experiment is to study human–AI collaboration.
+        More specifically, we are interested in how decision-making processes are affected
+        when AI assistance is introduced, and how the consequences of user actions
+        influence the use of AI systems.
+      </p>
+
+      <hr style="margin: 25px 0;">
+
+      <h3>Task</h3>
+
+      <p>
+        During the experiment, you will view a series of X-ray images of luggage.
+        Your task is to determine whether each image contains a dangerous object.
       </p>
 
       <p>
-        Dangerous objects include:
+        Dangerous objects may include:
       </p>
+
       <ul>
         <li>Firearms (e.g., guns)</li>
         <li>Sharp objects (e.g., knives or similar items)</li>
       </ul>
 
       <p>
-        For each image, respond as quickly and accurately as possible:
+        For each image:
       </p>
 
-      <p>
+      <p style="margin-left: 20px;">
         <b>S</b> = Safe (no dangerous object)<br>
         <b>D</b> = Dangerous (contains a dangerous object)
       </p>
 
+      <hr style="margin: 25px 0;">
+
+      <h3>Experiment Structure</h3>
+
       <p>
-        During the experiment, you will also interact with two different AI systems
-        designed to assist your decisions. 
+        The experiment will begin with a training phase where you will become familiar
+        with the X-ray images and receive immediate feedback after each response.
       </p>
 
       <p>
-        Please pay close attention and rely on your own judgment when making decisions.
+        In the second phase, no immediate feedback will be provided.
+        This phase contains three different blocks:
       </p>
+
+      <ul>
+        <li>No AI assistance</li>
+        <li>AI System 1 assistance</li>
+        <li>AI System 2 assistance</li>
+      </ul>
+
+      <p>
+        During AI-assisted blocks, the AI systems will provide assistance
+        to support your decisions.
+      </p>
+
+      <p>
+        Every 10 trials, you will receive a performance summary.
+      </p>
+
+      <hr style="margin: 25px 0;">
+
+      <h3>Duration</h3>
+
+      <p>
+        The experiment lasts approximately 50 minutes in total,
+        including instructions and questionnaires.
+      </p>
+
+      <hr style="margin: 25px 0;">
+
+      <h3>Ethics and Consent</h3>
+
+      <p>
+        Your participation in this experiment is entirely voluntary.
+        You may stop the experiment at any time without consequences.
+      </p>
+
+      <p>
+        All collected data is anonymized and securely stored.
+        No personally identifying information will be associated with your responses.
+      </p>
+
+      <p>
+        By continuing, you confirm that:
+      </p>
+
+      <ul>
+        <li>You agree to participate voluntarily in this study</li>
+        <li>You understand that your data will be anonymized and securely stored</li>
+      </ul>
 
       <br>
 
-      <p style="text-align: center; color: #2c00af;">
-        <em>Press any key to begin.</em>
+      <p style="
+        text-align: center;
+        color: #2c00af;
+        font-size: 18px;
+      ">
+        <em>Press any key to begin the experiment.</em>
       </p>
 
     </div>
@@ -610,6 +686,40 @@ multiple functions are needed */
   /* -------------------------------------------------------------------------- */
   /* ---------------------- Questionaire every 10 trials ---------------------- */
   function questionnaire() {
+    return {
+      type: "survey-html-form",
+      html: `
+      <div class="tlx-question">
+        <p><b>How certain are you about your answers?</b></p>
+        <div class="tlx-slider-row">
+          <span>Not at all certain</span>
+          <input type="range" name="confidence" min="0" max="100" step="10" value="50" class="tlx-slider">
+          <span>Extremely certain</span>
+        </div>
+      </div>
+
+      <div class="tlx-question">
+        <p><b>How reliable do you consider AI-generated responses to be?</b></p>
+        <div class="tlx-slider-row">
+          <span>Not reliable at all</span>
+          <input type="range" name="trust" min="0" max="100" step="10" value="50" class="tlx-slider">
+          <span>Very reliable</span>
+        </div>
+      </div>
+    `,
+      on_finish: function (data) {
+        const r = data.response;
+        data.confidence = parseInt(r.confidence);
+        data.trust = parseInt(r.trust);
+      },
+      data: {
+        task: "questionnaire",
+      },
+    };
+  }
+
+  function questionnaire2() {
+    // pour comfirmer
     return {
       type: "survey-html-form",
       html: `
