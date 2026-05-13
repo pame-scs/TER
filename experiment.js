@@ -266,6 +266,49 @@ async function runExperiment() {
     choices: jsPsych.ALL_KEYS,
   };
 
+  const Welcome_part2 = {
+  type: "survey-html-form",
+  html: `
+    <p>Please fill the following:</p>
+
+    <p>
+      <label for="gender">Gender:</label><br>
+      <select name="gender" id="gender" required>
+        <option value="">Select an option</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+        <option value="other">Other</option>
+        <option value="prefer_not_to_say">Prefer not to say</option>
+      </select>
+    </p>
+
+    <p>
+      <label for="age">Age:</label><br>
+      <input 
+        type="number" 
+        name="age" 
+        id="age" 
+        min="0" 
+        max="120" 
+        required
+      >
+    </p>
+  `,
+
+  button_label: "Continue",
+
+  on_finish: function (data) {
+    const r = data.response;
+
+    data.gender = r.gender;
+    data.age = parseInt(r.age);
+  },
+
+  data: {
+    task: "survey",
+  },
+};
+
   /* --------------------------- Inter-trial interval ------------------------- */
   const ITI_V1 = {
     type: "html-keyboard-response",
@@ -1291,7 +1334,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /* -------------------------------------------------------------------------- */
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
-  const timeline = [pavlovia_init, preload, welcome];
+  const timeline = [pavlovia_init, preload, welcome, Welcome_part2];
   training();
   orderedConditions.forEach((cond) => {
     blockMap[cond][contingency]();
