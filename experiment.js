@@ -161,11 +161,11 @@ async function runExperiment() {
     ">
 
       <h2 style="text-align: center; margin-bottom: 25px;">
-        Human–AI Collaboration Study
+        Human–AI Interaction Study
       </h2>
 
       <p>
-        The objective of this experiment is to study human–AI collaboration.
+        The objective of this experiment is to study human–AI interaction.
         More specifically, we are interested in how decision-making processes are affected
         when AI assistance is introduced, and how the consequences of user actions
         influence the use of AI systems.
@@ -191,7 +191,7 @@ async function runExperiment() {
         For each image:
       </p>
 
-      <p style="margin-left: 20px;">
+      <p>
         <b>S</b> = Safe (no dangerous object)<br>
         <b>D</b> = Dangerous (contains a dangerous object)
       </p>
@@ -204,7 +204,7 @@ async function runExperiment() {
       </p>
 
       <p>
-        In the second phase, no immediate feedback will be provided.
+        In the second phase, no immediate feedback will be provided. Every 10 trials, you will receive a performance summary.
         This phase contains three different blocks:
       </p>
 
@@ -213,28 +213,12 @@ async function runExperiment() {
         <li>AI System 1 assistance</li>
         <li>AI System 2 assistance</li>
       </ul>
-
-      <p>
-        During AI-assisted blocks, the AI systems will provide assistance
-        to support your decisions.
+      
+      <p style="font-style: italic;">
+        The experiment lasts approximately 50 minutes in total, including instructions and questionnaires.
       </p>
 
-      <p>
-        Every 10 trials, you will receive a performance summary.
-      </p>
-
-      <h3>Duration</h3>
-
-      <p>
-        The experiment lasts approximately 50 minutes in total,
-        including instructions and questionnaires.
-      </p>
-
-      <p style="
-        text-align: center;
-        color: #2c00af;
-        font-size: 18px;
-      ">
+      <p style="font-weight: bold;">
         <em>Press any key to begin the experiment.</em>
       </p>
 
@@ -259,26 +243,13 @@ async function runExperiment() {
       </p>
 
       <p>
-        You confirm that:
-      </p>
-
-      <ul>
-        <li>You agree to participate voluntarily in this study</li>
-        <li>You understand that your data will be anonymized and securely stored</li>
+        You confirm that: 
+        You agree to participate voluntarily in this study & 
+        You understand that your data will be anonymized and securely stored
       </ul>
 
       <label style="margin-right: 20px;"><input type="checkbox" name="consent" value="yes" required> I consent to participate in this study</label>
       
-
-      <br>
-
-      <p style="
-        text-align: center;
-        color: #2c00af;
-        font-size: 18px;
-      ">
-        <em>Press any key to begin the experiment.</em>
-      </p>
     `,
     choices: jsPsych.ALL_KEYS,
   };
