@@ -213,12 +213,12 @@ async function runExperiment() {
         <li>AI System 1 assistance</li>
         <li>AI System 2 assistance</li>
       </ul>
-      
+
       <p style="font-style: italic;">
         The experiment lasts approximately 50 minutes in total, including instructions and questionnaires.
       </p>
 
-      <p style="font-weight: bold;">
+      <p style="font-weight: bold; text-align: center;">
         <em>Press any key to begin the experiment.</em>
       </p>
 
@@ -248,7 +248,11 @@ async function runExperiment() {
         You understand that your data will be anonymized and securely stored
       </ul>
 
+      <br>
+
       <label style="margin-right: 20px;"><input type="checkbox" name="consent" value="yes" required> I consent to participate in this study</label>
+
+      <br>
       
     `,
     choices: jsPsych.ALL_KEYS,
