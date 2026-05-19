@@ -230,7 +230,23 @@ async function runExperiment() {
         including instructions and questionnaires.
       </p>
 
-      <h3>Ethics and Consent</h3>
+      <p style="
+        text-align: center;
+        color: #2c00af;
+        font-size: 18px;
+      ">
+        <em>Press any key to begin the experiment.</em>
+      </p>
+
+    </div>
+  `,
+    choices: jsPsych.ALL_KEYS,
+  };
+
+  const Welcome_part1 = {
+    type: "survey-html-form",
+    html: `
+    <h3>Ethics and Consent</h3>
 
       <p>
         Your participation in this experiment is entirely voluntary.
@@ -243,13 +259,16 @@ async function runExperiment() {
       </p>
 
       <p>
-        By continuing, you confirm that:
+        You confirm that:
       </p>
 
       <ul>
         <li>You agree to participate voluntarily in this study</li>
         <li>You understand that your data will be anonymized and securely stored</li>
       </ul>
+
+      <label style="margin-right: 20px;"><input type="checkbox" name="consent" value="yes" required> I consent to participate in this study</label>
+      
 
       <br>
 
@@ -260,9 +279,7 @@ async function runExperiment() {
       ">
         <em>Press any key to begin the experiment.</em>
       </p>
-
-    </div>
-  `,
+    `,
     choices: jsPsych.ALL_KEYS,
   };
 
@@ -377,7 +394,7 @@ for the 10 trials*/
       const responded_danger = data.response === KEY_DANGER;
       const correctAnswer = String(item.correct).trim().toLowerCase();
       const correctIsDanger = correctAnswer.startsWith("d");
-      data.correct =
+      data.correct_training =
         data.response === null
           ? 0
           : responded_danger === correctIsDanger
@@ -719,7 +736,7 @@ multiple functions are needed */
     };
   }
 
-  function feedbackEND_loss() {
+  function feedbackEND_loss(taskType, totalTrials) {
     return {
       type: "html-keyboard-response",
       stimulus: function () {
@@ -1334,7 +1351,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /* -------------------------------------------------------------------------- */
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
-  const timeline = [pavlovia_init, preload, welcome, Welcome_part2];
+  const timeline = [pavlovia_init, preload, welcome, Welcome_part1, Welcome_part2];
   training();
   orderedConditions.forEach((cond) => {
     blockMap[cond][contingency]();
