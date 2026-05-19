@@ -656,6 +656,50 @@ multiple functions are needed */
     };
   }
 
+  function computeReward(trial, condition) {
+    const correct = trial.correct === 1;
+
+    if (condition === "gain") {
+      return correct ? 1 : 0;
+    }
+
+    if (condition === "loss") {
+      return correct ? 1 : -1;
+    }
+
+    return 0;
+  }
+
+  function totalcountFeedback(taskType, totalTrials, condition) {
+    return {
+      type: "html-keyboard-response",
+      stimulus: function () {
+        const allData = jsPsych.data.get().filter({ task: taskType });
+
+        const trials = allData.values();
+
+        const correct = trials.filter((t) => t.correct === 1).length;
+
+        const total = totalTrials;
+
+        const money = trials.reduce((sum, t) => {
+          return sum + computeReward(t, condition);
+        }, 0);
+
+        return `
+        <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+          <h2>Total Performance</h2>
+          <p style="font-size:3em; font-weight:bold; margin-top:20px;">
+            ${correct} / ${total}
+          </p>
+          <p>Net earnings: ${money}</p>
+          <p><em>Press any key to continue.</em></p>
+        </div>`;
+      },
+      choices: jsPsych.ALL_KEYS,
+    };
+  }
+
   function feedback10trials_gain() {
     return {
       type: "html-keyboard-response",
@@ -1136,8 +1180,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
       }
     }
     timeline.push(feedback10trials_gain());
-    timeline.push(feedbackEND_gain());
-    timeline.push(totalcountFeedback("standard_trial", 60));
+    timeline.push(totalcountFeedback("standard_trial", 60, "gain"));
     timeline.push(nasaTLX_part1());
   }
 
@@ -1167,8 +1210,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
       }
     }
     timeline.push(feedback10trials_loss());
-    timeline.push(feedbackEND_loss());
-    timeline.push(totalcountFeedback("standard_trial", 60));
+    timeline.push(totalcountFeedback("standard_trial", 60, "loss"));
     timeline.push(nasaTLX_part1());
   }
 
@@ -1213,8 +1255,7 @@ So the ITI will be n2.
     timeline.push(questionnaire1());
     timeline.push(feedback10trials_gain());
     timeline.push(questionnaire2());
-    timeline.push(feedbackEND_gain());
-    timeline.push(totalcountFeedback("simple_trial", 60));
+    timeline.push(totalcountFeedback("simple_trial", 60, "gain"));
     timeline.push(nasaTLX_part1());
   }
 
@@ -1248,8 +1289,7 @@ So the ITI will be n2.
     timeline.push(questionnaire1());
     timeline.push(feedback10trials_loss());
     timeline.push(questionnaire2());
-    timeline.push(feedbackEND_loss());
-    timeline.push(totalcountFeedback("simple_trial", 60));
+    timeline.push(totalcountFeedback("simple_trial", 60, "loss" ));
     timeline.push(nasaTLX_part1());
   }
 
@@ -1295,8 +1335,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     timeline.push(questionnaire1());
     timeline.push(feedback10trials_gain());
     timeline.push(questionnaire2());
-    timeline.push(feedbackEND_gain());
-    timeline.push(totalcountFeedback("transparent_trial", 60));
+    timeline.push(totalcountFeedback("transparent_trial", 60, "gain"));
     timeline.push(nasaTLX_part1());
   }
 
@@ -1329,8 +1368,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     timeline.push(questionnaire1());
     timeline.push(feedback10trials_loss());
     timeline.push(questionnaire2());
-    timeline.push(feedbackEND_loss());
-    timeline.push(totalcountFeedback("transparent_trial", 60));
+    timeline.push(totalcountFeedback("transparent_trial", 60, "loss"));
     timeline.push(nasaTLX_part1());
   }
 
