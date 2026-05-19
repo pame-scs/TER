@@ -380,12 +380,10 @@ for the 10 trials*/
       items: item.items,
     },
     on_finish: function (data) {
-      console.log(data.response);
-      console.log(item.correct);
       const responded_danger = data.response === KEY_DANGER;
       const correctAnswer = String(item.correct).trim().toLowerCase();
       const correctIsDanger = correctAnswer.startsWith("d");
-      data.correct_training =
+      data.correct =
         data.response === null
           ? 0
           : responded_danger === correctIsDanger
@@ -1064,6 +1062,16 @@ AI assistance in this block. So the ITI will be n1.
 */
 
   function training() {
+    const screen_training = {
+      type: "html-keyboard-response",
+      stimulus: `
+      <div>
+        <h1>Training Phase</h1>
+        <p><em>Press any key to begin.</em></p>
+      </div>`,
+      choices: jsPsych.ALL_KEYS,
+    };
+    timeline.push(screen_training);
     for (let i = 0; i < 30; i++) {
       timeline.push(ITI_V1);
       timeline.push(training_trials[i]);
