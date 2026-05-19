@@ -1062,16 +1062,6 @@ AI assistance in this block. So the ITI will be n1.
 */
 
   function training() {
-    const screen_training = {
-      type: "html-keyboard-response",
-      stimulus: `
-      <div>
-        <h1>Training Phase</h1>
-        <p><em>Press any key to begin.</em></p>
-      </div>`,
-      choices: jsPsych.ALL_KEYS,
-    };
-    timeline.push(screen_training);
     for (let i = 0; i < 30; i++) {
       timeline.push(ITI_V1);
       timeline.push(training_trials[i]);
