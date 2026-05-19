@@ -229,38 +229,52 @@ async function runExperiment() {
 
   const Welcome_part1 = {
     type: "survey-html-form",
+
     html: `
     <h3>Ethics and Consent</h3>
 
-      <p>
-        Your participation in this experiment is entirely voluntary.
-        You may stop the experiment at any time without consequences.
-      </p>
+    <p>
+      Your participation in this study is entirely voluntary.
+      You may stop the experiment at any time without penalty or consequences.
+    </p>
 
-      <p>
-        All collected data is anonymized and securely stored.
-        No personally identifying information will be associated with your responses.
-      </p>
+    <p>
+      All data collected during this study will be anonymized and securely stored.
+      No personally identifying information will be associated with your responses.
+    </p>
 
-      <p>
-        You confirm that: 
-        You agree to participate voluntarily in this study & 
-        You understand that your data will be anonymized and securely stored
-      </ul>
+    <p>By checking the box below, you confirm that:</p>
 
-      <br>
+    <ul style="text-align: left; display: inline-block;">
+      <li>You voluntarily agree to participate in this study.</li>
+      <li>You understand that your data will be anonymized and securely stored.</li>
+    </ul>
 
-      <label style="margin-right: 20px;"><input type="checkbox" name="consent" value="yes" required> I consent to participate in this study</label>
+    <br><br>
 
-      <br>
-      
-    `,
-    choices: jsPsych.ALL_KEYS,
+    <label>
+      <input 
+        type="checkbox" 
+        name="consent" 
+        value="yes" 
+        required
+      >
+      I consent to participate in this study.
+    </label>
+
+    <br><br>
+  `,
+
+    button_label: "Continue",
+
+    data: {
+      task: "consent",
+    },
   };
 
   const Welcome_part2 = {
-  type: "survey-html-form",
-  html: `
+    type: "survey-html-form",
+    html: `
     <p>Please fill the following:</p>
 
     <p>
@@ -287,19 +301,19 @@ async function runExperiment() {
     </p>
   `,
 
-  button_label: "Continue",
+    button_label: "Continue",
 
-  on_finish: function (data) {
-    const r = data.response;
+    on_finish: function (data) {
+      const r = data.response;
 
-    data.gender = r.gender;
-    data.age = parseInt(r.age);
-  },
+      data.gender = r.gender;
+      data.age = parseInt(r.age);
+    },
 
-  data: {
-    task: "survey",
-  },
-};
+    data: {
+      task: "survey",
+    },
+  };
 
   /* --------------------------- Inter-trial interval ------------------------- */
   const ITI_V1 = {
@@ -641,7 +655,6 @@ multiple functions are needed */
       choices: jsPsych.ALL_KEYS,
     };
   }
-
 
   function feedback10trials_gain() {
     return {
@@ -1300,7 +1313,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
         timeline.push(questionnaire2());
       }
     }
-    timeline.push(questionnaire1()); 
+    timeline.push(questionnaire1());
     timeline.push(feedback10trials_loss());
     timeline.push(questionnaire2());
     timeline.push(feedbackEND_loss());
@@ -1336,7 +1349,13 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   /* -------------------------------------------------------------------------- */
   /*                                  Timeline                                  */
   /* -------------------------------------------------------------------------- */
-  const timeline = [pavlovia_init, preload, welcome, Welcome_part1, Welcome_part2];
+  const timeline = [
+    pavlovia_init,
+    preload,
+    welcome,
+    Welcome_part1,
+    Welcome_part2,
+  ];
   training();
   orderedConditions.forEach((cond) => {
     blockMap[cond][contingency]();
