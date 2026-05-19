@@ -380,6 +380,8 @@ for the 10 trials*/
       items: item.items,
     },
     on_finish: function (data) {
+      console.log(data.response);
+      console.log(item.correct);
       const responded_danger = data.response === KEY_DANGER;
       const correctAnswer = String(item.correct).trim().toLowerCase();
       const correctIsDanger = correctAnswer.startsWith("d");
