@@ -683,21 +683,27 @@ multiple functions are needed */
       stimulus: function () {
         const allData = jsPsych.data
           .get()
-          .filter({ trial_type: "image-keyboard-response" });
+          .filter(
+            (t) =>
+              t.trial_type === "image-keyboard-response" &&
+              t.task !== "training_trial",
+          );
+
         const correct = allData.values().filter((t) => t.correct === 1).length;
         const moneyWon = correct * 1;
+
         return `
-              <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
-                <h2>Total Performance</h2>
-                <p>You won ${moneyWon} in total!</p>
-                <p><em>Press any key to continue.</em></p>
-              </div>`;
+        <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+          <h2>Total Performance</h2>
+          <p>You won ${moneyWon} in total!</p>
+          <p><em>Press any key to continue.</em></p>
+        </div>`;
       },
       choices: jsPsych.ALL_KEYS,
     };
   }
 
-  /* ------------------------ Neutral - Loss condition ------------------------ */
+  /* ------------------------ Gain - Loss condition ------------------------ */
   /* In this condition, if the participant responds correctly, they receive 1€ and 
   if they respond incorrectly, they lose 1. The feedback will indicate the amount 
   of money gained every 10 trials. */
@@ -724,24 +730,31 @@ multiple functions are needed */
     };
   }
 
-  function feedbackEND_loss(taskType, totalTrials) {
+  function feedbackEND_loss() {
     return {
       type: "html-keyboard-response",
       stimulus: function () {
         const allData = jsPsych.data
           .get()
-          .filter({ trial_type: "image-keyboard-response" });
+          .filter(
+            (t) =>
+              t.trial_type === "image-keyboard-response" &&
+              t.task !== "training_trial",
+          );
+
         const correct = allData.values().filter((t) => t.correct === 1).length;
         const total = allData.count();
+
         const moneyWon = correct * 1;
         const moneyLost = (total - correct) * 1;
         const netEarnings = moneyWon - moneyLost;
+
         return `
-              <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
-                <h2>Total Performance</h2>
-                <p>You won ${moneyWon} and lost ${moneyLost} in total! Your net earnings are ${netEarnings}.</p>
-                <p><em>Press any key to continue.</em></p>
-              </div>`;
+        <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+          <h2>Total Performance</h2>
+          <p>You won ${moneyWon} and lost ${moneyLost} in total! Your net earnings are ${netEarnings}.</p>
+          <p><em>Press any key to continue.</em></p>
+        </div>`;
       },
       choices: jsPsych.ALL_KEYS,
     };
