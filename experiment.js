@@ -623,6 +623,33 @@ multiple functions are needed */
     };
   }
 
+  function totalAllTasks() {
+    return {
+      type: "html-keyboard-response",
+      stimulus: function () {
+        const task1 = jsPsych.data.get().filter({ task: "noAI" });
+        const task2 = jsPsych.data.get().filter({ task: "simpleAI" });
+        const task3 = jsPsych.data.get().filter({ task: "transparentAI" });
+        const correct1 = task1.values().filter((t) => t.correct === 1).length;
+        const correct2 = task2.values().filter((t) => t.correct === 1).length;
+        const correct3 = task3.values().filter((t) => t.correct === 1).length;
+        const total1 = task1.count();
+        const total2 = task2.count();
+        const total3 = task3.count();
+        const totalCorrect = correct1 + correct2 + correct3;
+        const totalTrials = total1 + total2 + total3;
+        return `
+              <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
+                <h2>Total Performance</h2>
+                <p style="font-size:3em; font-weight:bold; margin-top:20px;">${totalCorrect} / ${totalTrials}</p>
+                <p><em>Press any key to continue.</em></p>
+              </div>`;
+      },
+      choices: jsPsych.ALL_KEYS,
+    };
+  }
+
+
   /* -------------------------------------------------------------------------- */
   /*                          Contingencies Conditions                          */
   /* -------------------------------------------------------------------------- */
@@ -1408,9 +1435,11 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     Welcome_part2,
   ];
   training();
-  orderedConditions.forEach((cond) => {
+  /*orderedConditions.forEach((cond) => {
     blockMap[cond][contingency]();
   });
+  */
+  timeline.push(totalAllTasks());
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
 
