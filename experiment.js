@@ -1434,8 +1434,8 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     Welcome_part1,
     Welcome_part2,
   ];
-  training();
-  /*orderedConditions.forEach((cond) => {
+  /*training();
+  orderedConditions.forEach((cond) => {
     blockMap[cond][contingency]();
   });
   */
