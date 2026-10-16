@@ -1080,7 +1080,7 @@ multiple functions are needed */
       },
       {
         name: "cognitive_2",
-        prompt: 
+        prompt:
           "AI has more disadvantages than advantages.",
         choices: choiceOptions,
       },
@@ -1095,9 +1095,45 @@ multiple functions are needed */
         prompt:
           "AI offers solutions to many world problems.",
         choices: choiceOptions,
-      }
+      },
     ];
 
+    const questionsHTML = questions
+      .map(
+        ({ name, prompt, choices }) => `
+          <div class="tlx-question">
+            <p><b>${prompt}</b></p>
+            <div class="attari-options">
+              ${choices
+                .map(
+                  (option) => `
+                    <label style="display: block; margin: 6px 0;">
+                      <input type="radio" name="${name}" value="${option.value}" required>
+                      ${option.label}
+                    </label>
+                  `,
+                )
+                .join("")}
+            </div>
+          </div>
+        `,
+      )
+      .join("");
+
+    return {
+      type: "survey-html-form",
+      html: questionsHTML,
+      on_finish: function (data) {
+        const r = data.response;
+        Object.keys(r).forEach((key) => {
+          data[key] = parseInt(r[key]);
+        });
+      },
+      data: {
+        task: "attari_12",
+      },
+    };
+  }
 
   /* -------------------------------------------------------------------------- */
   /*                                   Block 1                                  */
@@ -1397,7 +1433,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     welcome,
     Welcome_part1,
     Welcome_part2,
-    attari12,
+    attari12(),
   ];
   
   training();
