@@ -1098,7 +1098,14 @@ multiple functions are needed */
       },
     ];
 
-    const questionsHTML = questions
+    const questionsHTML = 
+    `
+      <div class="attari-instructions">
+      <h1>Attitudes towards Artificial Intelligence questionnaire (ATTARI-12)</h1>
+        <p><b>Please indicate your level of agreement with each statement:</b></p>
+      </div>
+    ` +
+    questions
       .map(
         ({ name, prompt, choices }) => `
           <div class="tlx-question">
@@ -1107,7 +1114,7 @@ multiple functions are needed */
               ${choices
                 .map(
                   (option) => `
-                    <label style="display: block; margin: 6px 0;">
+                    <label style="display: flex; margin: 6px 0;">
                       <input type="radio" name="${name}" value="${option.value}" required>
                       ${option.label}
                     </label>
@@ -1436,12 +1443,13 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     attari12(),
   ];
   
+  /*
   training();
   orderedConditions.forEach((cond) => {
     blockMap[cond][contingency]();
   });
 
-  timeline.push(totalAllTasks());
+  timeline.push(totalAllTasks()); */
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
 
