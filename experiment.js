@@ -1135,8 +1135,7 @@ multiple functions are needed */
     ];
 
     const questionsHTML = 
-    `
-      <div class="attari-instructions">
+    ` <div class="attari-instructions">
       <h1>Attitudes towards Artificial Intelligence questionnaire (ATTARI-12)</h1>
         <p><b>Please indicate your level of agreement with each statement:</b></p>
       </div>
@@ -1144,26 +1143,21 @@ multiple functions are needed */
     questions
       .map(
         ({ name, prompt, choices }) => `
-          <div class="tlx-question">
+          <div class="attari-question">
             <p><b>${prompt}</b></p>
             <div class="attari-options">
               ${choices
                 .map(
                   (option) => `
-                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
-                      ${options.map(option => `
-                        <label style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;">
-                          <input type="radio" name="${name}" value="${option.value}" required>
-                          <span>${option.label}</span>
-                        </label>
-                      `).join('')}
-                    </div>
+                    <label>
+                      <input type="radio" name="${name}" value="${option.value}" required>
+                      ${option.label}
+                    </label>
                   `,
                 )
                 .join("")}
             </div>
-          </div>
-        `,
+          </div>`,
       )
       .join("");
 
