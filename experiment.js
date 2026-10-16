@@ -1096,6 +1096,42 @@ multiple functions are needed */
           "AI offers solutions to many world problems.",
         choices: choiceOptions,
       },
+      {
+        name: "behavioral_2",
+        prompt:
+          "I prefer technologies that do not feature AI.",
+        choices: choiceOptions,
+      },
+      {
+        name: "affective_3",
+        prompt:
+          "I am afraid of AI.",
+        choices: choiceOptions,
+      },
+      {
+        name: "behavioral_3",
+        prompt:
+          "I would rather choose a technology with AI than one without it.",
+        choices: choiceOptions,
+      },
+      {
+        name: "cognitive_4",
+        prompt:
+          "AI creates problems rather than solving them.",
+        choices: choiceOptions,
+      },
+      {
+        name: "affective_4",
+        prompt:
+          "When I think about AI, I have mostly positive feelings.",
+        choices: choiceOptions,
+      },
+      {
+        name: "behavioral_4",
+        prompt:
+          "I would rather avoid technologies that are based on AI.",
+        choices: choiceOptions,
+      },
     ];
 
     const questionsHTML = 
@@ -1114,10 +1150,14 @@ multiple functions are needed */
               ${choices
                 .map(
                   (option) => `
-                    <label style="display: flex; margin: 6px 0;">
-                      <input type="radio" name="${name}" value="${option.value}" required>
-                      ${option.label}
-                    </label>
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                      ${options.map(option => `
+                        <label style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;">
+                          <input type="radio" name="${name}" value="${option.value}" required>
+                          <span>${option.label}</span>
+                        </label>
+                      `).join('')}
+                    </div>
                   `,
                 )
                 .join("")}
@@ -1442,14 +1482,13 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     Welcome_part2,
     attari12(),
   ];
-  
   /*
   training();
   orderedConditions.forEach((cond) => {
     blockMap[cond][contingency]();
   });
 
-  timeline.push(totalAllTasks()); */
+  timeline.push(totalAllTasks());*/
   timeline.push(endScreen);
   timeline.push(pavlovia_finish);
 
