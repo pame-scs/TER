@@ -315,6 +315,8 @@ async function runExperiment() {
     },
   };
 
+
+
   /* --------------------------- Inter-trial interval ------------------------- */
   const ITI_V1 = {
     type: "html-keyboard-response",
@@ -1044,98 +1046,58 @@ multiple functions are needed */
     };
   }
 
-  /*function nasaTLX_part2() {
-    const comparisons = [
-      ["Performance", "Mental demand"],
-      ["Effort", "Physical demand"],
-      ["Performance", "Temporal demand"],
-      ["Effort", "Performance"],
-      ["Temporal demand", "Frustration"],
-      ["Physical demand", "Frustration"],
-      ["Frustration", "Effort"],
-      ["Performance", "Frustration"],
-      ["Mental demand", "Physical demand"],
-      ["Frustration", "Mental demand"],
-      ["Physical demand", "Temporal demand"],
-      ["Temporal demand", "Mental demand"],
-      ["Physical demand", "Performance"],
-      ["Mental demand", "Effort"],
-      ["Temporal demand", "Effort"],
+  /* -------------------------------------------------------------------------- */
+  /*     Attitudes towards Artificial Intelligence questionnaire (ATTARI-12)    */
+  /* -------------------------------------------------------------------------- */
+
+  const choiceOptions = [
+    { value: 1, label: "Strongly Disagree" },
+    { value: 2, label: "Disagree" },
+    { value: 3, label: "Neutral" },
+    { value: 4, label: "Agree" },
+    { value: 5, label: "Strongly Agree" },
+  ];
+
+  function attari12() {
+    const questions = [
+      {
+        name: "cognitive_1",
+        prompt:
+          "AI will make this world a better place.",
+        choices: choiceOptions,
+      },
+      {
+        name: "affective_1",
+        prompt:
+          "I have strong negative emotions about AI.",
+        choices: choiceOptions,
+      },
+      {
+        name: "behavioral_1",
+        prompt:
+          "I want to use technologies that rely on AI.",
+        choices: choiceOptions,
+      },
+      {
+        name: "cognitive_2",
+        prompt: 
+          "AI has more disadvantages than advantages.",
+        choices: choiceOptions,
+      },
+      {
+        name: "affective_2",
+        prompt:
+          "I look forward to future AI developments.",
+        choices: choiceOptions,
+      },
+      {
+        name: "cognitive_3",
+        prompt:
+          "AI offers solutions to many world problems.",
+        choices: choiceOptions,
+      }
     ];
 
-    const trials = comparisons.map(([left, right], i) => ({
-      type: "html-button-response",
-      stimulus: `
-      <div class="tlx-instructions">
-        <p><b>Trial ${i + 1} of ${comparisons.length}</b></p>
-        <p>Which factor contributed more to your workload during the task?</p>
-      </div>
-    `,
-      choices: [left, right],
-      data: {
-        task: "nasa_tlx_weighting",
-        comparison_left: left,
-        comparison_right: right,
-      },
-      on_finish: function (data) {
-        data.selected =
-          data.response === 0 ? data.comparison_left : data.comparison_right;
-      },
-    }));
-
-    return {
-      timeline: trials,
-    };
-  }
-
-  function computeTLX(dataArray) {
-    const ratings = {};
-    const weights = {
-      "Mental demand": 0,
-      "Physical demand": 0,
-      "Temporal demand": 0,
-      Performance: 0,
-      Effort: 0,
-      Frustration: 0,
-    };
-
-    let ratingData = null;
-
-    dataArray.forEach((d) => {
-      if (d.task === "nasa_tlx") {
-        ratingData = d;
-      }
-    });
-
-    const r = ratingData;
-
-    ratings["Mental demand"] = r.mental_demand;
-    ratings["Physical demand"] = r.physical_demand;
-    ratings["Temporal demand"] = r.temporal_demand;
-    ratings["Performance"] = r.performance;
-    ratings["Effort"] = r.effort;
-    ratings["Frustration"] = r.frustration;
-    dataArray.forEach((d) => {
-      if (d.task === "nasa_tlx_weighting") {
-        const chosen = d.selected;
-        weights[chosen] += 1;
-      }
-    });
-    let sum = 0;
-
-    for (const key in ratings) {
-      sum += ratings[key] * weights[key];
-    }
-
-    const wwI = sum / 15;
-
-    return {
-      ratings,
-      weights,
-      workload_index: wwI,
-    };
-  }
-   */
 
   /* -------------------------------------------------------------------------- */
   /*                                   Block 1                                  */
