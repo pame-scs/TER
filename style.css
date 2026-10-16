@@ -145,25 +145,20 @@ canvas {
 }
 
 /* ------------------------------ Questionaire ------------------------------ */
-.attari-question {
-  margin: 20px auto;
-  max-width: 800px;
-  text-align: center;
-}
 
-.attari-question p {
+.attari_question p {
   margin-bottom: 20px;
   font-size: 18px;
 }
 
-.attari-options {
+.attari_options {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 15px;
 }
 
-.attari-options label {
+.attari_options label {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -173,7 +168,7 @@ canvas {
   cursor: pointer;
 }
 
-.attari-options input[type="radio"] {
+.attari_options input[type="radio"] {
   margin: 0;
   cursor: pointer;
 }

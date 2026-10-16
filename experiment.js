@@ -1135,7 +1135,7 @@ multiple functions are needed */
     ];
 
     const questionsHTML = 
-    ` <div class="attari-instructions">
+    ` <div class="attari_instructions">
       <h1>Attitudes towards Artificial Intelligence questionnaire (ATTARI-12)</h1>
         <p><b>Please indicate your level of agreement with each statement:</b></p>
       </div>
@@ -1143,9 +1143,9 @@ multiple functions are needed */
     questions
       .map(
         ({ name, prompt, choices }) => `
-          <div class="attari-question">
+          <div class="attari_question">
             <p><b>${prompt}</b></p>
-            <div class="attari-options">
+            <div class="attari_options">
               ${choices
                 .map(
                   (option) => `
