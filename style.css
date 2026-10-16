@@ -145,114 +145,37 @@ canvas {
 }
 
 /* ------------------------------ Questionaire ------------------------------ */
-/* Question container */
 .attari-question {
-  width: 100%;
-  max-width: 850px;
-  margin: 0 auto 28px;
-  padding: 24px;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  box-sizing: border-box;
+  margin: 20px auto;
+  max-width: 800px;
+  text-align: center;
 }
 
-/* Question text */
 .attari-question p {
-  margin: 0 0 24px;
-  color: #1e293b;
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 1.6;
+  margin-bottom: 20px;
+  font-size: 18px;
 }
 
-/* Horizontal answer layout */
 .attari-options {
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
-  gap: 12px;
-  width: 100%;
+  align-items: flex-start;
+  gap: 15px;
 }
 
-/* Individual answer */
 .attari-options label {
-  display: flex;
   flex: 1;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  padding: 16px 8px;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  background-color: #f8fafc;
-  color: #475569;
+  gap: 8px;
   font-size: 14px;
-  line-height: 1.4;
-  text-align: center;
   cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
-  box-sizing: border-box;
 }
 
-/* Radio button */
 .attari-options input[type="radio"] {
-  width: 18px;
-  height: 18px;
   margin: 0;
-  accent-color: #4f46e5;
   cursor: pointer;
-  flex-shrink: 0;
-}
-
-/* Hover effect */
-.attari-options label:hover {
-  background-color: #eef2ff;
-  border-color: #a5b4fc;
-  transform: translateY(-2px);
-}
-
-/* Selected answer */
-.attari-options label:has(input[type="radio"]:checked) {
-  background-color: #eef2ff;
-  border-color: #4f46e5;
-  color: #3730a3;
-  font-weight: 600;
-  box-shadow: 0 0 0 1px #4f46e5;
-}
-
-/* Keyboard accessibility */
-.attari-options label:has(input[type="radio"]:focus-visible) {
-  outline: 3px solid #a5b4fc;
-  outline-offset: 3px;
-}
-
-/* Responsive layout for smaller screens */
-@media (max-width: 600px) {
-  .attari-question {
-    padding: 16px;
-  }
-
-  .attari-options {
-    gap: 6px;
-  }
-
-  .attari-options label {
-    padding: 12px 4px;
-    font-size: 12px;
-    overflow-wrap: anywhere;
-  }
-
-  .attari-options input[type="radio"] {
-    width: 16px;
-    height: 16px;
-  }
 }
 
 /* -------------------------------- NASA TLX -------------------------------- */
