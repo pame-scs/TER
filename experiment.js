@@ -1291,7 +1291,6 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     };
     timeline.push(screen_NoAI);
     timeline.push(explanationGain());
-    timeline.push(pre60TrialsQuestions());
     for (let i = 30; i < 90; i++) {
       timeline.push(ITI_V1);
       timeline.push(standard_trials[i]);
@@ -1322,7 +1321,6 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     };
     timeline.push(screen_NoAI);
     timeline.push(explanationLoss());
-    timeline.push(pre60TrialsQuestions());
     for (let i = 30; i < 90; i++) {
       timeline.push(ITI_V1);
       timeline.push(standard_trials[i]);
