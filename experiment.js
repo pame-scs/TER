@@ -1210,7 +1210,7 @@ multiple functions are needed */
           <p class="pre60-prompt">${prompt}</p>
           <div class="tlx-slider-row">
             <span>${low}</span>
-            <input type="range" name="${name}" min="0" max="100" step="10" value="50" class="pre60-slider">
+            <input type="range" name="${name}" min="0" max="100" step="10" value="50" class="tlx-slider">
             <span>${high}</span>
           </div>
         </div>
