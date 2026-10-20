@@ -1176,6 +1176,62 @@ multiple functions are needed */
     };
   }
 
+  /* ------------------------- Pre 60 trials questions ------------------------ */
+
+  function pre60TrialsQuestions() {
+    const questions = [
+      {
+        name: "confidence",
+        prompt:
+          "How confident are you in your ability to accurately identify dangerous items in the baggage scans?",
+        low: "0% - Not at all confident",
+        high: "100% - Extremely confident",
+      },
+      {
+        name: "trust",
+        prompt:
+          "How much do you trust the AI system to provide accurate suggestions for identifying dangerous items?",
+        low: "0% - Do not trust at all",
+        high: "100% - Completely trust",
+      },
+    ];
+
+    const questionsHTML =
+      `
+      <div class="pre60-instructions">
+      <h1>General Questions</h1>
+        <p><b>Before we begin, please answer the following questions:</b></p>
+      </div>
+    ` +
+      questions
+        .map(
+          ({ name, prompt, low, high }) => `
+        <div class="pre60-question">
+          <p class="pre60-prompt">${prompt}</p>
+          <div class="pre60-slider-row">
+            <span>${low}</span>
+            <input type="range" name="${name}" min="0" max="100" step="10" value="50" class="pre60-slider">
+            <span>${high}</span>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+
+    return {
+      type: "survey-html-form",
+      html: questionsHTML,
+      on_finish: function (data) {
+        const r = data.response;
+        data.confidence = parseInt(r.confidence);
+        data.trust = parseInt(r.trust);
+      },
+      data: {
+        task: "pre_60_trials_questions",
+      },
+    };
+  }
+
   /* -------------------------------------------------------------------------- */
   /*                                   Block 1                                  */
   /* -------------------------------------------------------------------------- */
@@ -1197,6 +1253,7 @@ AI assistance in this block. So the ITI will be n1.
       choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_training);
+    timeline.push(pre_60_trials_questions());
     for (let i = 0; i < 30; i++) {
       timeline.push(ITI_V1);
       timeline.push(training_trials[i]);
@@ -1419,6 +1476,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     };
     timeline.push(screen_TransparentAI);
     timeline.push(explanationLoss());
+    // Here add the general questionaire about the AI trust and general confidence in their performance
     for (let i = 90; i < 150; i++) {
       timeline.push(ITI_3);
       timeline.push(trials_transparentAI[i]);
