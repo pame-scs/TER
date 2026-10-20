@@ -1206,9 +1206,9 @@ multiple functions are needed */
       questions
         .map(
           ({ name, prompt, low, high }) => `
-        <div class="pre60-question">
+        <div class="tlx-question">
           <p class="pre60-prompt">${prompt}</p>
-          <div class="pre60-slider-row">
+          <div class="tlx-slider-row">
             <span>${low}</span>
             <input type="range" name="${name}" min="0" max="100" step="10" value="50" class="pre60-slider">
             <span>${high}</span>
