@@ -1253,7 +1253,7 @@ AI assistance in this block. So the ITI will be n1.
       choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_training);
-    timeline.push(pre_60_trials_questions());
+    timeline.push(pre60TrialsQuestions());
     for (let i = 0; i < 30; i++) {
       timeline.push(ITI_V1);
       timeline.push(training_trials[i]);
@@ -1291,7 +1291,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     };
     timeline.push(screen_NoAI);
     timeline.push(explanationGain());
-    timeline.push(pre_60_trials_questions());
+    timeline.push(pre60TrialsQuestions());
     for (let i = 30; i < 90; i++) {
       timeline.push(ITI_V1);
       timeline.push(standard_trials[i]);
@@ -1322,7 +1322,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     };
     timeline.push(screen_NoAI);
     timeline.push(explanationLoss());
-    timeline.push(pre_60_trials_questions());
+    timeline.push(pre60TrialsQuestions());
     for (let i = 30; i < 90; i++) {
       timeline.push(ITI_V1);
       timeline.push(standard_trials[i]);
@@ -1364,7 +1364,7 @@ So the ITI will be n2.
     };
     timeline.push(screen_NoAI);
     timeline.push(explanationGain());
-    timeline.push(pre_60_trials_questions());
+    timeline.push(pre60TrialsQuestions());
     for (let i = 90; i < 150; i++) {
       timeline.push(ITI_2);
       timeline.push(trials_simpleAI[i]);
@@ -1399,7 +1399,7 @@ So the ITI will be n2.
     };
     timeline.push(screen_NoAI);
     timeline.push(explanationLoss());
-    timeline.push(pre_60_trials_questions());
+    timeline.push(pre60TrialsQuestions());
     for (let i = 90; i < 150; i++) {
       timeline.push(ITI_2);
       timeline.push(trials_simpleAI[i]);
@@ -1447,7 +1447,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     };
     timeline.push(screen_TransparentAI);
     timeline.push(explanationGain());
-    timeline.push(pre_60_trials_questions());
+    timeline.push(pre60TrialsQuestions());
     for (let i = 90; i < 150; i++) {
       timeline.push(ITI_3);
       timeline.push(trials_transparentAI[i]);
@@ -1481,7 +1481,7 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     };
     timeline.push(screen_TransparentAI);
     timeline.push(explanationLoss());
-    timeline.push(pre_60_trials_questions());
+    timeline.push(pre60TrialsQuestions());
     for (let i = 90; i < 150; i++) {
       timeline.push(ITI_3);
       timeline.push(trials_transparentAI[i]);
