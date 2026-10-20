@@ -295,12 +295,8 @@ canvas {
 #jspsych-survey-html-form-next {
   margin: 3em;
   padding: 0.5em 3em;
-  font-family: var(--font-interface);
-  font-size: larger;
   background-color: rgba(4, 0, 255, 0.1);
   color: rgb(31, 0, 232);
   border: 1px dashed rgb(13, 0, 255);
-
   border-radius: 10px;
-  padding: 10px 40px;
 }
