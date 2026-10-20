@@ -1538,8 +1538,6 @@ the AI considered more relevant for its decision. So the ITI will be n3.
     Welcome_part1,
     Welcome_part2,
     attari12(),
-    pre60TrialsQuestions(),
-    nasaTLX_part1(),
   ];
   training();
   orderedConditions.forEach((cond) => {
