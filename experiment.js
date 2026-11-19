@@ -161,11 +161,11 @@ async function runExperiment() {
     ">
 
       <h2 style="text-align: center; margin-bottom: 25px;">
-        Human–AI Interaction Study
+        Human-AI Interaction Study
       </h2>
 
       <p>
-        The objective of this experiment is to study human–AI interaction.
+        The objective of this experiment is to study human-AI interaction.
         More specifically, we are interested in how decision-making processes are affected
         when AI assistance is introduced, and how the consequences of user actions
         influence the use of AI systems.
@@ -188,13 +188,14 @@ async function runExperiment() {
       </ul>
 
       <p>
-        For each image:
+        For each image, you must classify the luggage by pressing the corresponding
+        key on your keyboard:
       </p>
 
-      <p>
-        <b>S</b> = Safe (no dangerous object)<br>
-        <b>D</b> = Dangerous (contains a dangerous object)
-      </p>
+      <ul>
+        <li><b>Press the S key</b> if the luggage is <b>SAFE</b> (contains no dangerous object).</li>
+        <li><b>Press the D key</b> if the luggage is <b>DANGEROUS</b> (contains a dangerous object).</li>
+      </ul>
 
       <h3>Experiment Structure</h3>
 
@@ -204,7 +205,8 @@ async function runExperiment() {
       </p>
 
       <p>
-        In the second phase, no immediate feedback will be provided. Every 10 trials, you will receive a performance summary.
+        In the second phase, no immediate feedback will be provided. Every 10 trials,
+        you will receive a performance summary.
         This phase contains three different blocks:
       </p>
 
@@ -213,6 +215,19 @@ async function runExperiment() {
         <li>AI System 1 assistance</li>
         <li>AI System 2 assistance</li>
       </ul>
+
+      <h3>Monetary Bonus</h3>
+
+      <p>
+        In addition to your base payment, you can earn a monetary bonus based on
+        your performance. You will receive £0.01 (1 penny) for each correct
+        response.
+      </p>
+
+      <p>
+        Since the experiment consists of 210 trials, the maximum possible bonus
+        is £2.10, which you can earn by answering all trials correctly.
+      </p>
 
       <p style="font-style: italic;">
         The experiment lasts approximately 50 minutes in total, including instructions and questionnaires.
@@ -236,6 +251,8 @@ async function runExperiment() {
     <p>
       Your participation in this study is entirely voluntary.
       You may stop the experiment at any time without penalty or consequences.
+      However, both the base payment and any bonus payments are contingent
+      upon completing the entire experiment.
     </p>
 
     <p>
@@ -248,6 +265,7 @@ async function runExperiment() {
     <ul style="text-align: left; display: inline-block;">
       <li>You voluntarily agree to participate in this study.</li>
       <li>You understand that your data will be anonymized and securely stored.</li>
+      <li>You understand that receiving the base payment and any bonus payments requires completing the entire experiment.</li>
     </ul>
 
     <br><br>
@@ -262,8 +280,7 @@ async function runExperiment() {
       I consent to participate in this study.
     </label>
 
-    <br><br>
-  `,
+    <br><br>`,
 
     button_label: "Continue",
 
