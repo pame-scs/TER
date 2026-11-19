@@ -1183,16 +1183,63 @@ multiple functions are needed */
       {
         name: "confidence",
         prompt:
-          "How confident are you in your ability to accurately identify dangerous items in the baggage scans?",
+          "How confident are you that you will be able to accurately classify the baggage scans?",
         low: "0% - Not at all confident",
         high: "100% - Extremely confident",
       },
       {
         name: "trust",
         prompt:
-          "How much do you trust the AI system to provide accurate suggestions for identifying dangerous items?",
+          "How confident are you that the AI system will provide accurate suggestions for classifying the baggage scans?",
         low: "0% - Do not trust at all",
         high: "100% - Completely trust",
+      },
+    ];
+
+    const questionsHTML =
+      `
+      <div class="pre60-instructions">
+      <h1>General Questions</h1>
+        <p><b>Before we begin, please answer the following questions:</b></p>
+      </div>
+    ` +
+      questions
+        .map(
+          ({ name, prompt, low, high }) => `
+        <div class="tlx-question">
+          <p class="pre60-prompt">${prompt}</p>
+          <div class="tlx-slider-row">
+            <span>${low}</span>
+            <input type="range" name="${name}" min="0" max="100" step="10" value="50" class="tlx-slider">
+            <span>${high}</span>
+          </div>
+        </div>
+      `,
+        )
+        .join("");
+
+    return {
+      type: "survey-html-form",
+      html: questionsHTML,
+      on_finish: function (data) {
+        const r = data.response;
+        data.confidence = parseInt(r.confidence);
+        data.trust = parseInt(r.trust);
+      },
+      data: {
+        task: "pre_60_trials_questions",
+      },
+    };
+  }
+
+  function pre60TrialsQuestionsNoAI() {
+    const questions = [
+      {
+        name: "confidence",
+        prompt:
+          "How confident are you that you will be able to accurately classify the baggage scans?",
+        low: "0% - Not at all confident",
+        high: "100% - Extremely confident",
       },
     ];
 
@@ -1253,7 +1300,6 @@ AI assistance in this block. So the ITI will be n1.
       choices: jsPsych.ALL_KEYS,
     };
     timeline.push(screen_training);
-    timeline.push(pre60TrialsQuestions());
     for (let i = 0; i < 30; i++) {
       timeline.push(ITI_V1);
       timeline.push(training_trials[i]);
@@ -1291,6 +1337,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     };
     timeline.push(screen_NoAI);
     timeline.push(explanationGain());
+    timeline.push(pre60TrialsQuestionsNoAI());
     for (let i = 30; i < 90; i++) {
       timeline.push(ITI_V1);
       timeline.push(standard_trials[i]);
@@ -1321,6 +1368,7 @@ There will be no AI assistance in this block. So the ITI will be n1.*/
     };
     timeline.push(screen_NoAI);
     timeline.push(explanationLoss());
+    timeline.push(pre60TrialsQuestionsNoAI());
     for (let i = 30; i < 90; i++) {
       timeline.push(ITI_V1);
       timeline.push(standard_trials[i]);
