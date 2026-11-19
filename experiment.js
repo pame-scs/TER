@@ -684,7 +684,7 @@ multiple functions are needed */
       stimulus: `
         <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
           <h1>Rewards</h1>
-          <p>You will receive 1 for each correct response and nothing for each incorrect one.</p>
+          <p>You will receive £0.01 for each correct response and nothing for each incorrect one.</p>
         </div>
       `,
       choices: jsPsych.ALL_KEYS,
@@ -697,7 +697,7 @@ multiple functions are needed */
       stimulus: `
         <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
           <h1>Penalties</h1>
-          <p>You will lose 1 for each incorrect response and receive 1 for each correct one.</p>
+          <p>You will lose £0.01 for each incorrect response and receive £0.01 for each correct one.</p>
         </div>
       `,
       choices: jsPsych.ALL_KEYS,
