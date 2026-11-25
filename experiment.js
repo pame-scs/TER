@@ -102,37 +102,61 @@ async function runExperiment() {
     images: allImages,
   };
 
-  /* -------------------------------------------------------------------------- */
-  /*                             URL group creation                             */
-  /* -------------------------------------------------------------------------- */
+  
+  
+/* -------------------------------------------------------------------------- */
+/*                       URL parameters: Prolific + Group                     */
+/* -------------------------------------------------------------------------- */
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  // Prolific identifiers
+  const prolificPID = urlParams.get("PROLIFIC_PID");
+  const studyID = urlParams.get("STUDY_ID");
+  const sessionID = urlParams.get("SESSION_ID");
+
+  // Experimental group
   const options = {
     A: "noAI",
     B: "simpleAI",
     C: "transparentAI",
   };
-  let group = jsPsych.data.getURLVariable("group");
 
-  if (!group) group = "C1_ABC";
+  let group = urlParams.get("group") || "C1_ABC";
 
+  // Validate group
+  const validGroups = [
+    "C1_ABC", "C1_ACB", "C1_BAC",
+    "C1_BCA", "C1_CAB", "C1_CBA",
+    "C2_ABC", "C2_ACB", "C2_BAC",
+    "C2_BCA", "C2_CAB", "C2_CBA"
+  ];
+
+  if (!validGroups.includes(group)) {
+    throw new Error("Invalid experimental group: " + group);
+  }
+
+  // Extract contingency and block order
   let parts = group.split("_");
   let orderStr = parts.pop();
   let contingency = parts.join("_");
 
+  // Save participant information
   jsPsych.data.addProperties({
+    prolific_pid: prolificPID,
+    study_id: studyID,
+    session_id: sessionID,
     group: group,
     contingency: contingency,
-    permutation: orderStr,
+    permutation: orderStr
   });
 
+  // Determine block order
   let orderedConditions = orderStr.split("").map(
-    (x) =>
-      ({
-        A: "noAI",
-        B: "simpleAI",
-        C: "transparentAI",
-      })[x],
+    (x) => options[x]
   );
 
+  // Map experimental blocks
   const blockMap = {
     noAI: {
       C1: block_noAI_C1,
@@ -147,6 +171,7 @@ async function runExperiment() {
       C2: block_transparentAI_C2,
     },
   };
+
 
   /* ----------------------------- Welcome Screen ----------------------------- */
   const welcome = {
