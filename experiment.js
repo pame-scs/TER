@@ -1610,11 +1610,57 @@ the AI considered more relevant for its decision. So the ITI will be n3.
   };
 
   /* ----------------------------- pavlovia finish ---------------------------- */
+
+  const PROLIFIC_COMPLETION_URL =
+    "https://app.prolific.com/submissions/complete?cc=C1CKI1RT";
+
   const pavlovia_finish = {
     type: "pavlovia",
     command: "finish",
     participantId: "PARTICIPANT",
+
+    on_finish: function () {
+
+      // Display a waiting / completion message
+      document.body.innerHTML = `
+        <div style="
+          max-width: 700px;
+          margin: 100px auto;
+          text-align: center;
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+        ">
+          <h2>Experiment completed!</h2>
+
+          <p>
+            Thank you for participating in our study.
+          </p>
+
+          <p>
+            Your data have been saved successfully.
+          </p>
+
+          <p>
+            You will now be redirected to Prolific.
+          </p>
+
+          <p>
+            If you are not redirected automatically,
+            <a href="${PROLIFIC_COMPLETION_URL}">
+              click here to complete your submission.
+            </a>
+          </p>
+        </div>
+      `;
+
+      // Redirect to Prolific after a short delay
+      setTimeout(function () {
+        window.location.replace(PROLIFIC_COMPLETION_URL);
+      }, 3000);
+
+    }
   };
+
 
   /* -------------------------------------------------------------------------- */
   /*                                  Timeline                                  */
@@ -1638,9 +1684,6 @@ the AI considered more relevant for its decision. So the ITI will be n3.
 
   jsPsych.init({
     timeline: timeline,
-    on_finish: function (data) {
-      jsPsych.data.displayData();
-    },
   });
 }
 
